@@ -1,0 +1,24 @@
+<br/>
+<h1>הוספת מוצר</h1>
+<form #formInfo="ngForm">
+    <span>שם המוצר</span>
+    <input  type="text" name="name" placeholder="Name..." [(ngModel)]="productToAdd.name" required
+        pattern="^[א-ת]+$" #productNameInfo="ngModel"><br/>
+    <span>מחיר</span>
+    <input  type="number" name="price" placeholder="price..." [(ngModel)]="productToAdd.price" required
+        #productPriceInfo="ngModel"><br/>
+    <span>תמונה</span>
+    <input type="file" name="userImage" (change)="onFileSelected($event)">
+    <br/>
+    <span>קטגוריה</span>
+    <select name="category" [(ngModel)]="productToAdd.categoryId" required
+        #categoryInfo="ngModel">
+        <option disabled selected>Select category</option>
+        <option *ngFor="let category of categories" value="{{category._id}}">{{category.name}}</option>
+    </select><br/>
+    <span *ngIf="productNameInfo.errors?.pattern && productNameInfo.touched">שם מוצר לא תקין</span>
+    <span *ngIf="productNameInfo.errors?.required && productNameInfo.touched">שם המוצר לא יכול להיות ריק</span>
+    <span *ngIf="productPriceInfo.errors?.required  && productPriceInfo.touched">מחיר לא יכול להיות ריק</span>
+    <span *ngIf="categoryInfo.errors?.required  && categoryInfo.touched">יש לבחור קטגוריה</span>
+</form>
+<button [disabled]="formInfo.form.invalid" (click)="addAsync()">הוסף</button>

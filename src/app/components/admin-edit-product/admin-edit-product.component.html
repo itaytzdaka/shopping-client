@@ -1,0 +1,27 @@
+<a routerLink="/admin/add">הוסף מוצר<i class="material-icons">add</i></a>
+<br/>
+<br/>
+<p *ngIf="!productToEdit">בחר מוצר כדי לערוך</p>
+<form #formInfo="ngForm">
+    <div *ngIf="productToEdit">
+        <h1>עריכה מוצר</h1>
+        <span>שם המוצר</span>
+        <input type="text" name="name" placeholder="Name..." [(ngModel)]="productToEdit.name" required
+            pattern="^[א-ת]+$" #productNameInfo="ngModel"><br/>
+        <span>מחיר</span>
+        <input type="number" name="price" placeholder="price..." [(ngModel)]="productToEdit.price" required
+            #productPriceInfo="ngModel"><br />
+        <span>תמונה</span>
+        <input type="file" name="userImage" (change)="onFileSelected($event)"><br/> <!-- Any File-->
+        <span>קטגוריה</span>
+        <select name="category" [(ngModel)]="productToEdit.categoryId">
+            <option disabled selected>בחר קטגוריה</option>
+            <option *ngFor="let category of categories" value="{{category._id}}">{{category.name}}</option>
+        </select>
+        <br/>
+        <span *ngIf="productNameInfo.errors?.pattern">שם מוצר לא תקין</span>
+        <span *ngIf="productPriceInfo.errors?.required">מחיר לא יכול להיות ריק</span>
+        <br/>
+        <button [disabled]="formInfo.form.invalid" (click)="saveAsync()">שמור</button>
+    </div>
+</form>

@@ -1,1 +1,41 @@
 /* You can add global styles to this file, and also import other style files */
+*{
+    // direction: rtl;
+    margin: 0;
+    padding: 0;
+}
+
+
+aside{
+    direction: rtl;
+}
+
+html, body {
+    height: 100%;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color:  #f2f2f2;
+    text-align: center;
+    font-size: x-large;
+}
+
+a {
+    color: blue;
+}
+
+.active {
+    color: magenta;
+    font-weight: bold;
+}
+
+i{
+    color: black;
+    cursor: pointer;
+}
+
+input{
+    direction: rtl;
+}
+
+button{
+    margin: 10px;
+}

@@ -1,0 +1,22 @@
+header{
+    height: 15%;
+    background-color: cadetblue;
+}
+section{
+    height: 85%;
+}
+
+.main-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid gray;
+    border-radius: 10px;
+  }
+
+  .logoff{
+      color: red;
+      position: absolute;
+      left: 20px;
+      top: 2px;
+  }

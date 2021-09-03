@@ -1,0 +1,21 @@
+.card {
+  display: inline-block;
+    max-width: 400px;
+  }
+  
+.image{
+  width: 200px;
+  height: 200px;
+}
+
+.cards-container{
+  display: inline-flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cards{
+  margin: 5px;
+  cursor: pointer;
+}

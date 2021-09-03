@@ -1,0 +1,27 @@
+
+<a routerLink="/shopping/all" placeholder="חפש...">
+  <input type="text" name="search" placeholder="חפש..." id="search" [(ngModel)]="search">
+</a>
+<label for="search"><i class="material-icons">search</i></label>
+<br />
+<nav *ngIf="categories">
+  <a routerLink="/shopping/all">הכל </a>
+  <a *ngFor="let c of categories" routerLink="/shopping/{{c._id}}"> | {{c.name}}</a>
+</nav>
+
+<div *ngIf="productsByCategory" class="cards-container">
+  <div *ngFor="let p of productsByCategory | filter:search" class="cards" >
+    <mat-card class="card" (click)="productOnClick(p)">
+      <img mat-card-image class="image" src="http://localhost:3000/uploads/{{p.image}}">
+      <mat-card-title>{{p.name}}</mat-card-title>
+      <mat-card-content>
+        <p>
+          מחיר {{p.price}}₪
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+
+
