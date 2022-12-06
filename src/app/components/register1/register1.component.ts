@@ -26,24 +26,11 @@ export class Register1Component implements OnInit {
 
   ngOnInit(): void {
 
-    //if the user logged in
-    if (this.myUserService.isLoggedIn()) {
-      //if is admin
-      if (this.myUserService.isAdmin()) {
-        this.router.navigateByUrl("/admin");
-      }
-      //if is regular user
-      else {
-        this.router.navigateByUrl("/home");
-      }
-    }
-
-    else {
-      //get the new user details from the store.
-      this.getFromStore();
-      this.getAllEmailsAsync();
-    }
+    this.getFromStore();
+    this.getAllEmailsAsync();
   }
+
+
 
   public getFromStore(): void {
     this.newUser = store.getState().newUser;
@@ -66,21 +53,21 @@ export class Register1Component implements OnInit {
 
   public PasswordsDoNotMatch() {
 
-    if(this.newUser.password){
+    if (this.newUser.password) {
       if (this.confirmPassword === this.newUser.password) {
         this.passwordsMatch = true;
         return false;
       }
-  
+
       else {
         this.passwordsMatch = false;
         return true;
       }
     }
-    else{
+    else {
       return false;
     }
-    
+
   }
 
   public isEmailExist() {
@@ -93,7 +80,7 @@ export class Register1Component implements OnInit {
       return false;
     }
 
-    else{
+    else {
       return false;
     }
   }

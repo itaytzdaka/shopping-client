@@ -34,29 +34,15 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log("ngOnInit home");
+
 
     //get the menu status
-    this.menuOpen=store.getState().MenuOpen;
+    this.menuOpen = store.getState().MenuOpen;
 
-    //if the user logged in
-    if (this.myUserService.isLoggedIn()) {
+    this.myUserService.redirectUser("/home","/admin");
 
-      //if is admin, navigate to /admin page
-      if (this.myUserService.isAdmin()) {
-        this.router.navigateByUrl("/admin");
-      }
-      //if is regular user, navigate to home
-      else {
-        //get the carts, invites, calculate if is there open cart, and if it's a new user.
-        this.myMainService.saveCartsAndInvitesOfUserAsync();
-        this.router.navigateByUrl("/home");
-      }
-    }
-
-    //if not logged in, navigate to login page
-    else {
-      this.router.navigateByUrl("/home/login");
-    }
+    // this.navigate();
 
     //if the store is empty, get the data from DB and save in the store
     if (!store.getState().numOfInvites || !store.getState().numOfProducts) {
@@ -65,18 +51,19 @@ export class HomeComponent implements OnInit {
 
   }
 
+
   public async saveInTheStoreAsync() {
     try {
       this.myInviteService.getNumOfInvitesWithReduxAsync();
       this.myProductService.getNumOfProductsWithReduxAsync();
     }
     catch (err) {
-      alert(err.message);
+      console.log(err.message);
     }
   }
 
-  public changeMenuStatus(): boolean{
-    this.menuOpen=!this.menuOpen;
+  public changeMenuStatus(): boolean {
+    this.menuOpen = !this.menuOpen;
     return this.menuOpen;
   }
 }

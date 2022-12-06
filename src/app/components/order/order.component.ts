@@ -36,23 +36,27 @@ export class OrderComponent implements OnInit {
     //get the menu status
     this.menuOpen = store.getState().MenuOpen;
 
-    //if user is not logged in
-    if (!this.myUserService.isLoggedIn()) {
-      this.router.navigateByUrl("/home/login");
-    }
+    // //if user is not logged in
+    // if (!this.myUserService.isLoggedIn()) {
+    //   console.log("order check");
+    //   this.router.navigateByUrl("/home/login");
+    // }
 
-    //if logged in
-    else {
-      //if user is admin
-      if (this.myUserService.isAdmin()) {
-        this.router.navigateByUrl("/admin");
-      }
-      //if regular user
-      else {
-        this.uploadFromDbToStoreAsync();
-        this.router.navigateByUrl("/order");
-      }
-    }
+    // //if logged in
+    // else {
+    //   //if user is admin
+    //   if (this.myUserService.isAdmin()) {
+    //     this.router.navigateByUrl("/admin");
+    //   }
+    //   //if regular user
+    //   else {
+    //     this.uploadFromDbToStoreAsync();
+    //     this.router.navigateByUrl("/order");
+    //   }
+    // }
+
+    this.uploadFromDbToStoreAsync();
+
   }
 
 
@@ -91,7 +95,7 @@ export class OrderComponent implements OnInit {
 
   public async getAllDeliveryFromTodayAsync(){
     try{
-      const deliveryFromToday=await this.myInviteService.getAllDeliveryInvitesFromToday();
+      const deliveryFromToday=await this.myInviteService.getAllDeliveryInvitesFromTodayAsync();
     }
     catch(err){
       console.log(err);

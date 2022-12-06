@@ -2,6 +2,7 @@
 import { store } from './../../redux/store';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from './../../services/user.service';
+import { MainService } from './../../services/main.service';
 
 import { UserModel } from 'src/app/models/user.model';
 import { CartModel } from 'src/app/models/cart.model';
@@ -28,21 +29,41 @@ export class MenuComponent implements OnInit {
 
   constructor(
     private myUserService: UserService,
+    private myMainService: MainService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
+
+
     // Listen to changes: 
     this.unsubscribe = store.subscribe(() => {
-      this.getFromStore();
+      console.log("onSubscribe");
+
+      this.isLoggedIn = store.getState().isLoggedIn;
+
+      if(this.isLoggedIn){
+        this.getData();
+      }
     });
-    this.getFromStore();
+
+
+    // console.log(store.getState().isLoggedIn);
+
+    this.isLoggedIn = store.getState().isLoggedIn;
+    if(this.isLoggedIn){
+      this.getData();
+    }
   }
 
-  public getFromStore(): void {
+  public getData(): void {
+
+    if(!store.getState().carts && !store.getState().invites && store.getState().numOfInvites && store.getState().numOfProducts){
+      this.myMainService.saveCartsAndInvitesOfUserAsync();
+    }
+
     //if the store isn't empty, get the data.
-    this.isLoggedIn = store.getState().isLoggedIn;
-    if (store.getState().carts) {
+    else{
       this.user = store.getState().user;
       this.openCart = store.getState().openCart;
       this.lastInvite = store.getState().lastInvite;
@@ -50,14 +71,22 @@ export class MenuComponent implements OnInit {
       this.cartNumberOfItems = store.getState().cartNumberOfItems;
       this.cartTotalPrice = store.getState().cartTotalPrice;
     }
+
   }
 
   ngOnDestroy(): void {
     this.unsubscribe(); // הפסק להאזין אם הרכיב שלנו נהרס
   }
 
-  public disconnect(): void{
-    this.myUserService.disconnect();
+  public async disconnect(){
+    console.log("disconnect");
+
+    try{
+      await this.myUserService.disconnectAsync();
+    }
+    catch(err){
+      console.log(err);
+    }
   }
 
 }

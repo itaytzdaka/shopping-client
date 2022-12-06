@@ -16,6 +16,7 @@ export class AdminComponent implements OnInit {
 
   public menuOpen: boolean;
 
+
   constructor(
     private myUserService: UserService,
     private myProductsService: ProductService,
@@ -24,30 +25,22 @@ export class AdminComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
+
     //get the menu status
-    this.menuOpen=store.getState().MenuOpen;
+    this.menuOpen = store.getState().MenuOpen;
 
-
-    //if user is not logged in
-    if (!this.myUserService.isLoggedIn()) {
-      this.router.navigateByUrl("/home/login");
+    let loggedInStatus=this.myUserService.redirectUser("/home","/admin/edit/chooseProduct");
+    if(loggedInStatus=="is admin"){
+      this.getData();
     }
-    //if logged in
-    else {
-      if (!this.myUserService.isAdmin()) {
-        this.router.navigateByUrl("/home");
-      }
+  }
 
-      //if is admin
-      else {
-        //check if the store is empty
-        if (!store.getState().products) {
-          this.saveProductsInTheStoreAsync();
-          this.saveCategoriesInTheStoreAsync();
-        }
-        this.router.navigateByUrl("/admin/edit/chooseProduct");
-      }
+
+  public getData() {
+    //check if the store is empty
+    if (!store.getState().products) {
+      this.saveProductsInTheStoreAsync();
+      this.saveCategoriesInTheStoreAsync();
     }
   }
 
@@ -58,23 +51,23 @@ export class AdminComponent implements OnInit {
       store.dispatch({ type: ActionType.saveProducts, payload: products });
     }
     catch (err) {
-      alert(err.message);
+      console.log(err.message);
     }
   }
 
-  public async saveCategoriesInTheStoreAsync(){
-    try{
-      const categories=await this.myCategoryService.getAllCategoriesAsync();
+  public async saveCategoriesInTheStoreAsync() {
+    try {
+      const categories = await this.myCategoryService.getAllCategoriesAsync();
       store.dispatch({ type: ActionType.saveCategories, payload: categories });
     }
-    
-    catch(err){
+
+    catch (err) {
       console.log(err);
     }
   }
 
-  public changeMenuStatus(): boolean{
-    this.menuOpen=!this.menuOpen;
+  public changeMenuStatus(): boolean {
+    this.menuOpen = !this.menuOpen;
     return this.menuOpen;
   }
 

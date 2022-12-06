@@ -1,8 +1,7 @@
 import { AppState } from "./app-state";
 import { Action } from "./action";
 import { ActionType } from "./action-type";
-import { UserService } from '../services/user.service';
-import { CartModel } from '../models/cart.model';
+
 
 export function reducer(currentState: AppState, action: Action): AppState {
 
@@ -11,39 +10,49 @@ export function reducer(currentState: AppState, action: Action): AppState {
 
     switch (action.type) {
         case ActionType.login:
+            console.log("ActionType.login");
             newState.user = action.payload;
             newState.isLoggedIn = true;
+            newState.isAdmin = newState.user.isAdmin;
             break;
 
         case ActionType.saveProducts:
+            console.log("ActionType.saveProducts");
             newState.products = action.payload;
             break;
 
         case ActionType.saveNumOfInvites:
+            console.log("ActionType.saveNumOfInvites");
             newState.numOfInvites = action.payload;
             break;
 
         case ActionType.saveNumOfProducts:
+            console.log("ActionType.saveNumOfProducts");
             newState.numOfProducts = action.payload;
             break;
 
         case ActionType.saveCarts:
+            console.log("ActionType.saveCarts");
             newState.carts = action.payload;
             break;
 
         case ActionType.saveInvites:
+            console.log("ActionType.saveInvites");
             newState.invites = action.payload;
             break;
 
         case ActionType.saveCategories:
+            console.log("ActionType.saveCategories");
             newState.categories = action.payload;
             break;
 
         case ActionType.saveCities:
+            console.log("ActionType.saveCities");
             newState.cities = action.payload;
             break;
 
         case ActionType.saveCartItems:
+            console.log("ActionType.saveCartItems");
             //save the cart items in the store
             newState.cartItems = action.payload;
 
@@ -67,6 +76,7 @@ export function reducer(currentState: AppState, action: Action): AppState {
             break;
 
         case ActionType.loadUserCart:
+            console.log("ActionType.loadUserCart");
 
             //check if new user
             if (newState.carts.length === 0) {
@@ -86,6 +96,8 @@ export function reducer(currentState: AppState, action: Action): AppState {
             break;
 
         case ActionType.addNewCart:
+            console.log("ActionType.addNewCart");
+
             newState.lastInvite = undefined;
             newState.openCart = {};
             newState.openCart.date = (new Date()).toJSON();
@@ -95,20 +107,28 @@ export function reducer(currentState: AppState, action: Action): AppState {
             break;
 
         case ActionType.addNewProduct:
+            console.log("ActionType.addNewProduct");
+
             newState.products.push(action.payload);
 
             break;
 
         case ActionType.addNewInvite:
+            console.log("ActionType.addNewInvite");
+
             newState.invites.push(action.payload);
             newState.openCart = undefined;
             break;
 
         case ActionType.saveNewUser:
+            console.log("ActionType.saveNewUser");
+
             newState.newUser = action.payload;
             break;
 
         case ActionType.deleteCartItem:
+            console.log("ActionType.deleteCartItem");
+
             newState.cartItems = newState.cartItems.filter(cartItem => cartItem._id != action.payload);
             cartTotalPrice = 0;
             for (let i = 0; i < newState.cartItems.length; i++) {
@@ -123,20 +143,28 @@ export function reducer(currentState: AppState, action: Action): AppState {
 
 
         case ActionType.deleteAllCartItems:
+            console.log("ActionType.deleteAllCartItems");
+
             newState.cartItems = [];
             cartTotalPrice = 0;
             newState.IsCartEmpty = true;
             break;
 
         case ActionType.changeMenuStatus:
+            console.log("ActionType.changeMenuStatus");
+
             newState.MenuOpen = action.payload;
             break;
 
         case ActionType.saveSelectedProduct:
+            console.log("ActionType.saveSelectedProduct");
+
             newState.selectedProduct = action.payload;
             break;
 
         case ActionType.addNewCartItem:
+            console.log("ActionType.addNewCartItem");
+
             newState.IsCartEmpty = false;
             newState.cartItems.push(action.payload);
             cartTotalPrice = 0;
@@ -147,10 +175,11 @@ export function reducer(currentState: AppState, action: Action): AppState {
             break;
 
         case ActionType.disconnect:
+            console.log("ActionType.disconnect");
+
             newState.isLoggedIn = false;
-            // newState.openCart=undefined;
-            // newState.IsCartEmpty=undefined;
-            // newState.
+            newState.user= null;
+
             break;
     }
 

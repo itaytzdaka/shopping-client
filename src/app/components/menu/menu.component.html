@@ -1,11 +1,12 @@
-<header>
+<app-welcome></app-welcome>
+<!-- <header>
     <p *ngIf=!isLoggedIn>שלום אורח</p>
     <div *ngIf=isLoggedIn>
-        <p>שלום {{ user.firstName }}</p>
+        <p *ngIf=user>שלום {{ user.firstName }}</p>
         <i (click)="disconnect()" class="material-icons logoff">power_settings_new</i>
     </div>
     
-</header>
+</header> -->
 <br/>
 <br/>
 <section>

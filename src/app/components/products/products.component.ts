@@ -9,7 +9,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from './../../services/product.service';
 import { store } from 'src/app/redux/store';
 import { Unsubscribe } from 'redux';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -31,13 +32,17 @@ export class ProductsComponent implements OnInit {
     private myActivatedRoute: ActivatedRoute,
     private myCategoryService: CategoryService,
     private myUserService: UserService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
 
+    const isAdmin=store.getState().isAdmin;
+    
     //if user is logged in and regular user
-    if (this.myUserService.isLoggedIn() && !this.myUserService.isAdmin()) {
+    if (!isAdmin) {
+      console.log("products check");
       this.products = store.getState().products;
       this.categories = store.getState().categories;
 
@@ -48,10 +53,10 @@ export class ProductsComponent implements OnInit {
       });
 
 
-      if(!this.categories){
+      if (!this.categories) {
         this.getCategoriesAsync();
       }
-      
+
       if (!this.products) {
         this.getProductsAsync();
       }
@@ -63,55 +68,57 @@ export class ProductsComponent implements OnInit {
 
   }
 
+
+
   //get products from DB
   public async getProductsAsync() {
-    try {
-      const products = await this.myProductsService.getAllProductsAsync();
-      store.dispatch({ type: ActionType.saveProducts, payload: products });
-      this.filterProductsByCategory(products);
-    }
-    catch (err) {
-      alert(err.message);
-    }
+  try {
+    const products = await this.myProductsService.getAllProductsAsync();
+    store.dispatch({ type: ActionType.saveProducts, payload: products });
+    this.filterProductsByCategory(products);
   }
+  catch (err) {
+    console.log(err.message);
+  }
+}
 
   //filter products array by category
-  public filterProductsByCategory(products){
-    this.myActivatedRoute.params.subscribe(routeParams => {
-      if (routeParams._id === "all") {
-        this.productsByCategory = products;
-      }
-      else if(routeParams._id === "search"){
-        this.productsByCategory = store.getState().products.filter(p => p.name.includes(this.search));
-      }
-      else {
-        this.productsByCategory = store.getState().products.filter(p => p.category._id === routeParams._id);
-      }
-    });
-  }
+  public filterProductsByCategory(products) {
+  this.myActivatedRoute.params.subscribe(routeParams => {
+    if (routeParams._id === "all") {
+      this.productsByCategory = products;
+    }
+    else if (routeParams._id === "search") {
+      this.productsByCategory = store.getState().products.filter(p => p.name.includes(this.search));
+    }
+    else {
+      this.productsByCategory = store.getState().products.filter(p => p.category._id === routeParams._id);
+    }
+  });
+}
 
   //get categories from DB
   public async getCategoriesAsync() {
-    try {
-      this.categories = await this.myCategoryService.getAllCategoriesAsync();
-      store.dispatch({ type: ActionType.saveCategories, payload: this.categories });
-    }
-    catch (err) {
-      console.log(err);
-    }
+  try {
+    this.categories = await this.myCategoryService.getAllCategoriesAsync();
+    store.dispatch({ type: ActionType.saveCategories, payload: this.categories });
   }
+  catch (err) {
+    console.log(err);
+  }
+}
 
   //when user clicked on a product
-  public productOnClick(selectedProduct): void{
-    store.dispatch({ type: ActionType.saveSelectedProduct, payload: selectedProduct });
-    this.openDialog();
-  }
+  public productOnClick(selectedProduct): void {
+  store.dispatch({ type: ActionType.saveSelectedProduct, payload: selectedProduct });
+  this.openDialog();
+}
 
   //open dialog: AddItemDialogComponent
   public openDialog(): void {
-    const dialogRef = this.dialog.open(AddItemDialogComponent, {
-      width: '400px',
-    });
-  }
+  const dialogRef = this.dialog.open(AddItemDialogComponent, {
+    width: '400px',
+  });
+}
 
 }

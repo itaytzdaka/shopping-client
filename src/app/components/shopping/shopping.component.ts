@@ -21,28 +21,16 @@ export class ShoppingComponent implements OnInit {
 
     //get menu status
     this.menuOpen = store.getState().MenuOpen;
-    
-    //if user not logged in
-    if(!this.myUserService.isLoggedIn()){
-      this.router.navigateByUrl("/home/login");
-    }
 
-    //if user is logged in
-    else{
-      //if is admin
-      if(this.myUserService.isAdmin()){
-        this.router.navigateByUrl("/admin");
-      }
-      //if regular user
-      else{
-        this.router.navigateByUrl("/shopping/all");
-      }
-    }
+
+    // this.navigate();
+    this.myUserService.redirectUser("/shopping/all","/admin");
   }
 
+
   //change menu status
-  public changeMenuStatus(){
-    this.menuOpen=!this.menuOpen;
+  public changeMenuStatus() {
+    this.menuOpen = !this.menuOpen;
     return this.menuOpen;
   }
 

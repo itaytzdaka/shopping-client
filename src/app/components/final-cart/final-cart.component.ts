@@ -30,26 +30,24 @@ export class FinalCartComponent implements OnInit {
 
   ngOnInit(): void {
 
-    //if user is loggedIn and not admin
-    if (this.myUserService.isLoggedIn() && !this.myUserService.isAdmin()) {
-      
-      //listening to the store
-      this.unsubscribe = store.subscribe(() => {
-        this.getFromStore();
-      });
-    }
+
+    //listening to the store
+    this.unsubscribe = store.subscribe(() => {
+      this.getFromStore();
+    });
+
     this.getFromStore();
 
   }
 
   //get data from the store
-  public getFromStore(): void{
+  public getFromStore(): void {
     this.cartTotalPrice = store.getState().cartTotalPrice;
     this.cartItems = store.getState().cartItems;
   }
 
-  public disconnect(){
-    this.myUserService.disconnect();
+  public disconnect() {
+    this.myUserService.disconnectAsync();
   }
 
 }

@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import {HttpRequestInterceptor} from './services/html-req-interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { LayoutComponent } from './components/layout/layout.component';
 import { HomeComponent } from './components/home/home.component';
@@ -25,6 +27,9 @@ import { AddInviteComponent } from './components/add-invite/add-invite.component
 import { FinalCartComponent } from './components/final-cart/final-cart.component';
 import { Register2Component } from './components/register2/register2.component';
 
+import { CookieService } from 'ngx-cookie-service';
+
+
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { MarkSearchPipe } from './pipes/mark-search.pipe';
 
@@ -37,6 +42,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDialogModule} from '@angular/material/dialog';
 import { AddItemDialogComponent } from './components/add-item-dialog/add-item-dialog.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 
 
 @NgModule({
@@ -62,7 +68,8 @@ import { AddItemDialogComponent } from './components/add-item-dialog/add-item-di
     AddInviteComponent,
     FinalCartComponent,
     MarkSearchPipe,
-    AddItemDialogComponent
+    AddItemDialogComponent,
+    WelcomeComponent
     
   ],
   imports: [
@@ -82,7 +89,12 @@ import { AddItemDialogComponent } from './components/add-item-dialog/add-item-di
     MatCheckboxModule,
     MatDialogModule
   ],
-  providers: [],
+  providers: [CookieService,
+    {
+    provide: HTTP_INTERCEPTORS,
+    useClass: HttpRequestInterceptor,
+    multi: true
+  }],
   bootstrap: [LayoutComponent]
 })
 export class AppModule { }

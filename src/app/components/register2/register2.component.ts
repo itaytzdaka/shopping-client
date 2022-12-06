@@ -37,33 +37,23 @@ export class Register2Component implements OnInit {
 
     this.getFromStore();
 
-    //if the user logged in
-    if (this.myUserService.isLoggedIn()) {
-      //if is admin
-      if (this.myUserService.isAdmin()) {
-        this.router.navigateByUrl("/admin");
-      }
-      //if is regular user
-      else {
-        this.router.navigateByUrl("/home");
-      }
+
+
+
+
+    //if the user didn't fill step 1, navigate to login.
+    if (!this.newUser.identityNumber) {
+      console.log("/home/login");
+      this.router.navigateByUrl("/home/login");
     }
-
-
-    //if the user not logged in
+    //if the user filled step 1
     else {
-      //if the user didn't fill step 1, navigate to login.
-      if (!this.newUser.identityNumber) {
-        this.router.navigateByUrl("/home/login");
-      }
-      //if the user filled step 1
-      else {
-        //get the cities
-        if (!store.getState().cities) {
-          this.getCitiesAsync();
-        }
+      //get the cities
+      if (!store.getState().cities) {
+        this.getCitiesAsync();
       }
     }
+
   }
 
   //get the cities list
@@ -85,11 +75,11 @@ export class Register2Component implements OnInit {
 
   //register and login
   public async addNewUserAsync() {
-    try{
-      const addedUser=await this.myUserService.registerAsync(this.newUser);
+    try {
+      const addedUser = await this.myUserService.registerAsync(this.newUser);
       this.myMainService.loginAndNavigateAsync(addedUser);
-    } 
-    catch(err){
+    }
+    catch (err) {
       console.log(err);
     }
   }

@@ -36,8 +36,9 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
 
-    //if user is loggedIn and not admin
-    if (this.myUserService.isLoggedIn() && !this.myUserService.isAdmin()) {
+    const isAdmin = store.getState().isAdmin;
+
+    if (!isAdmin) {
       //get from the store
       this.carts = store.getState().carts;
       this.cartItems = store.getState().cartItems;
@@ -74,28 +75,33 @@ export class CartComponent implements OnInit {
   }
 
 
-  public async deleteCartItemAsync(_id){
-    try{
+  public async deleteCartItemAsync(_id) {
+    try {
       this.myCartItemService.deleteCartItemAsync(_id);
-      store.dispatch({ type: ActionType.deleteCartItem , payload: _id });
+      store.dispatch({ type: ActionType.deleteCartItem, payload: _id });
     }
-    catch(err){
+    catch (err) {
       console.log(err);
     }
-    
+
   }
 
-  public async deleteAllCartItemsAsync(){
-    try{
+  public async deleteAllCartItemsAsync() {
+    try {
       this.myMainService.deleteAllCartItemsAsync();
     }
-    catch(err){
+    catch (err) {
       console.log(err);
     }
   }
 
-  public disconnect(): void{
-    this.myUserService.disconnect();
+  public async disconnect() {
+    try {
+      await this.myUserService.disconnectAsync();
+    }
+    catch (error) {
+      console.log(error);
+    }
   }
 
 }

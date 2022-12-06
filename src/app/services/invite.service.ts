@@ -12,7 +12,7 @@ export class InviteService {
 
   constructor(private http: HttpClient) { }
 
-  public getAllDeliveryInvitesFromToday(): Promise<InviteModel[]> {
+  public getAllDeliveryInvitesFromTodayAsync(): Promise<InviteModel[]> {
     return this.http.get<InviteModel[]>("http://localhost:3000/api/invites/deliveryFromToday").toPromise();
   }
 
