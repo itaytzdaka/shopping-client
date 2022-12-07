@@ -1,7 +1,7 @@
 <div class="welcome">
     <p *ngIf=!isLoggedIn>שלום אורח</p>
-    <div *ngIf=isLoggedIn>
-        <p *ngIf=user>שלום {{ user.firstName }}</p>
+    <ng-template [ngIf]="isLoggedIn">
         <i (click)="disconnect()" class="material-icons logoff">power_settings_new</i>
-    </div>
+        <p *ngIf=user>שלום {{ user.firstName }}</p>
+    </ng-template>
 </div>

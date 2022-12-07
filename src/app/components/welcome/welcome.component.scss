@@ -1,11 +1,22 @@
 .welcome{
-    height: 15%;
-    background-color: cadetblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: #FF9D7E;
+    color: aliceblue;
+    font-size: xx-large;
 }
 
 .logoff{
     color: red;
+
     position: absolute;
-    left: 20px;
-    top: 2px;
+    left: 25px;
+    // left: 20px;
+    // top: 2px;
+}
+
+p{
+    direction: rtl;
 }
