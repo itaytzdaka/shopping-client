@@ -9,9 +9,8 @@
         
     </header> -->
     <section>
-        <div *ngIf=!isLoggedIn>
+        <div class="choose-login-or-register" *ngIf=!isLoggedIn>
             <a routerLink="/home/login" routerLinkActive="active">התחברות</a>
-            <span> | </span>
             <a routerLink="/home/register/1" routerLinkActive="active">הרשמה</a>
         </div>
         <router-outlet></router-outlet>

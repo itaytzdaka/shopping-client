@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    direction: rtl;
 }
 
 section {
@@ -24,6 +25,18 @@ section {
     top: 2px;
 }
 
-app-welcome{
-    height: 12%;
+.choose-login-or-register{
+    display: flex;
+}
+
+.choose-login-or-register a{
+    flex-grow: 1;
+    padding: 15px;
+    text-decoration: none;
+    color: black;
+    background-color: #ECECEC;
+}
+
+.active{
+    background-color: #ffffff !important;
 }

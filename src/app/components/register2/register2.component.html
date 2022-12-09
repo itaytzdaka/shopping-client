@@ -1,20 +1,16 @@
 <form #formInfo="ngForm">
 
-    <span>עיר</span>
+    <label for="city">עיר: </label>
     <select  name="city" [(ngModel)]="newUser.cityId">
         <option disabled selected>בחר עיר</option>
         <option *ngFor="let city of cities" [ngValue]="city._id"    >{{city.name}}</option>
     </select><br/>
-    <span>רחוב</span>
-    <input type="text" name="street" placeholder="רחוב..." [(ngModel)]="newUser.street" required><br />
-    <span>שם פרטי</span>
-    <input type="text" name="firstName" placeholder="שם פרטי..." [(ngModel)]="newUser.firstName" required
+    <input type="text" name="street" placeholder="רחוב" [(ngModel)]="newUser.street" required><br />
+    <input type="text" name="firstName" placeholder="שם פרטי" [(ngModel)]="newUser.firstName" required
         pattern="^[א-ת]+$" #FirstNameInfo="ngModel"><br />
-    <span>שם משפחה</span>
-    <input type="text" name="lastName" placeholder="שם משפחה..." [(ngModel)]="newUser.lastName" required
+    <input type="text" name="lastName" placeholder="שם משפחה" [(ngModel)]="newUser.lastName" required
         pattern="^[א-ת]+$" #lastNameInfo="ngModel"><br />
     <span *ngIf="FirstNameInfo.errors?.pattern && FirstNameInfo.touched">שם פרטי לא תקין</span>
     <span *ngIf="lastNameInfo.errors?.pattern && lastNameInfo.touched">שם מפשחה לא תקין</span>
-    <br/>
     <button [disabled]="formInfo.form.invalid" (click)="addNewUserAsync()">הירשם</button>
 </form>

@@ -1,19 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
-*{
+* {
     // direction: rtl;
     margin: 0;
     padding: 0;
 }
 
 
-aside{
+aside {
     direction: rtl;
 }
 
-html, body {
+html,
+body {
     // height: 100%;
     font-family: Roboto, "Helvetica Neue", sans-serif;
-    background-color:  #f2f2f2;
+    background-color: #f2f2f2;
     text-align: center;
     font-size: x-large;
 }
@@ -27,15 +28,64 @@ a {
     font-weight: bold;
 }
 
-i{
+i {
     color: black;
     cursor: pointer;
 }
 
-input{
+input {
     direction: rtl;
 }
 
-button{
-    margin: 10px;
+
+button {
+    background-color: #93B8FF;
+    color: #ffffff;
+    cursor: pointer;
+    border: none;
+    width: 30%;
+    padding: 20px 0;
+    margin: 20px;
+}
+
+button:disabled {
+    background-color: #cbcbcb;
+    cursor: default;
+}
+
+app-welcome ,app-header{
+    height: 100px;
+}
+
+app-home, app-shopping, app-admin {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+app-main > div, app-products > div, app-admin-products > div{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+
+mat-sidenav-container > * {
+    direction: rtl;
+}
+
+mat-sidenav {
+    width: 25%;
+    min-width: 380px;
+}
+
+mat-sidenav-content{
+    flex-grow: 1;
+    height: auto !important;
+}
+
+mat-sidenav{
+    flex-grow: 1;
+    height: auto !important;
 }

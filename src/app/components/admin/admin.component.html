@@ -1,4 +1,3 @@
-
 <mat-sidenav-container class="example-container">
 
     <mat-sidenav #sidenav mode="side" [(opened)]="menuOpen">
@@ -10,9 +9,7 @@
     <mat-sidenav-content>
         <i *ngIf="!menuOpen" (click)="changeMenuStatus()" class="material-icons menu-icon">menu</i>
         <i *ngIf="menuOpen" (click)="changeMenuStatus()" class="material-icons menu-icon">menu_open</i>
-        <main>
-            <app-admin-products></app-admin-products>
-        </main>
+        <app-admin-products></app-admin-products>
     </mat-sidenav-content>
 
 </mat-sidenav-container>

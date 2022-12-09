@@ -1,31 +1,25 @@
-// aside{
-//     // border: 1px solid black;
-//     float: left;
-//     height: 100%;
-//     width: 20%;
-// }
-// main{
-//     float: left;
-//     height: 100%;
-//     width: 80%;
-// }
+aside {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
 .example-container {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
-  
-
-  .menu-icon{
-    position: absolute;
-    left: 10px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 
-mat-sidenav {
-  width: 30%;
-  min-width: 380px;
+.menu-icon {
+  position: absolute;
+  left: 10px;
 }
+
+
+// mat-sidenav {
+//   width: 30%;
+//   min-width: 380px;
+// }

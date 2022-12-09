@@ -43,6 +43,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDialogModule} from '@angular/material/dialog';
 import { AddItemDialogComponent } from './components/add-item-dialog/add-item-dialog.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
+import { HeaderComponent } from './components/header/header.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     FinalCartComponent,
     MarkSearchPipe,
     AddItemDialogComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    HeaderComponent
     
   ],
   imports: [

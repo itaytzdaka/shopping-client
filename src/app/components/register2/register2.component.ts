@@ -30,6 +30,10 @@ export class Register2Component implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+
+
+
     // Listen to changes: 
     this.unsubscribe = store.subscribe(() => {
       this.getFromStore();
@@ -37,22 +41,19 @@ export class Register2Component implements OnInit {
 
     this.getFromStore();
 
-
-
-
-
     //if the user didn't fill step 1, navigate to login.
-    if (!this.newUser.identityNumber) {
+    if (!this.newUser?.identityNumber) {
       console.log("/home/login");
       this.router.navigateByUrl("/home/login");
+      return;
     }
-    //if the user filled step 1
-    else {
-      //get the cities
-      if (!store.getState().cities) {
-        this.getCitiesAsync();
-      }
+    
+    //if the user filled step 1 get the cities
+
+    if (!store.getState().cities) {
+      this.getCitiesAsync();
     }
+
 
   }
 

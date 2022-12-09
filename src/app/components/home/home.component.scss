@@ -1,21 +1,10 @@
-// :host{
-//   display: flex;
-//   flex-grow: 1;
-// }
 
 .home {
-  // display: flex;
-  // flex-direction: column;
   flex-grow: 1;
   display: flex;
-  align-items: stretch;
-  // position: absolute;
-  // top: 0;
-  // bottom: 0;
-  // left: 0;
-  // right: 0;
-}
+  // align-items: stretch;
 
+}
 
 .menu-icon {
   position: absolute;
@@ -23,13 +12,9 @@
 }
 
 
-mat-sidenav {
-  width: 30%;
-  min-width: 380px;
-  // flex-grow: 1;
-}
 
-mat-sidenav-content{
-  flex-grow: 1;
-  height: auto;
-}
+
+// app-main{
+//   height: 10%;
+// }
+

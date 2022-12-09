@@ -1,45 +1,54 @@
-<i (click)="disconnect()" class="material-icons logoff">power_settings_new</i>
-<div *ngIf="isCartEmpty">
-    <p>העלגה שלך ריקה</p>
-    <p>לחץ על מוצר כדי להוסיף לעגלה</p>
-    <i class="material-icons">add_shopping_cart</i>
-    <br/>
-    <br/>
-    <a routerLink="/home"><button>חזור</button></a>
-</div>
-<div *ngIf="!isCartEmpty" class="containerCart">
-    <p>העגלה שלך:</p>
-    <br/>
-    <table>
-        <thead>
-            <tr>
-                <th></th>
-                <th>שם</th>
-                <th>מחיר</th>
-                <th>יחידות</th>
-                <th>סה"כ</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            
-            <tr *ngFor="let item of cartItems">
-                <td><img src="http://localhost:3000/uploads/{{item.product.image}}" alt=""></td>
-                <td>
-                    {{item.product.name}}
-                </td>
-                <td>{{item.product.price}}₪</td>
-                <td>{{item.amount}}</td>
-                <td>{{item.totalPrice}}₪</td>
-                <th><i (click)="deleteCartItemAsync(item._id)" class="material-icons">delete</i></th>
+<div class="cart">
+    <app-welcome></app-welcome>
+    <!-- <i (click)="disconnect()" class="material-icons logoff">power_settings_new</i> -->
+    <div class="cart-container">
+        <div *ngIf="isCartEmpty" class="cart-empty">
+            <p>העלגה שלך ריקה</p>
+            <p>לחץ על מוצר כדי להוסיף לעגלה</p>
+            <i class="material-icons">add_shopping_cart</i>
+            <br />
+            <br />
+            <a routerLink="/home"><button>חזור</button></a>
+        </div>
 
-            </tr>
-        </tbody>
-    </table>
-    <br/>
-    <br/>
-    <p>מחיר עגלה: {{cartTotalPrice}}₪</p>
-    <button (click)="deleteAllCartItemsAsync()"><i class="material-icons">remove_shopping_cart</i>מחק את כל הפריטים</button>
-    <a routerLink="/order"><button>הזמנה</button></a>
-    <a routerLink="/home"><button>חזור</button></a>
+        <div *ngIf="!isCartEmpty" class="containerCart">
+            <p>העגלה שלך:</p>
+            <br />
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>שם</th>
+                        <th>מחיר</th>
+                        <th>יחידות</th>
+                        <th>סה"כ</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let item of cartItems">
+                        <td><img src="http://localhost:3000/uploads/{{item.product.image}}" alt=""></td>
+                        <td>
+                            {{item.product.name}}
+                        </td>
+                        <td>{{item.product.price}}₪</td>
+                        <td>{{item.amount}}</td>
+                        <td>{{item.totalPrice}}₪</td>
+                        <th><i (click)="deleteCartItemAsync(item._id)" class="material-icons">delete</i></th>
+
+                    </tr>
+                </tbody>
+            </table>
+            <br />
+            <br />
+            <p>מחיר עגלה: {{cartTotalPrice}}₪</p>
+            <button (click)="deleteAllCartItemsAsync()"><i class="material-icons">remove_shopping_cart</i>מחק את כל
+                הפריטים</button>
+            <a routerLink="/order"><button>הזמנה</button></a>
+            <a routerLink="/home"><button>חזור</button></a>
+        </div>
+    </div>
+
+
 </div>
