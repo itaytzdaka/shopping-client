@@ -1,0 +1,17 @@
+nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 70px;
+    background-color: #C7BFDF;
+
+    a{
+        background-color: #FFFFFF;
+        color: rgb(34, 34, 34);
+        height: 40%;
+        min-width: 70px;
+        padding: 3px 15px;
+        border-radius: 20px;
+        text-decoration: none;
+    }
+}

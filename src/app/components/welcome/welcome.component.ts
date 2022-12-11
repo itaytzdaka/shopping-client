@@ -1,5 +1,5 @@
 import { Unsubscribe } from 'redux';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { store } from './../../redux/store';
 import { UserModel } from 'src/app/models/user.model';
@@ -13,6 +13,7 @@ export class WelcomeComponent implements OnInit {
   private unsubscribe: Unsubscribe;
   public isLoggedIn: boolean;
   public user: UserModel;
+
 
   constructor(
     private myUserService: UserService

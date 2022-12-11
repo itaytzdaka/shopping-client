@@ -44,6 +44,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { AddItemDialogComponent } from './components/add-item-dialog/add-item-dialog.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { HeaderComponent } from './components/header/header.component';
+import { CategoriesComponent } from './components/categories/categories.component';
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import { HeaderComponent } from './components/header/header.component';
     MarkSearchPipe,
     AddItemDialogComponent,
     WelcomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    CategoriesComponent
     
   ],
   imports: [
