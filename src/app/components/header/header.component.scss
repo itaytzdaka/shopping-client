@@ -1,22 +1,27 @@
-header{
-    display: flex;
+header {
+    display: grid;
+    grid-template-columns: 30% 1fr 30%;
     align-items: center;
     height: 100%;
     background-color: #FFF1DC;
 }
 
-.right , .left{
+h2 {
+    grid-column-start: 2;
+}
+
+.search {
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 30%;
+
+    label{
+        align-items: center;
+        display: flex;
+    }
 }
 
-.center{
-    flex-grow: 1;
-}
 
-input{
+input {
     width: 200px;
     padding: 5px 10px;
     height: 40px;
@@ -25,11 +30,7 @@ input{
     // margin: 0 5%;
 }
 
-i{
-    position: relative;
-    // left: 30px;
-    right: 5px;
-    top: 3px;
+i {
     color: rgb(156, 156, 156);
-
+    cursor: default;
 }

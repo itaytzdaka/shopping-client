@@ -53,8 +53,13 @@ button:disabled {
     cursor: default;
 }
 
+.logoff{
+    color: red;
+}
+
 app-welcome ,app-header{
     height: 100px;
+    flex: none;
 }
 
 app-home, app-shopping, app-admin {

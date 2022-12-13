@@ -1,22 +1,16 @@
 .welcome{
-    display: flex;
+    display: grid;
+    direction: ltr;
+    grid-template-columns: 25% 1fr 25%;
     align-items: center;
-    justify-content: center;
     height: 100%;
     background-color: #FF9D7E;
     color: aliceblue;
     font-size: xx-large;
 }
 
-.logoff{
-    color: red;
-
-    position: absolute;
-    left: 25px;
-    // left: 20px;
-    // top: 2px;
-}
 
 p{
     direction: rtl;
+    grid-column-start: 2;
 }
