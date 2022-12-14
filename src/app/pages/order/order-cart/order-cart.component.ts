@@ -11,9 +11,9 @@ import { CartItemService } from 'src/app/services/cart-item.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-final-cart',
-  templateUrl: './final-cart.component.html',
-  styleUrls: ['./final-cart.component.scss']
+  selector: 'app-order-cart',
+  templateUrl: './order-cart.component.html',
+  styleUrls: ['./order-cart.component.scss']
 })
 export class FinalCartComponent implements OnInit {
 

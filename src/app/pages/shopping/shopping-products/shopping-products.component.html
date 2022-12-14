@@ -14,7 +14,7 @@
     </nav> -->
 
 
-    <div *ngIf="productsByCategory" class="cards-container">
+    <!-- <div *ngIf="productsByCategory" class="cards-container">
       <div *ngFor="let p of productsByCategory | filter:search" class="cards">
         <mat-card class="card" (click)="productOnClick(p)">
           <div class="image-container">
@@ -28,6 +28,7 @@
           </mat-card-content>
         </mat-card>
       </div>
-    </div>
+    </div> -->
+    <app-products clickable=true addProducts=true [search]="search"></app-products>
   </section>
 </div>

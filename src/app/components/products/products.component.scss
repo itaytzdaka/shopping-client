@@ -1,0 +1,56 @@
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.image {
+  width: 70%;
+  height: auto;
+}
+
+.products-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: end;
+  padding: 10px;
+}
+
+.cards {
+  display: flex;
+  margin: 10px;
+  cursor: pointer;
+  width: 20%;
+  max-width: 200px;
+  min-width: 100px;
+}
+
+.not-clickable {
+  cursor: default;
+}
+
+a {
+  color: rgb(92, 92, 92);
+  text-decoration: none;
+  display: flex;
+}
+
+a:hover {
+  color: rgb(224, 81, 81);
+}
+
+.mat-card {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-card-image {
+  /* width: calc(100% + 32px); */
+  margin: 0;
+}
+
+.mat-card-image:first-child {
+  margin: 0;
+}

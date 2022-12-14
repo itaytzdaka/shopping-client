@@ -5,11 +5,11 @@ import { AdminComponent } from './pages/admin/admin.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
-import { LoginComponent } from './pages/home/menu/login/login.component';
-import { Register1Component } from './pages/home/menu/register1/register1.component';
-import { Register2Component } from './pages/home/menu/register2/register2.component';
+import { LoginComponent } from './pages/home/home-menu/home-menu-login/home-menu-login.component';
+import { Register1Component } from './pages/home/home-menu/home-menu-register1/home-menu-register1.component';
+import { Register2Component } from './pages/home/home-menu/home-menu-register2/home-menu-register2.component';
 import { ShoppingComponent } from './pages/shopping/shopping.component';
-import { ProductsComponent } from './pages/shopping/products/products.component';
+import { ShoppingProductsComponent } from './pages/shopping/shopping-products/shopping-products.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 
 
@@ -20,14 +20,15 @@ const routes: Routes = [
     { path: "register/2", component: Register2Component }] 
   },
   { path: "shopping", component: ShoppingComponent ,children: [
-    { path: ":_id", component: ProductsComponent }]
+    { path: ":_id", component: ShoppingProductsComponent }]
   },
   { path: "admin", component: AdminComponent , children: [
     { path: "edit/:_id", component: AdminEditComponent },
     { path: "add", component: AdminAddComponent }
   ]},
   { path: "order", component: OrderComponent },
-  { path: "", pathMatch: "full", redirectTo: "/home" } // Default Route. pathMatch: "full" --> "exact"
+  // { path: "", pathMatch: "full", redirectTo: "/home" }, // Default Route. pathMatch: "full" --> "exact"
+  { path: "**", pathMatch: "full", redirectTo: "/home" }
 
 ];
 

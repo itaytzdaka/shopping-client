@@ -5,9 +5,9 @@ import { Component, OnInit } from '@angular/core';
 import { UserModel } from '../../../../models/user.model';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'home-menu-login-login',
+  templateUrl: './home-menu-login.component.html',
+  styleUrls: ['./home-menu-login.component.scss']
 })
 export class LoginComponent implements OnInit {
 

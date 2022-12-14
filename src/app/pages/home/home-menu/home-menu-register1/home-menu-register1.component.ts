@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
 import { UserModel } from 'src/app/models/user.model';
 
 @Component({
-  selector: 'app-register1',
-  templateUrl: './register1.component.html',
-  styleUrls: ['./register1.component.scss']
+  selector: 'app-home-menu-register1',
+  templateUrl: './home-menu-register1.component.html',
+  styleUrls: ['./home-menu-register1.component.scss']
 })
 export class Register1Component implements OnInit {
 

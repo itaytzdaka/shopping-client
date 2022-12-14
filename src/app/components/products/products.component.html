@@ -1,0 +1,53 @@
+<div *ngIf="productsByCategory && clickable && !editProducts" class="products-container">
+    <div *ngFor="let p of productsByCategory | filter:search" class="cards">
+        <mat-card class="card" (click)="productOnClick(p)">
+            <div class="image-container">
+                <img mat-card-image class="image" src="http://localhost:3000/uploads/{{p.image}}">
+            </div>
+            <mat-card-title>{{p.name}}</mat-card-title>
+            <mat-card-content>
+                <p>
+                    מחיר {{p.price}}₪
+                </p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+
+<div *ngIf="productsByCategory && clickable && editProducts" class="products-container">
+    <div *ngFor="let p of productsByCategory | filter:search" class="cards">
+        <a routerLink="/admin/edit/{{p._id}}">
+            <mat-card class="card">
+                <div class="image-container">
+                <img mat-card-image class="image" src="http://localhost:3000/uploads/{{p.image}}">
+            </div>
+            <mat-card-title>{{p.name}}</mat-card-title>
+            <mat-card-content>
+                <p>
+                    מחיר {{p.price}}₪
+                </p>
+            </mat-card-content>
+            </mat-card>
+        </a>
+    </div>
+</div>
+
+<div *ngIf="productsByCategory && !clickable" class="products-container">
+    <div *ngFor="let p of productsByCategory | filter:search" class="cards">
+        <a routerLink="/admin/edit/{{p._id}}">
+            <mat-card class="card not-clickable">
+                <div class="image-container">
+                <img mat-card-image class="image" src="http://localhost:3000/uploads/{{p.image}}">
+            </div>
+            <mat-card-title>{{p.name}}</mat-card-title>
+            <mat-card-content>
+                <p>
+                    מחיר {{p.price}}₪
+                </p>
+            </mat-card-content>
+            </mat-card>
+        </a>
+    </div>
+</div>
+
+

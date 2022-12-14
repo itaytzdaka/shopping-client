@@ -12,9 +12,9 @@ import { Unsubscribe } from 'redux';
 // import { STEP_ITEMS } from '../../constants/multi-step-form';
 
 @Component({
-  selector: 'app-register2',
-  templateUrl: './register2.component.html',
-  styleUrls: ['./register2.component.scss']
+  selector: 'app-home-menu-register2',
+  templateUrl: './home-menu-register2.component.html',
+  styleUrls: ['./home-menu-register2.component.scss']
 })
 export class Register2Component implements OnInit {
 

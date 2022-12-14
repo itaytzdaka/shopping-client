@@ -68,7 +68,7 @@ app-home, app-shopping, app-admin {
     flex-grow: 1;
 }
 
-app-main > div, app-products > div, app-admin-products > div{
+app-home-main > div, app-shopping-products > div, app-admin-products > div{
     height: 100%;
     display: flex;
     flex-direction: column;

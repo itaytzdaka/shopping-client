@@ -15,9 +15,9 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-add-invite',
-  templateUrl: './add-invite.component.html',
-  styleUrls: ['./add-invite.component.scss']
+  selector: 'app-order-main',
+  templateUrl: './order-main.component.html',
+  styleUrls: ['./order-main.component.scss']
 })
 export class AddInviteComponent implements OnInit {
 
@@ -49,6 +49,7 @@ export class AddInviteComponent implements OnInit {
   public async addOrderAsync(){
     try {
       this.inviteToAdd.orderDate = new Date().toJSON();
+      console.log("this.myInviteService.addInviteAsync(this.inviteToAdd);");
       const addedInvite = await this.myInviteService.addInviteAsync(this.inviteToAdd);
       store.dispatch({ type: ActionType.addNewInvite, payload: addedInvite });
       this.router.navigateByUrl("");
@@ -60,7 +61,7 @@ export class AddInviteComponent implements OnInit {
 
   //get data from the store
   public getFromTheStore(): void {
-    if (store.getState().carts) {
+    if (store.getState().carts && store.getState().isLoggedIn) {
       this.cities = store.getState().cities;
       this.cartItems = store.getState().cartItems;
       this.inviteToAdd.userId = store.getState().user._id;

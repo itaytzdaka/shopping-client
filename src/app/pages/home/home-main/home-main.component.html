@@ -2,14 +2,11 @@
     חנות האונלייין של איתי
 </header> -->
 <div class="main">
-    <app-header></app-header>
+    <app-header (setSearch)="search=$event"></app-header>
     <section>
-        <h1>
-            שלום לכולם,
-            הגעתם למרכול של איתי
-        </h1>
         <p>בוצעו {{numOfInvites}} הזמנות</p>
         <p>ישנם {{numOfProducts}} מוצרים</p>
+        <app-products clickable=true [search]="search"></app-products>
+
     </section>
-    <!-- <app-products></app-products> -->
 </div>

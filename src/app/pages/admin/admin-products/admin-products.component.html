@@ -1,6 +1,6 @@
 <div class="admin-products">
-  <app-header></app-header>
-  <div *ngIf="products">
+  <app-header  (setSearch)="search=$event"></app-header>
+  <!-- <div *ngIf="products">
     <input type="text" name="search" placeholder="חפש..." [(ngModel)]="search"><br />
 
     <div class="cardDiv" *ngFor="let p of products | filter:search">
@@ -16,5 +16,9 @@
         </mat-card>
       </a>
     </div>
-  </div>
+  </div> -->
+  <section>
+    <app-products clickable=true editProducts=true [search]="search"></app-products>
+  </section>
+  
 </div>

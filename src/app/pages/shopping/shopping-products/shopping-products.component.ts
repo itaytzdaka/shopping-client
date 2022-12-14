@@ -14,11 +14,11 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
+  selector: 'app-shopping-products',
+  templateUrl: './shopping-products.component.html',
+  styleUrls: ['./shopping-products.component.scss']
 })
-export class ProductsComponent implements OnInit {
+export class ShoppingProductsComponent implements OnInit {
   private unsubscribe: Unsubscribe;
 
 
@@ -85,6 +85,8 @@ export class ProductsComponent implements OnInit {
   //filter products array by category
   public filterProductsByCategory(products) {
     this.myActivatedRoute.params.subscribe(routeParams => {
+      console.log("routeParams._id "+routeParams._id)
+
       if (routeParams._id === "all") {
         this.productsByCategory = products;
       }

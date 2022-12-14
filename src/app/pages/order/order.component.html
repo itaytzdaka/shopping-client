@@ -1,7 +1,7 @@
 <mat-sidenav-container class="example-container">
 
     <mat-sidenav #sidenav mode="side" [(opened)]="menuOpen">
-        <app-final-cart></app-final-cart>
+        <app-order-cart></app-order-cart>
     </mat-sidenav>
     <mat-sidenav-content>
 
@@ -9,6 +9,6 @@
         <i *ngIf="menuOpen" (click)="changeMenuStatus()" class="material-icons menu-icon">menu_open</i>
 
         <main>
-            <app-add-invite></app-add-invite>
+            <app-order-main></app-order-main>
         </main>
     </mat-sidenav-content>
