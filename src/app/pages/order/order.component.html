@@ -1,14 +1,12 @@
 <mat-sidenav-container class="example-container">
 
     <mat-sidenav #sidenav mode="side" [(opened)]="menuOpen">
-        <app-order-cart></app-order-cart>
+        <app-order-cart [search]="search"></app-order-cart>
     </mat-sidenav>
     <mat-sidenav-content>
 
         <i *ngIf="!menuOpen" (click)="changeMenuStatus()" class="material-icons menu-icon">menu</i>
         <i *ngIf="menuOpen" (click)="changeMenuStatus()" class="material-icons menu-icon">menu_open</i>
 
-        <main>
-            <app-order-main></app-order-main>
-        </main>
+        <app-order-main (setSearch)="userSearch($event)"></app-order-main>
     </mat-sidenav-content>

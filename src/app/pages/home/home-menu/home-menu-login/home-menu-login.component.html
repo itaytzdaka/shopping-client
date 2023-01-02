@@ -1,12 +1,11 @@
-<form #formInfo="ngForm">
+<form class="container" #formInfo="ngForm">
 
     <input type="email" name="email" placeholder="דואר אלקטרוני" [(ngModel)]="user.email" required
-        pattern="^[\w\.]+@[\w\.]+\.[\w\.]{2,4}$" #emailInfo="ngModel"><br />
+        pattern="^[\w\.]+@[\w\.]+\.[\w\.]{2,4}$" #emailInfo="ngModel">
     <input type="password" name="password" placeholder="סיסמה" [(ngModel)]="user.password" required
         pattern="^.{6,}$" #passwordInfo="ngModel"><br />
     <span *ngIf="emailInfo.errors?.pattern && emailInfo.touched">אימייל לא תקין</span>
     <span *ngIf="passwordInfo.errors?.pattern && passwordInfo.touched">סיסמה צריכה להיות מעל 6 ספרות</span>
-    <br/>
     <button [disabled]="formInfo.form.invalid" (click)="loginAsync()">התחבר</button>
 
 </form>

@@ -88,8 +88,8 @@ export class MainService {
       console.log("saveCartsAndInvitesOfUserAsync");
       const carts = await this.myCartService.getAllCartsOfUserAsync(store.getState().user._id);
       const invites = await this.myInviteService.getAllInvitesOfUserAsync(store.getState().user._id);
-      store.dispatch({ type: ActionType.saveCarts, payload: carts });
-      store.dispatch({ type: ActionType.saveInvites, payload: invites });
+      store.dispatch({ type: ActionType.saveCartsOfUser, payload: carts });
+      store.dispatch({ type: ActionType.saveInvitesOfUser, payload: invites });
       store.dispatch({ type: ActionType.loadUserCart });
       if (store.getState().openCart) {
         const cartItems = await this.myCartItemService.getAllCartItemsAsync(store.getState().openCart._id);

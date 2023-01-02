@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserModel } from '../../../../models/user.model';
 
 @Component({
-  selector: 'home-menu-login-login',
+  selector: 'home-menu-login',
   templateUrl: './home-menu-login.component.html',
   styleUrls: ['./home-menu-login.component.scss']
 })

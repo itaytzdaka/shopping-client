@@ -3,7 +3,7 @@ import { UserService } from '../../../services/user.service';
 import { ActionType } from 'src/app/redux/action-type';
 import { store } from '../../../redux/store';
 import { CartService } from '../../../services/cart.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Unsubscribe } from 'redux';
 import { CartItemModel } from '../../../models/cart-item.model';
 import { CartModel } from 'src/app/models/cart.model';
@@ -21,6 +21,7 @@ export class FinalCartComponent implements OnInit {
 
   public cartItems: CartItemModel[];
   public cartTotalPrice: number;
+  @Input()
   public search: string;
 
   constructor(

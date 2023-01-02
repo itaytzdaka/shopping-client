@@ -1,25 +1,30 @@
-<div class="add-invite-container">
-    <br />
-    <h1>ביצוע הזמנה</h1>
-    <br/>
-    <form #formInfo="ngForm">
-        <span>בחר עיר</span>
-        <select name="city" [(ngModel)]="inviteToAdd.cityId">
-            <option disabled selected>בחר עיר</option>
-            <option *ngFor="let city of cities" value="{{city._id}}">{{city.name}}</option>
-        </select><br />
-        <span>רחוב</span>
-        <input type="text" name="street" placeholder="רחוב..." [(ngModel)]="inviteToAdd.street" required
-            pattern="^[א-ת0-9 ]+$" #streetInfo="ngModel"><br />
-        <span>תאריך להזמנה</span>
-        <input type="date" name="date" min="2020-10-13" [(ngModel)]="inviteToAdd.deliveryDate" required><br />
-        <span>מספר אשראי</span>
-        <input type="text" name="creditCard" placeholder="מספר אשראי..." [(ngModel)]="inviteToAdd.creditCard"
-            required><br />
+<div>
+    <app-header (setSearch)="userSearch($event)"></app-header>
+    <section>
+        <div class="container">
+            <br />
+            <h1>ביצוע הזמנה</h1>
+            <br />
+            <form #formInfo="ngForm">
+                <span>בחר עיר</span>
+                <select name="city" [(ngModel)]="inviteToAdd.cityId">
+                    <option disabled selected>בחר עיר</option>
+                    <option *ngFor="let city of cities" value="{{city._id}}">{{city.name}}</option>
+                </select><br />
+                <span>רחוב</span>
+                <input type="text" name="street" placeholder="רחוב..." [(ngModel)]="inviteToAdd.street" required
+                    pattern="^[א-ת0-9 ]+$" #streetInfo="ngModel"><br />
+                <span>תאריך להזמנה</span>
+                <input type="date" name="date" min="2020-10-13" [(ngModel)]="inviteToAdd.deliveryDate" required><br />
+                <span>מספר אשראי</span>
+                <input type="text" name="creditCard" placeholder="מספר אשראי..." [(ngModel)]="inviteToAdd.creditCard"
+                    required><br />
 
-        <span *ngIf="streetInfo.errors?.required">יש להכניס שם רחוב</span>
-        <span *ngIf="streetInfo.errors?.pattern && streetInfo.touched">שם רחוב לא תקין</span>
+                <span *ngIf="streetInfo.errors?.required">יש להכניס שם רחוב</span>
+                <span *ngIf="streetInfo.errors?.pattern && streetInfo.touched">שם רחוב לא תקין</span>
 
-        <button [disabled]="formInfo.form.invalid" (click)="addOrderAsync()">אשר הזמנה</button>
-    </form>
+                <button [disabled]="formInfo.form.invalid" (click)="addOrderAsync()">אשר הזמנה</button>
+            </form>
+        </div>
+    </section>
 </div>

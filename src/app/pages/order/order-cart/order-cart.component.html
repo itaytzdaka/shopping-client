@@ -1,11 +1,7 @@
 <!-- <i (click)="disconnect()" class="material-icons logoff">power_settings_new</i> -->
 <div class="final-cart">
     <app-welcome></app-welcome>
-    <div class="container-final-cart">
-        <label for="search"><i class="material-icons">search</i></label>
-        <input type="text" name="search" placeholder="חפש..." id="search" [(ngModel)]="search">
-        <br />
-        <br />
+    <div class="container">
         <p>העגלה הסופית שלך:</p>
         <table>
             <thead>
@@ -22,14 +18,11 @@
                     <td>{{item.product.price}}</td>
                     <td>{{item.amount}}</td>
                     <td>{{item.totalPrice}}₪</td>
-
                 </tr>
             </tbody>
         </table>
-        <br />
         <p>מחיר סופי: {{cartTotalPrice}}₪</p>
-        <br />
-        <a routerLink="/shopping/all"><button>חזרה לחנות</button></a>
+        <a class="button" routerLink="/shopping/all">חזרה לחנות</a>
 
 
     </div>

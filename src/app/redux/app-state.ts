@@ -12,8 +12,8 @@ export class AppState {
     //data from DB
     public user: UserModel;
     public products: ProductModel[];
-    public carts: CartModel[];
-    public invites: InviteModel[];
+    public cartsOfUser: CartModel[];
+    public invitesOfUser: InviteModel[];
     public cartItems: CartItemModel[];
     public categories: CategoryModel[];
     public cities: CityModel[];
@@ -25,7 +25,7 @@ export class AppState {
     public isAdmin: number;
     public openCart: CartModel;
     public lastInvite: InviteModel;
-    public isNewUser: boolean;
+    public noCarts: boolean;
     public cartNumberOfItems: number;
     public cartTotalPrice: number;
     public IsCartEmpty: boolean;
@@ -42,6 +42,8 @@ export class AppState {
 
         this.newUser=new UserModel();
         this.newUser.isAdmin=0;
+        this.cartNumberOfItems=0;
+        this.cartTotalPrice=0;
         
         this.MenuOpen=true;
 

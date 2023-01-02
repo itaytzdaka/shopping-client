@@ -12,9 +12,9 @@ import { Unsubscribe } from 'redux';
 
 
 @Component({
-  selector: 'app-menu',
-  templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss']
+  selector: 'app-home-menu',
+  templateUrl: './home-menu.component.html',
+  styleUrls: ['./home-menu.component.scss']
 })
 export class MenuComponent implements OnInit {
 
@@ -23,7 +23,7 @@ export class MenuComponent implements OnInit {
   public isLoggedIn: boolean;
   public openCart: CartModel;
   public lastInvite: InviteModel;
-  public isNewUser: boolean;
+  public noCarts: boolean;
   public cartNumberOfItems: number;
   public cartTotalPrice: number;
 
@@ -58,16 +58,17 @@ export class MenuComponent implements OnInit {
 
   public getData(): void {
 
-    if(!store.getState().carts && !store.getState().invites && store.getState().numOfInvites && store.getState().numOfProducts){
+    // if(!store.getState().cartsOfUser && !store.getState().invitesOfUser && store.getState().numOfInvites && store.getState().numOfProducts){
+    if(!store.getState().cartsOfUser && !store.getState().invitesOfUser){
       this.myMainService.saveCartsAndInvitesOfUserAsync();
     }
 
-    //if the store isn't empty, get the data.
+    //if the store isn't empty, get the data from store.
     else{
       this.user = store.getState().user;
       this.openCart = store.getState().openCart;
       this.lastInvite = store.getState().lastInvite;
-      this.isNewUser = store.getState().isNewUser;
+      this.noCarts = store.getState().noCarts;
       this.cartNumberOfItems = store.getState().cartNumberOfItems;
       this.cartTotalPrice = store.getState().cartTotalPrice;
     }

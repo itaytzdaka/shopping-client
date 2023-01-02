@@ -31,14 +31,14 @@ export function reducer(currentState: AppState, action: Action): AppState {
             newState.numOfProducts = action.payload;
             break;
 
-        case ActionType.saveCarts:
+        case ActionType.saveCartsOfUser:
             console.log("ActionType.saveCarts");
-            newState.carts = action.payload;
+            newState.cartsOfUser = action.payload;
             break;
 
-        case ActionType.saveInvites:
+        case ActionType.saveInvitesOfUser:
             console.log("ActionType.saveInvites");
-            newState.invites = action.payload;
+            newState.invitesOfUser = action.payload;
             break;
 
         case ActionType.saveCategories:
@@ -79,19 +79,19 @@ export function reducer(currentState: AppState, action: Action): AppState {
             console.log("ActionType.loadUserCart");
 
             //check if new user
-            if (newState.carts.length === 0) {
-                newState.isNewUser = true;
+            if (newState.cartsOfUser.length === 0) {
+                newState.noCarts = true;
                 break;
             }
 
             //check if is there invite for all carts
-            if (newState.carts.length === newState.invites.length) {
-                newState.lastInvite = newState.invites[newState.invites.length - 1];
+            if (newState.cartsOfUser.length === newState.invitesOfUser.length) {
+                newState.lastInvite = newState.invitesOfUser[newState.invitesOfUser.length - 1];
             }
 
             //check if is there any open cart
             else {
-                newState.openCart = newState.carts[newState.carts.length - 1];
+                newState.openCart = newState.cartsOfUser[newState.cartsOfUser.length - 1];
             }
             break;
 
@@ -104,6 +104,8 @@ export function reducer(currentState: AppState, action: Action): AppState {
             newState.openCart.userId = newState.user._id;
             newState.cartItems = [];
             newState.IsCartEmpty = true;
+            newState.noCarts = false;
+
             break;
 
         case ActionType.addNewProduct:
@@ -116,7 +118,7 @@ export function reducer(currentState: AppState, action: Action): AppState {
         case ActionType.addNewInvite:
             console.log("ActionType.addNewInvite");
 
-            newState.invites.push(action.payload);
+            newState.invitesOfUser.push(action.payload);
             newState.openCart = undefined;
             break;
 
@@ -129,13 +131,20 @@ export function reducer(currentState: AppState, action: Action): AppState {
         case ActionType.deleteCartItem:
             console.log("ActionType.deleteCartItem");
 
+            //create new array, without the item that the user deleted.
             newState.cartItems = newState.cartItems.filter(cartItem => cartItem._id != action.payload);
+
+            //save the number of the cart items in the store
+            newState.cartNumberOfItems = newState.cartItems.length;
+
+            //calculate the total price of the cart.
             cartTotalPrice = 0;
             for (let i = 0; i < newState.cartItems.length; i++) {
                 cartTotalPrice = cartTotalPrice + newState.cartItems[i].totalPrice;
             }
             newState.cartTotalPrice = cartTotalPrice;
 
+            //if cart is now empty.
             if (newState.cartItems.length === 0) {
                 newState.IsCartEmpty = true;
             }
@@ -146,7 +155,8 @@ export function reducer(currentState: AppState, action: Action): AppState {
             console.log("ActionType.deleteAllCartItems");
 
             newState.cartItems = [];
-            cartTotalPrice = 0;
+            newState.cartTotalPrice = 0;
+            newState.cartNumberOfItems = 0;
             newState.IsCartEmpty = true;
             break;
 
@@ -167,6 +177,7 @@ export function reducer(currentState: AppState, action: Action): AppState {
 
             newState.IsCartEmpty = false;
             newState.cartItems.push(action.payload);
+            newState.cartNumberOfItems++;
             cartTotalPrice = 0;
             for (let i = 0; i < newState.cartItems.length; i++) {
                 cartTotalPrice = cartTotalPrice + newState.cartItems[i].totalPrice;
@@ -178,7 +189,7 @@ export function reducer(currentState: AppState, action: Action): AppState {
             console.log("ActionType.disconnect");
 
             newState.isLoggedIn = false;
-            newState.user= null;
+            newState.user = null;
 
             break;
     }

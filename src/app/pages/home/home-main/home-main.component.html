@@ -4,8 +4,8 @@
 <div class="main">
     <app-header (setSearch)="search=$event"></app-header>
     <section>
-        <p>בוצעו {{numOfInvites}} הזמנות</p>
-        <p>ישנם {{numOfProducts}} מוצרים</p>
+        <app-statistics [numOfInvites]="numOfInvites" [numOfProducts]="numOfProducts"
+        ></app-statistics>
         <app-products clickable=true [search]="search"></app-products>
 
     </section>

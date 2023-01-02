@@ -22,7 +22,7 @@ export class AddItemDialogComponent implements OnInit {
   public selectedProduct: ProductModel;
   public cartItemToAdd: CartItemModel;
   public cartItems: CartItemModel[];
-
+  
   constructor(
     private myCartItemService: CartItemService,
     public dialogRef: MatDialogRef<AddItemDialogComponent>,

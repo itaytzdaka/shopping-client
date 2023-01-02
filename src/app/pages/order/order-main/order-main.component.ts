@@ -7,7 +7,7 @@ import { InviteService } from '../../../services/invite.service';
 import { CityService } from '../../../services/city.service';
 import { CityModel } from '../../../models/city.model';
 import { InviteModel } from '../../../models/invite.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Unsubscribe } from 'redux';
 import { ActionType } from 'src/app/redux/action-type';
 import { CartItemModel } from 'src/app/models/cart-item.model';
@@ -27,6 +27,14 @@ export class AddInviteComponent implements OnInit {
   public cartItems: CartItemModel[];
   public selectedFile: File = null;
   public dateToday = new Date();
+
+  @Output()
+  public setSearch = new EventEmitter<string>();
+
+  public userSearch(search: string): void {
+    console.log("search: "+search);
+    this.setSearch.emit(search); // Raising the event - העלאת ארוע
+  }
 
   constructor(
     private myInviteService: InviteService,
@@ -61,7 +69,7 @@ export class AddInviteComponent implements OnInit {
 
   //get data from the store
   public getFromTheStore(): void {
-    if (store.getState().carts && store.getState().isLoggedIn) {
+    if (store.getState().cartsOfUser && store.getState().isLoggedIn) {
       this.cities = store.getState().cities;
       this.cartItems = store.getState().cartItems;
       this.inviteToAdd.userId = store.getState().user._id;

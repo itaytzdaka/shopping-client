@@ -2,8 +2,8 @@ export enum ActionType {
     //data from DB
     login,
     saveProducts,
-    saveCarts,
-    saveInvites,
+    saveCartsOfUser,
+    saveInvitesOfUser,
     saveNumOfInvites,
     saveNumOfProducts,
     saveCartItems,

@@ -1,8 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 * {
-    // direction: rtl;
     margin: 0;
     padding: 0;
+}
+
+html,
+body {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: #f2f2f2;
+    text-align: center;
+    font-size: x-large;
 }
 
 
@@ -10,14 +17,6 @@ aside {
     direction: rtl;
 }
 
-html,
-body {
-    // height: 100%;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    background-color: #f2f2f2;
-    text-align: center;
-    font-size: x-large;
-}
 
 a {
     color: blue;
@@ -28,24 +27,27 @@ a {
     font-weight: bold;
 }
 
-i {
-    color: black;
-    cursor: pointer;
-}
-
 input {
     direction: rtl;
 }
 
+button{
+    margin: auto;
+}
 
-button {
+.button, button{
+    display: flex;
+    gap: 10px;
     background-color: #93B8FF;
-    color: #ffffff;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #ffffff !important;
     cursor: pointer;
     border: none;
-    width: 30%;
-    padding: 20px 0;
-    margin: 20px;
+    width: 150px;
+    padding: 20px 10px;
+    margin: 10px auto;
 }
 
 button:disabled {
@@ -53,28 +55,46 @@ button:disabled {
     cursor: default;
 }
 
-.logoff{
-    color: red;
+.container{
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    align-items: center;
+    font-size: 1.3vw;
+    // justify-content: center;
 }
 
-app-welcome ,app-header{
-    height: 100px;
-    flex: none;
+.gap{
+    gap: 20px;
 }
 
-app-home, app-shopping, app-admin {
+.menu-icon{
+    cursor: pointer;
+}
+
+app-home, app-shopping, app-admin, app-order {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
 }
 
-app-home-main > div, app-shopping-products > div, app-admin-products > div{
+app-home-menu > div, app-home-main > div,
+app-shopping-cart > div ,app-shopping-products > div,
+app-admin-products > div, app-order-cart > div, app-order-main > div, app-admin-menu > div{
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    overflow-x: hidden;
+    display: grid;
+    direction: rtl;
+    grid-template-rows: 10% 1fr;
 }
 
+app-admin-menu > div{
+    direction: ltr;
+}
+
+mat-sidenav-container{
+    flex-grow: 1;
+    display: flex !important;
+}
 
 mat-sidenav-container > * {
     direction: rtl;
@@ -82,15 +102,11 @@ mat-sidenav-container > * {
 
 mat-sidenav {
     width: 25%;
-    min-width: 380px;
+    min-width: 300px;
+    max-width: 400px;
 }
 
-mat-sidenav-content{
-    flex-grow: 1;
-    height: auto !important;
-}
-
-mat-sidenav{
+mat-sidenav-content, mat-sidenav{
     flex-grow: 1;
     height: auto !important;
 }

@@ -1,9 +1,15 @@
 .menu{
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+    // display: flex;
+    // flex-direction: column;
+    // height: 100%;
     direction: rtl;
 }
+
+// .menu{
+//     display: grid;
+//     direction: ltr;
+//     grid-template-rows: 12% 1fr;
+// }
 
 section {
     // height: 80%;

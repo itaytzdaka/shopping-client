@@ -2,18 +2,17 @@
     <app-welcome></app-welcome>
     <!-- <i (click)="disconnect()" class="material-icons logoff">power_settings_new</i> -->
     <div class="cart-container">
-        <div *ngIf="isCartEmpty" class="cart-empty">
-            <p>העלגה שלך ריקה</p>
-            <p>לחץ על מוצר כדי להוסיף לעגלה</p>
+        <div *ngIf="isCartEmpty" class="container">
+            <p>העגלה שלך ריקה</p>
+            <p>יש ללחוץ על מוצר כדי להוסיף לעגלה</p>
             <i class="material-icons">add_shopping_cart</i>
             <br />
             <br />
-            <a routerLink="/home"><button>חזור</button></a>
+            <a class="button" routerLink="/home">חזור</a>
         </div>
 
-        <div *ngIf="!isCartEmpty" class="containerCart">
+        <div *ngIf="!isCartEmpty" class="container">
             <p>העגלה שלך:</p>
-            <br />
             <table>
                 <thead>
                     <tr>
@@ -26,7 +25,6 @@
                     </tr>
                 </thead>
                 <tbody>
-
                     <tr *ngFor="let item of cartItems">
                         <td><img src="http://localhost:3000/uploads/{{item.product.image}}" alt=""></td>
                         <td>
@@ -35,18 +33,17 @@
                         <td>{{item.product.price}}₪</td>
                         <td>{{item.amount}}</td>
                         <td>{{item.totalPrice}}₪</td>
-                        <th><i (click)="deleteCartItemAsync(item._id)" class="material-icons">delete</i></th>
+                        <td><i (click)="deleteCartItemAsync(item._id)" class="delete-icon material-icons">delete</i></td>
 
                     </tr>
                 </tbody>
             </table>
-            <br />
-            <br />
             <p>מחיר עגלה: {{cartTotalPrice}}₪</p>
-            <button (click)="deleteAllCartItemsAsync()"><i class="material-icons">remove_shopping_cart</i>מחק את כל
-                הפריטים</button>
-            <a routerLink="/order"><button>הזמנה</button></a>
-            <a routerLink="/home"><button>חזור</button></a>
+            <a class="button" routerLink="/order">הזמנה</a>
+            <a class="link" (click)="deleteAllCartItemsAsync()">נקה עגלה<i
+                    class="material-icons">remove_shopping_cart</i></a>
+            <a class="link" routerLink="/home">חזור</a>
+
         </div>
     </div>
 

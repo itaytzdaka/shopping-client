@@ -1,10 +1,11 @@
 <mat-sidenav-container class="admin">
 
     <mat-sidenav #sidenav mode="side" [(opened)]="menuOpen">
-        <aside>
+        <app-admin-menu></app-admin-menu>
+        <!-- <aside>
             <app-welcome></app-welcome>
             <router-outlet></router-outlet>
-        </aside>
+        </aside> -->
     </mat-sidenav>
     <mat-sidenav-content>
         <i *ngIf="!menuOpen" (click)="changeMenuStatus()" class="material-icons menu-icon">menu</i>

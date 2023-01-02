@@ -22,6 +22,7 @@ export class OrderComponent implements OnInit {
   public carts: CartModel[];
   public cartItems: CartItemModel[];
   public allInvitesDeliveryFromToday: InviteModel[];
+  public search: string;
 
   constructor(
     private myMainService: MainService,
@@ -57,6 +58,10 @@ export class OrderComponent implements OnInit {
 
     this.uploadFromDbToStoreAsync();
 
+  }
+
+  public userSearch(search: string): void{
+    this.search=search;
   }
 
 

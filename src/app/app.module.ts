@@ -22,7 +22,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { LayoutComponent } from './layout/layout.component';
 import { HomeComponent } from './pages/home/home.component';
 import { FooterComponent } from './layout/footer/footer.component';
-import { MenuComponent } from './pages/home/home-menu/menu.component';
+import { MenuComponent } from './pages/home/home-menu/home-menu.component';
 import { MainComponent } from './pages/home/home-main/home-main.component';
 import { LoginComponent } from './pages/home/home-menu/home-menu-login/home-menu-login.component';
 import { Register1Component } from './pages/home/home-menu/home-menu-register1/home-menu-register1.component';
@@ -43,6 +43,8 @@ import { CategoriesComponent } from './components/categories/categories.componen
 import { Register2Component } from './pages/home/home-menu/home-menu-register2/home-menu-register2.component';
 import { ProductsComponent } from './components/products/products.component';
 import { PreviewItemComponent } from './components/preview-item/preview-item.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
+import { AdminMenuComponent } from './pages/admin/admin-menu/admin-menu.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +73,9 @@ import { PreviewItemComponent } from './components/preview-item/preview-item.com
     HeaderComponent,
     CategoriesComponent,
     ProductsComponent,
-    PreviewItemComponent
+    PreviewItemComponent,
+    StatisticsComponent,
+    AdminMenuComponent
   ],
   imports: [
     BrowserModule,

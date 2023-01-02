@@ -14,3 +14,13 @@ p{
     direction: rtl;
     grid-column-start: 2;
 }
+
+
+.logoff{
+    cursor: pointer;
+    color: rgb(187, 116, 116);
+}
+
+.logoff:hover{
+    color: red;
+}

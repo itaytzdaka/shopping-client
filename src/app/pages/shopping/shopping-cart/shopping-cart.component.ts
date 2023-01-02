@@ -40,7 +40,7 @@ export class CartComponent implements OnInit {
 
     if (!isAdmin) {
       //get from the store
-      this.carts = store.getState().carts;
+      this.carts = store.getState().cartsOfUser;
       this.cartItems = store.getState().cartItems;
       this.openCart = store.getState().openCart;
       this.isCartEmpty = store.getState().IsCartEmpty;
@@ -61,13 +61,14 @@ export class CartComponent implements OnInit {
   }
 
   public async getOrCreateCartForUserAsync() {
-    //if the store is empty
+    //if the carts are empty, get data
     if (!this.carts) {
       await this.myMainService.saveCartsAndInvitesOfUserAsync();
     }
 
-    //if it's a new User Or user with no cart open
+    //if the user don't have an open cart, create a new empty cart.
     if (!this.openCart) {
+      console.log("create a new cart");
       store.dispatch({ type: ActionType.addNewCart });
       this.myCartService.createNewCartAsync(this.openCart);
     }
