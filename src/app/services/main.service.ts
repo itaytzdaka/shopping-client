@@ -1,3 +1,5 @@
+import { StoreService } from './store.service';
+import { CartModel } from './../models/cart.model';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
@@ -20,7 +22,7 @@ export class MainService {
     private myCartService: CartService,
     private myCartItemService: CartItemService,
     private myInviteService: InviteService,
-    private myProductService: ProductService,
+    private myStoreService: StoreService,
     private myUserService: UserService,
     private router: Router,
     private cookieService: CookieService
@@ -86,10 +88,11 @@ export class MainService {
   public async saveCartsAndInvitesOfUserAsync() {
     try {
       console.log("saveCartsAndInvitesOfUserAsync");
-      const carts = await this.myCartService.getAllCartsOfUserAsync(store.getState().user._id);
-      const invites = await this.myInviteService.getAllInvitesOfUserAsync(store.getState().user._id);
-      store.dispatch({ type: ActionType.saveCartsOfUser, payload: carts });
-      store.dispatch({ type: ActionType.saveInvitesOfUser, payload: invites });
+      const cartsOfUser = await this.myCartService.getAllCartsOfUserAsync(store.getState().user._id);
+      const invitesOfUser = await this.myInviteService.getAllInvitesOfUserAsync(store.getState().user._id);
+      this.myStoreService.saveCartsOfUser(cartsOfUser);
+      this.myStoreService.saveInvitesOfUser(invitesOfUser);
+      
       store.dispatch({ type: ActionType.loadUserCart });
       if (store.getState().openCart) {
         const cartItems = await this.myCartItemService.getAllCartItemsAsync(store.getState().openCart._id);
@@ -120,5 +123,12 @@ export class MainService {
     store.dispatch({ type: ActionType.deleteAllCartItems });
   }
 
+  public createNewCartForUser(): CartModel{
+    const newCart= new CartModel();
+    newCart.userId = store.getState().user._id;
+    newCart.date= (new Date()).toJSON();
+
+    return newCart;
+  }
 
 }

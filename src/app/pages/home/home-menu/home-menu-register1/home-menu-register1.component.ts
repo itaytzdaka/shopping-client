@@ -17,6 +17,7 @@ export class Register1Component implements OnInit {
   public newUser: UserModel;
   public allEmails: string[];
   public passwordsMatch: boolean;
+  public emailExist: boolean;
   public confirmPassword: string;
 
   constructor(
@@ -52,36 +53,11 @@ export class Register1Component implements OnInit {
   }
 
   public PasswordsDoNotMatch() {
-
-    if (this.newUser.password) {
-      if (this.confirmPassword === this.newUser.password) {
-        this.passwordsMatch = true;
-        return false;
-      }
-
-      else {
-        this.passwordsMatch = false;
-        return true;
-      }
-    }
-    else {
-      return false;
-    }
-
+    this.passwordsMatch = this.confirmPassword === this.newUser?.password? true : false;
   }
 
   public isEmailExist() {
-    if (this.allEmails) {
-      this.allEmails.forEach(email => {
-        if (this.newUser.email === email) {
-          return true;
-        }
-      })
-      return false;
-    }
-
-    else {
-      return false;
-    }
+    const index= this.allEmails?.findIndex((obj)=>obj["email"]==this.newUser.email);
+    this.emailExist= index<0 || !index? false : true;
   }
 }

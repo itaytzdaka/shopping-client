@@ -1,3 +1,4 @@
+import { StoreService } from './../../../services/store.service';
 import { store } from 'src/app/redux/store';
 import { Component, OnInit } from '@angular/core';
 import { Unsubscribe } from 'redux';
@@ -15,7 +16,7 @@ export class MainComponent implements OnInit {
   public search: string;
 
   constructor(
-
+    private myStoreService: StoreService
   ) { }
 
   ngOnInit(): void {
@@ -31,7 +32,7 @@ export class MainComponent implements OnInit {
   //get data from the store
   public getFromTheStore(): void{
     this.numOfInvites = store.getState().numOfInvites;
-    this.numOfProducts = store.getState().numOfProducts;
+    this.numOfProducts = this.myStoreService.getNumOfProducts();
   }
 
   ngOnDestroy(): void {

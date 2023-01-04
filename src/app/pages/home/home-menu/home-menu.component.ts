@@ -1,4 +1,4 @@
-
+import { StoreService } from './../../../services/store.service';
 import { store } from '../../../redux/store';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '../../../services/user.service';
@@ -21,15 +21,18 @@ export class MenuComponent implements OnInit {
   private unsubscribe: Unsubscribe;
   public user: UserModel;
   public isLoggedIn: boolean;
+  public cartsOfUser: CartModel[];
   public openCart: CartModel;
   public lastInvite: InviteModel;
-  public noCarts: boolean;
-  public cartNumberOfItems: number;
+  // public noCarts: boolean;
+  public cartNumberOfProducts: number;
   public cartTotalPrice: number;
+  public orderCompleted: boolean;
 
   constructor(
     private myUserService: UserService,
     private myMainService: MainService,
+    private myStoreService: StoreService,
     private router: Router
   ) { }
 
@@ -66,11 +69,16 @@ export class MenuComponent implements OnInit {
     //if the store isn't empty, get the data from store.
     else{
       this.user = store.getState().user;
-      this.openCart = store.getState().openCart;
-      this.lastInvite = store.getState().lastInvite;
-      this.noCarts = store.getState().noCarts;
-      this.cartNumberOfItems = store.getState().cartNumberOfItems;
-      this.cartTotalPrice = store.getState().cartTotalPrice;
+      // this.openCart = store.getState().openCart;
+      this.openCart = this.myStoreService.getUserOpenCart();
+      // this.lastInvite = store.getState().lastInvite;
+      this.lastInvite = this.myStoreService.getLastInvite();
+      this.cartsOfUser= store.getState().cartsOfUser;
+      this.cartNumberOfProducts = this.myStoreService.getNumOfProductsFromUserOpenCart();
+      // this.cartNumberOfItems = store.getState().cartNumberOfItems;
+      this.cartTotalPrice = this.myStoreService.getUserOpenCartTotalPrice();
+      // this.cartTotalPrice = store.getState().cartTotalPrice;
+      this.orderCompleted = store.getState().orderCompleted;
     }
 
   }

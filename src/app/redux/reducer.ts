@@ -16,6 +16,14 @@ export function reducer(currentState: AppState, action: Action): AppState {
             newState.isAdmin = newState.user.isAdmin;
             break;
 
+        case ActionType.saveUser:
+            newState.user = action.payload;
+            break;
+
+        case ActionType.setLoggedInStatus:
+            newState.isLoggedIn = action.payload;
+            break;
+
         case ActionType.saveProducts:
             console.log("ActionType.saveProducts");
             newState.products = action.payload;
@@ -80,7 +88,7 @@ export function reducer(currentState: AppState, action: Action): AppState {
 
             //check if new user
             if (newState.cartsOfUser.length === 0) {
-                newState.noCarts = true;
+                // newState.noCarts = true;
                 break;
             }
 
@@ -98,13 +106,20 @@ export function reducer(currentState: AppState, action: Action): AppState {
         case ActionType.addNewCart:
             console.log("ActionType.addNewCart");
 
-            newState.lastInvite = undefined;
-            newState.openCart = {};
-            newState.openCart.date = (new Date()).toJSON();
+            newState.openCart=action.payload;
+            // newState.openCart = {};
+            // newState.openCart.date = (new Date()).toJSON();
             newState.openCart.userId = newState.user._id;
+            newState.cartsOfUser.push(newState.openCart);
+            console.log("newState.cartsOfUser.push");
+            console.log("cartsOfUser");
+            console.log(newState.cartsOfUser);
+
+            newState.lastInvite = undefined;
             newState.cartItems = [];
             newState.IsCartEmpty = true;
-            newState.noCarts = false;
+            // newState.noCarts = false;
+            newState.orderCompleted = false;
 
             break;
 
@@ -115,11 +130,16 @@ export function reducer(currentState: AppState, action: Action): AppState {
 
             break;
 
+        case ActionType.setOpenCart:
+            newState.openCart=action.payload;
+            break;
+
         case ActionType.addNewInvite:
             console.log("ActionType.addNewInvite");
 
             newState.invitesOfUser.push(action.payload);
             newState.openCart = undefined;
+            newState.orderCompleted = true;
             break;
 
         case ActionType.saveNewUser:

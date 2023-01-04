@@ -9,33 +9,37 @@ import { CookieService } from 'ngx-cookie-service';
 
 export class AppState {
     
-    //data from DB
-    public user: UserModel;
-    public products: ProductModel[];
-    public cartsOfUser: CartModel[];
-    public invitesOfUser: InviteModel[];
-    public cartItems: CartItemModel[];
-    public categories: CategoryModel[];
-    public cities: CityModel[];
-    public numOfInvites: number;
-    public numOfProducts: number;
-    
-    //calculated based of the data from DB
-    public isLoggedIn: boolean;
-    public isAdmin: number;
-    public openCart: CartModel;
-    public lastInvite: InviteModel;
-    public noCarts: boolean;
-    public cartNumberOfItems: number;
-    public cartTotalPrice: number;
-    public IsCartEmpty: boolean;
-    public selectedProduct: ProductModel;
+    //data from DB for site
+    public products: ProductModel[]; //all the products
+    public categories: CategoryModel[]; //all the categories
+    public cities: CityModel[]; //cities for form register user
+    public numOfInvites: number; //amount of invites from all users
+    public numOfProducts: number; //amount of all the products in the store
+
+
+    //data of the user
+    public user: UserModel; //user details load from cookie
+    public cartItems: CartItemModel[]; //user's open cart items
+    public cartsOfUser: CartModel[]; //all the carts of the user
+    public invitesOfUser: InviteModel[]; //all the invites of the user
+    public lastInvite: InviteModel; //last invite of the user
+    public openCart: CartModel; //the open cart of the user
+    public cartTotalPrice: number; //total price of the user's open cart
+    public cartNumberOfItems: number; //amount of products types in the user's open cart
+    public selectedProduct: ProductModel; //the product that the user selected for adding to cart
+
+    //flags
+    public isAdmin: number; //if user is admin
+    // public noCarts: boolean; //if no carts for user
+    public IsCartEmpty: boolean; //if the user's cart is empty
+    public orderCompleted: boolean; //if order completed right now
+    public isLoggedIn: boolean; //if user is logged in right now
 
     //data from user
-    public newUser: UserModel;
+    public newUser: UserModel; // user object for register form
 
     //functions
-    public MenuOpen: boolean;
+    public MenuOpen: boolean; //status of open the menu
     
     
     public constructor() {
@@ -44,7 +48,7 @@ export class AppState {
         this.newUser.isAdmin=0;
         this.cartNumberOfItems=0;
         this.cartTotalPrice=0;
-        
+        this.orderCompleted=false;
         this.MenuOpen=true;
 
 

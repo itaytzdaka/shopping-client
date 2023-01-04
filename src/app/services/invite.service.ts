@@ -33,4 +33,8 @@ export class InviteService {
       });
   }
 
+  public getNumOfInvites(): Promise<number>{
+    return this.http.get<number>("http://localhost:3000/api/invites/count").toPromise();
+  }
+
 }

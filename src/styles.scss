@@ -72,6 +72,16 @@ button:disabled {
     cursor: pointer;
 }
 
+.link {
+    cursor: pointer;
+    text-decoration: none;
+    color: rgb(118, 118, 118);
+}
+
+.link:hover {
+    color: rgb(38, 38, 38);
+}
+
 app-home, app-shopping, app-admin, app-order {
     display: flex;
     flex-direction: column;
@@ -88,6 +98,7 @@ app-admin-products > div, app-order-cart > div, app-order-main > div, app-admin-
 }
 
 app-admin-menu > div{
+    grid-template-rows: 10% 0 1fr;
     direction: ltr;
 }
 

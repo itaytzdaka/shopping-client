@@ -66,11 +66,19 @@ export class CartComponent implements OnInit {
       await this.myMainService.saveCartsAndInvitesOfUserAsync();
     }
 
+    console.log("this.openCart");
+    console.log(this.openCart);
+
     //if the user don't have an open cart, create a new empty cart.
     if (!this.openCart) {
-      console.log("create a new cart");
-      store.dispatch({ type: ActionType.addNewCart });
-      this.myCartService.createNewCartAsync(this.openCart);
+
+      let newCart=new CartModel();
+      newCart= this.myMainService.createNewCartForUser();
+      newCart= await this.myCartService.createNewCartAsync(newCart);
+      
+      
+      store.dispatch({ type: ActionType.addNewCart, payload: newCart });
+      store.dispatch({ type: ActionType.loadUserCart});
     }
 
   }

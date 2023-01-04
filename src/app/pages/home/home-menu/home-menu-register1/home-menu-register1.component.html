@@ -1,18 +1,35 @@
 <form #formInfo="ngForm">
 
     <input type="text" name="identity" placeholder="תעודת זהות" [(ngModel)]="newUser.identityNumber" required
-        pattern="^\d{9}$" #identityInfo="ngModel"><br/>
-    <input type="email" name="email" placeholder="דואר אלקטרוני" [(ngModel)]="newUser.email" required
+        pattern="^\d{9}$" #identityInfo="ngModel"><br />
+    <input type="email" name="email" placeholder="דואר אלקטרוני" [(ngModel)]="newUser.email" (ngModelChange)="isEmailExist()" required
         pattern="^[\w\.]+@[\w\.]+\.[\w\.]{2,4}$" #emailInfo="ngModel"><br />
-    <input type="password" name="password" placeholder="סיסמה" [(ngModel)]="newUser.password" required
-        pattern="^.{6,}$" #passwordInfo="ngModel"><br />
-    <input type="password" name="confirm" placeholder="אימות סיסמה" [(ngModel)]="confirmPassword" required><br />
+    <input type="password" name="password" placeholder="סיסמה" [(ngModel)]="newUser.password" required pattern="^.{6,}$"
+        #passwordInfo="ngModel"><br />
+    <input type="password" name="confirm" placeholder="אימות סיסמה" [(ngModel)]="confirmPassword" (ngModelChange)="PasswordsDoNotMatch()"
+        #confirmInfo="ngModel"><br />
 
-    <span *ngIf="identityInfo.errors?.pattern && identityInfo.touched">מס זהות לא תקין</span>
-    <span *ngIf="emailInfo.errors?.pattern && emailInfo.touched">אימייל אינו תקין</span>
-    <span *ngIf="passwordInfo.errors?.pattern && passwordInfo.touched">סיסמה צריכה להיות לפחות 6 תווים</span>
-    <span *ngIf="!formInfo.form.invalid && !passwordsMatch">אימות סיסמה לא תקין</span>
-    <br/>
+    <!-- <p>enabled {{identityInfo.enabled}}</p> -->
 
-    <button [disabled]="formInfo.form.invalid || PasswordsDoNotMatch() || isEmailExist() " (click)="navigateToStep2()">המשך</button>
+    <span *ngIf="identityInfo.errors?.pattern && identityInfo.touched && identityInfo.dirty; else emailExistSpan">מס זהות
+        אינו תקין</span>
+    <ng-template #emailExistSpan>
+        <span *ngIf="emailExist else emailSpan">אימייל זה כבר קיים.</span>
+    </ng-template>
+    <ng-template #emailSpan>
+        <span *ngIf="emailInfo.errors?.pattern && emailInfo.touched && emailInfo.dirty; else passwordSpan">אימייל אינו
+            תקין</span>
+    </ng-template>
+    <ng-template #passwordSpan>
+        <span *ngIf="passwordInfo.errors?.pattern && passwordInfo.touched && passwordInfo.dirty; else confirmSpan">סיסמה
+            צריכה להיות לפחות 6 תווים</span>
+    </ng-template>
+    <ng-template #confirmSpan>
+        <span *ngIf="!formInfo.form.invalid && !passwordsMatch && confirmInfo.touched && confirmInfo.dirty">אימות סיסמה
+            לא תקין</span>
+    </ng-template>
+    <br />
+
+    <button [disabled]="formInfo.form.invalid || !passwordsMatch || emailExist "
+        (click)="navigateToStep2()">המשך</button>
 </form>

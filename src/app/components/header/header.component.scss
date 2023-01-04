@@ -8,9 +8,12 @@ header {
 
 h2 {
     grid-column-start: 2;
+    font-size: 2.5vw;
 }
 
 .search {
+    height: 100%;
+    align-items: center;
     display: flex;
     justify-content: center;
 
@@ -24,7 +27,8 @@ h2 {
 input {
     width: 200px;
     padding: 5px 10px;
-    height: 40px;
+    height: 80%;
+    max-height: 40px;
     border-radius: 15px;
     border: rgba(185, 185, 185, 0.664) 1px solid;
     // margin: 0 5%;
@@ -33,4 +37,22 @@ input {
 i {
     color: rgb(156, 156, 156);
     cursor: default;
+}
+
+@media only screen and (max-width: 1200px) {
+    header {
+        grid-template-columns: 10% 1fr 40%;
+    }
+    h2 {
+        grid-column-start: 2;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    header {
+        grid-template-columns: 1fr 45%;
+    }
+    h2 {
+        grid-column-start: 1;
+    }
 }

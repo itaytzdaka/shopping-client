@@ -11,23 +11,29 @@
             <ng-template [ngIf]="openCart">
                 <div>
                     <p>יש לך עגלה פתוחה מתאריך ה-{{openCart.date | date:"shortDate"}}</p>
-                    <p>ובתוכה {{cartNumberOfItems}} סוגי מוצרים</p>
+                    <p>ובתוכה {{cartNumberOfProducts}} סוגי מוצרים</p>
                     <p>עלות של {{cartTotalPrice}}₪.</p>
                 </div>
                 <a routerLink="/shopping/all" class="button">המשך קניה<i class="material-icons">shopping_cart</i></a>
             </ng-template>
 
-            <ng-template [ngIf]="lastInvite">
+            <ng-template [ngIf]="lastInvite && !orderCompleted && !openCart">
                 <div>
                     <p>הרכישה האחרונה שלך הייתה בתאריך</p>
                     <p>{{lastInvite.orderDate | date:"shortDate"}}</p>
-                    <p>על סך {{lastInvite.cartPrice}} שקלים</p>
+                    <p>על סך {{lastInvite.cartPrice}} שקלים.</p>
+                    <p>באפשרותך להתחיל קניה חדשה.</p>
                 </div>
                 <a class="button" routerLink="/shopping/all"><i class="material-icons">shopping_cart</i>התחל קניה</a>
             </ng-template>
 
-            <ng-template [ngIf]="noCarts">
+            <ng-template [ngIf]="cartsOfUser?.length=== 0">
                 <p>זו הקניה הראשונה שלך</p>
+                <a class="button" routerLink="/shopping/all"><i class="material-icons">shopping_cart</i>התחל קניה</a>
+            </ng-template>
+            <ng-template [ngIf]="orderCompleted">
+                <p>אנו מודים לך על רכישתך</p>
+                <p>באפשרותך להתחיל קניה חדשה</p>
                 <a class="button" routerLink="/shopping/all"><i class="material-icons">shopping_cart</i>התחל קניה</a>
             </ng-template>
         </div>
