@@ -7,9 +7,9 @@ import { store } from 'src/app/redux/store';
 import { CategoryModel } from 'src/app/models/category.model';
 
 @Component({
-  selector: 'app-admin-products',
-  templateUrl: './admin-products.component.html',
-  styleUrls: ['./admin-products.component.scss']
+  selector: 'app-admin-main',
+  templateUrl: './admin-main.component.html',
+  styleUrls: ['./admin-main.component.scss']
 })
 export class AdminProductsComponent implements OnInit {
 
@@ -22,17 +22,16 @@ export class AdminProductsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getFromStore();
-
     // Listen to changes: 
     this.unsubscribe = store.subscribe(() => {
-      this.getFromStore();
+      this.getDataFromStore();
     });
 
+    this.getDataFromStore();
   }
 
   //get data from the store
-  public getFromStore(): void{
+  public getDataFromStore(): void {
     this.products = store.getState().products;
   }
 

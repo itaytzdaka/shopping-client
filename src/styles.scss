@@ -89,8 +89,8 @@ app-home, app-shopping, app-admin, app-order {
 }
 
 app-home-menu > div, app-home-main > div,
-app-shopping-cart > div ,app-shopping-products > div,
-app-admin-products > div, app-order-cart > div, app-order-main > div, app-admin-menu > div{
+app-shopping-cart > div ,app-shopping-main > div,
+app-admin-main > div, app-order-cart > div, app-order-main > div, app-admin-menu > div{
     height: 100%;
     display: grid;
     direction: rtl;

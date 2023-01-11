@@ -1,5 +1,3 @@
-import { store } from 'src/app/redux/store';
-import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,20 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShoppingComponent implements OnInit {
 
-  public menuOpen: boolean;
+  public menuOpen: boolean =true;
 
   constructor(
-    private myUserService: UserService,
-    private router: Router
+    private myUserService: UserService
   ) { }
 
   ngOnInit(): void {
 
-    //get menu status
-    this.menuOpen = store.getState().MenuOpen;
-
-
-    // this.navigate();
+    //redirect user to the right place
     this.myUserService.redirectUser("/shopping/all","/admin");
   }
 

@@ -1,3 +1,4 @@
+import { StoreService } from './store.service';
 import { CookieService } from 'ngx-cookie-service';
 import { store } from './../redux/store';
 import { Router } from '@angular/router';
@@ -15,6 +16,7 @@ export class UserService {
   constructor(
     private http: HttpClient,
     private router: Router,
+    private myStoreService: StoreService,
     private cookieService: CookieService) { }
 
 
@@ -32,31 +34,24 @@ export class UserService {
   }
 
 
-  public redirectUser(redirectUser: string, redirectAdmin: string) : string{
-
-    const isLoggedIn=store.getState().isLoggedIn;
-    const isAdmin=store.getState().isAdmin;
-
+  public redirectUser(redirectUser: string, redirectAdmin: string): string {
 
     //not logged in
-    if (!isLoggedIn) {
+    if (!store.getState().isLoggedIn) {
       this.router.navigateByUrl("/home/login");
       return "not logged in";
     }
 
-    //is logged in
-    else {
-      if (!isAdmin) {
-        this.router.navigateByUrl(redirectUser);
-        return "is logged in";
-      }
-
-      //if is admin
-      else {
-        this.router.navigateByUrl(redirectAdmin);
-        return "is admin";
-      }
+    //if is admin
+    if (store.getState().user.isAdmin) {
+      this.router.navigateByUrl(redirectAdmin);
+      return "is admin";
     }
+
+    //regular user logged in
+    this.router.navigateByUrl(redirectUser);
+    return "is logged in";
+
 
   }
 
@@ -84,26 +79,11 @@ export class UserService {
     return new Promise<any>(async (resolve, reject) => {
       try {
         const response = await this.http.post("http://localhost:3000/api/users/logout", {}).toPromise();
-        // sessionStorage.clear();
-        // console.log("before delete cookie");
-        // console.log("this.cookieService.getAll()");
-        // console.log(this.cookieService.getAll());
-        // console.log("this.cookieService.get('user')");
-        // console.log(this.cookieService.get('user'));
-        // console.log("document.cookie");
-        // console.log(document.cookie);
-        // console.log("this.cookieService.deleteAll()");
+
         this.cookieService.deleteAll('/');
-        // console.log(`document.cookie = "user1= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";`);
-        // document.cookie = "user1= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
-        // console.log("after delete cookie");
-        // console.log("this.cookieService.get('user')");
-        // console.log(this.cookieService.get('user'));
-        // console.log("document.cookie");
-        // console.log(document.cookie);
-        store.dispatch({ type: ActionType.disconnect });
-        console.log("/home/login");
+        this.myStoreService.disconnectUser();
         this.router.navigateByUrl("/home/login");
+
         resolve(response);
       }
       catch (err) {

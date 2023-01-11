@@ -1,8 +1,8 @@
-import { ActionType } from 'src/app/redux/action-type';
+import { StoreService } from './../../services/store.service';
 import { CartItemService } from './../../services/cart-item.service';
 import { store } from './../../redux/store';
 import { Component, Inject, OnInit } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ProductModel } from 'src/app/models/product.model';
 import { CartItemModel } from 'src/app/models/cart-item.model';
 
@@ -25,20 +25,22 @@ export class AddItemDialogComponent implements OnInit {
   
   constructor(
     private myCartItemService: CartItemService,
+    private myStoreService: StoreService,
     public dialogRef: MatDialogRef<AddItemDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: DialogData
+    ) {}
 
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
+    onNoClick(): void {
+      this.dialogRef.close();
+    }
 
   ngOnInit(){
     this.cartItems=store.getState().cartItems;
     this.selectedProduct=store.getState().selectedProduct;
     this.cartItemToAdd=new CartItemModel();
 
-    this.cartItemToAdd.productId=this.selectedProduct._id;
-    this.cartItemToAdd.cartId=store.getState().openCart._id;
+    this.cartItemToAdd.productId=this.selectedProduct?._id;
+    this.cartItemToAdd.cartId=this.myStoreService.getUserOpenCart()?._id;
     this.cartItemToAdd.product=this.selectedProduct;
 
   }
@@ -64,7 +66,8 @@ export class AddItemDialogComponent implements OnInit {
       else{
         const addedCartItem=await this.myCartItemService.addCartItemAsync(this.cartItemToAdd);
         addedCartItem.totalPrice=this.selectedProduct.price*addedCartItem.amount;
-        store.dispatch({ type: ActionType.addNewCartItem, payload: addedCartItem });
+        this.cartItems.push(addedCartItem);
+        this.myStoreService.saveUserOpenCartItems(this.cartItems);
 
       }
       this.dialogRef.close();

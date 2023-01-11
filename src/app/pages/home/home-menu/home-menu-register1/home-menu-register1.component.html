@@ -9,7 +9,6 @@
     <input type="password" name="confirm" placeholder="אימות סיסמה" [(ngModel)]="confirmPassword" (ngModelChange)="PasswordsDoNotMatch()"
         #confirmInfo="ngModel"><br />
 
-    <!-- <p>enabled {{identityInfo.enabled}}</p> -->
 
     <span *ngIf="identityInfo.errors?.pattern && identityInfo.touched && identityInfo.dirty; else emailExistSpan">מס זהות
         אינו תקין</span>

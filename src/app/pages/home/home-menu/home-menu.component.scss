@@ -1,20 +1,10 @@
 .menu{
-    // display: flex;
-    // flex-direction: column;
-    // height: 100%;
     direction: rtl;
 }
 
-// .menu{
-//     display: grid;
-//     direction: ltr;
-//     grid-template-rows: 12% 1fr;
-// }
 
 section {
-    // height: 80%;
     flex-grow: 1;
-    // padding: 30px;
 }
 
 .main-container {
@@ -25,12 +15,6 @@ section {
     border-radius: 10px;
 }
 
-// .logoff {
-//     color: red;
-//     position: absolute;
-//     left: 20px;
-//     top: 2px;
-// }
 
 .choose-login-or-register{
     display: flex;

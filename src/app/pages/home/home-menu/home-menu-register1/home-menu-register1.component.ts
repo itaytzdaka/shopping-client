@@ -1,3 +1,4 @@
+import { StoreService } from './../../../../services/store.service';
 import { ActionType } from 'src/app/redux/action-type';
 import { store } from '../../../../redux/store';
 import { Unsubscribe } from 'redux';
@@ -17,47 +18,44 @@ export class Register1Component implements OnInit {
   public newUser: UserModel;
   public allEmails: string[];
   public passwordsMatch: boolean;
-  public emailExist: boolean;
+  public emailExist: boolean = false;
   public confirmPassword: string;
 
   constructor(
     private myUserService: UserService,
+    private myStoreService: StoreService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
 
-    this.getFromStore();
+    //needed if user return to step 1 from step 2
+    this.newUser = store.getState().newUser;
+
     this.getAllEmailsAsync();
   }
 
 
-
-  public getFromStore(): void {
-    this.newUser = store.getState().newUser;
-  }
-
   public navigateToStep2(): void {
-    store.dispatch({ type: ActionType.saveNewUser, payload: this.newUser });
+    this.myStoreService.saveNewUser(this.newUser);
     this.router.navigateByUrl("/home/register/2");
   }
 
-  public async getAllEmailsAsync() {
+  public async getAllEmailsAsync(): Promise<void> {
     try {
-      const allEmails = await this.myUserService.getAllEmailsAsync();
-      this.allEmails = allEmails;
+      this.allEmails  = await this.myUserService.getAllEmailsAsync();
     }
     catch (err) {
       console.log(err);
     }
   }
 
-  public PasswordsDoNotMatch() {
+  public PasswordsDoNotMatch(): void {
     this.passwordsMatch = this.confirmPassword === this.newUser?.password? true : false;
   }
 
-  public isEmailExist() {
+  public isEmailExist() : void{
     const index= this.allEmails?.findIndex((obj)=>obj["email"]==this.newUser.email);
-    this.emailExist= index<0 || !index? false : true;
+    this.emailExist= index==-1? false : true;
   }
 }

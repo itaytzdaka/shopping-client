@@ -19,5 +19,5 @@
     <ng-template #lastName>
         <span *ngIf="lastNameInfo.errors?.pattern && lastNameInfo.touched">שם מפשחה אינו תקין</span>
     </ng-template>
-    <button [disabled]="formInfo.form.invalid" (click)="addNewUserAsync()">הירשם</button>
+    <button [disabled]="formInfo.form.invalid" (click)="registerNewUserAsync()">הירשם</button>
 </form>

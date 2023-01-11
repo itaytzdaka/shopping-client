@@ -1,0 +1,7 @@
+<div class="admin-products">
+  <app-header  (setSearch)="search=$event"></app-header>
+  <section>
+    <app-products clickable=true editProducts=true [search]="search"></app-products>
+  </section>
+  
+</div>

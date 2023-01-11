@@ -20,20 +20,21 @@ export class WelcomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // Listen to changes: 
-    this.user = store.getState().user;
-    this.isLoggedIn = store.getState().isLoggedIn;
 
+    // Listen to changes:
     this.unsubscribe = store.subscribe(() => {
-      this.user = store.getState().user;
-      this.isLoggedIn = store.getState().isLoggedIn;
+      this.getDataFromStore();
     });
 
+    this.getDataFromStore();
   }
 
-  public async disconnect(){
-    console.log("disconnect");
+  public getDataFromStore(){
+    this.user = store.getState().user;
+    this.isLoggedIn = store.getState().isLoggedIn;
+  }
 
+  public async disconnect(): Promise<void>{
     try{
       await this.myUserService.disconnectAsync();
     }

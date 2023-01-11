@@ -1,3 +1,4 @@
+import { StoreService } from './../../../../services/store.service';
 import { MainService } from '../../../../services/main.service';
 import { ActionType } from '../../../../redux/action-type';
 import { CityService } from '../../../../services/city.service';
@@ -26,42 +27,37 @@ export class Register2Component implements OnInit {
     private myUserService: UserService,
     private myCityService: CityService,
     private myMainService: MainService,
+    private myStoreService: StoreService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
 
-
-
-
     // Listen to changes: 
     this.unsubscribe = store.subscribe(() => {
-      this.getFromStore();
+      this.getDataFromStore();
     });
 
-    this.getFromStore();
+    this.getDataFromStore();
 
     //if the user didn't fill step 1, navigate to login.
     if (!this.newUser?.identityNumber) {
-      console.log("/home/login");
       this.router.navigateByUrl("/home/login");
       return;
     }
-    
-    //if the user filled step 1 get the cities
 
-    if (!store.getState().cities) {
-      this.getCitiesAsync();
-    }
-
+    //if the store is empty get cities
+    this.getCitiesAsync();
 
   }
 
   //get the cities list
-  public async getCitiesAsync() {
+  public async getCitiesAsync(): Promise<void> {
     try {
-      const cities = await this.myCityService.getAllCitiesAsync();
-      store.dispatch({ type: ActionType.saveCities, payload: cities });
+      if (!this.cities) {
+        const cities = await this.myCityService.getAllCitiesAsync();
+        this.myStoreService.saveCities(cities);
+      }
     }
     catch (err) {
       console.log(err);
@@ -69,13 +65,13 @@ export class Register2Component implements OnInit {
   }
 
   //get data from store
-  public getFromStore(): void {
+  public getDataFromStore(): void {
     this.newUser = store.getState().newUser;
     this.cities = store.getState().cities;
   }
 
   //register and login
-  public async addNewUserAsync() {
+  public async registerNewUserAsync(): Promise<void> {
     try {
       const addedUser = await this.myUserService.registerAsync(this.newUser);
       this.myMainService.loginAndNavigateAsync(addedUser);
@@ -86,6 +82,7 @@ export class Register2Component implements OnInit {
   }
 
   ngOnDestroy(): void {
+
     store.dispatch({ type: ActionType.saveNewUser, payload: this.newUser });
     this.unsubscribe(); // stop listening to the store
   }

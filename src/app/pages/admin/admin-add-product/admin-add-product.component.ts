@@ -1,3 +1,4 @@
+import { StoreService } from './../../../services/store.service';
 import { ImageService } from '../../../services/image.service';
 import { store } from '../../../redux/store';
 import { Router } from '@angular/router';
@@ -24,17 +25,19 @@ export class AdminAddComponent implements OnInit {
   constructor(
     private myProductService: ProductService,
     private myImageUploadService: ImageService,
+    private myStoreService: StoreService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
 
-    this.categories = store.getState().categories;
-
     // Listen to changes: 
     this.unsubscribe = store.subscribe(() => {
       this.categories = store.getState().categories;
     });
+
+    this.categories = store.getState().categories;
+
   }
 
   //when admin choose a file
@@ -48,7 +51,8 @@ export class AdminAddComponent implements OnInit {
       const addedImage = await this.myImageUploadService.uploadImageAsync(this.selectedFile);
       this.productToAdd.image=addedImage.name;
       const addedProduct=await this.myProductService.addProductAsync(this.productToAdd);
-      store.dispatch({ type: ActionType.addNewProduct, payload: addedProduct });
+      this.myStoreService.addNewProduct(addedProduct);
+      // store.dispatch({ type: ActionType.addNewProduct, payload: addedProduct });
       this.router.navigateByUrl("/admin/edit/chooseProduct");
     }
 

@@ -8,8 +8,8 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  // events: string[] = [];
-  public menuOpen: boolean;
+
+  public menuOpen: boolean = true;
 
   constructor(
     private myUserService: UserService,
@@ -17,9 +17,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("ngOnInit home");
-
-    //get the menu status
-    this.menuOpen = store.getState().MenuOpen;
 
     //redirect user
     this.myUserService.redirectUser("/home","/admin");

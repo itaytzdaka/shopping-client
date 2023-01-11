@@ -20,85 +20,84 @@ export class StoreService {
 
   //save data functions:
 
-  public loginUser(user: UserModel): void{
+  public loginUser(user: UserModel): void {
     store.dispatch({ type: ActionType.saveUser, payload: user });
     store.dispatch({ type: ActionType.setLoggedInStatus, payload: true });
   }
 
-  public saveProducts(products: ProductModel): void{
-    store.dispatch({ type: ActionType.saveProducts, payload: products});
+  public saveProducts(products: ProductModel[]): void {
+    store.dispatch({ type: ActionType.saveProducts, payload: products });
   }
 
-  public saveNumOfInvites(numOfInvites: number): void{
-    store.dispatch({ type: ActionType.saveNumOfInvites, payload: numOfInvites});
+  public saveNumOfInvites(numOfInvites: number): void {
+    store.dispatch({ type: ActionType.saveNumOfInvites, payload: numOfInvites });
   }
 
-  public saveNumOfProducts(numOfProducts: number): void{
-    store.dispatch({ type: ActionType.saveNumOfProducts, payload: numOfProducts});
+  public saveNumOfProducts(numOfProducts: number): void {
+    store.dispatch({ type: ActionType.saveNumOfProducts, payload: numOfProducts });
   }
 
-  public saveCartsOfUser(cartsOfUser: CartModel[]): void{
-    store.dispatch({ type: ActionType.saveCartsOfUser, payload: cartsOfUser});
+  public saveCartsOfUser(cartsOfUser: CartModel[]): void {
+    store.dispatch({ type: ActionType.saveCartsOfUser, payload: cartsOfUser });
   }
 
   public addNewCartForUser(cartToAdd: CartModel): void {
-
-
     const allCartsOfUser = store.getState().cartsOfUser;
-
     allCartsOfUser.push(cartToAdd);
     store.dispatch({ type: ActionType.saveCartsOfUser, payload: allCartsOfUser });
-    store.dispatch({ type: ActionType.setOpenCart, payload: cartToAdd });
+    store.dispatch({ type: ActionType.saveOpenCartItems, payload: [] });
   }
 
-  public saveInvitesOfUser(invitesOfUser: InviteModel[]): void{
+  public saveInvitesOfUser(invitesOfUser: InviteModel[]): void {
     store.dispatch({ type: ActionType.saveInvitesOfUser, payload: invitesOfUser });
   }
 
-  public saveCategories(categories: CategoryModel[]): void{
+  public saveCategories(categories: CategoryModel[]): void {
     store.dispatch({ type: ActionType.saveCategories, payload: categories });
   }
 
-  public saveCities(cities: CityModel[]): void{
+  public saveCities(cities: CityModel[]): void {
     store.dispatch({ type: ActionType.saveCities, payload: cities });
   }
 
-  public saveUserOpenCartItems(cartItems: CartItemModel[]): void{
-    store.dispatch({ type: ActionType.saveCartItems, payload: cartItems });
+  public saveUserOpenCartItems(openCartItemsOfUser: CartItemModel[]): void {
+    store.dispatch({ type: ActionType.saveOpenCartItems, payload: openCartItemsOfUser });
   }
 
-  public addNewProduct(product: ProductModel): void{
-    store.dispatch({ type: ActionType.addNewProduct, payload: product });
+  public addNewProduct(productToAdd: ProductModel): void {
+    const allProducts = store.getState().products;
+    allProducts.push(productToAdd);
+    store.dispatch({ type: ActionType.saveProducts, payload: allProducts });
   }
 
-  public addNewInvite(newInvite: InviteModel): void{
-    const allInvitesOfUser=store.getState().invitesOfUser;
+  public addNewInvite(newInvite: InviteModel): void {
+    const allInvitesOfUser = store.getState().invitesOfUser;
     allInvitesOfUser.push(newInvite);
     store.dispatch({ type: ActionType.saveInvitesOfUser, payload: allInvitesOfUser });
-    store.dispatch({ type: ActionType.setOpenCart, payload: null });
+    store.dispatch({ type: ActionType.saveNumOfInvites, payload: store.getState().numOfInvites + 1 });
+    // store.dispatch({ type: ActionType.setOpenCart, payload: null });
+    store.dispatch({ type: ActionType.setOrderCompleteStatus, payload: true });
   }
 
-  public saveNewUser(newUser: UserModel): void{
+  public saveNewUser(newUser: UserModel): void {
     store.dispatch({ type: ActionType.saveNewUser, payload: newUser });
   }
 
-  public changeMenuStatus(status: boolean): void{
-    store.dispatch({ type: ActionType.changeMenuStatus, payload: status});
+  public saveSelectedProduct(selectedProduct: ProductModel): void {
+    store.dispatch({ type: ActionType.saveSelectedProduct, payload: selectedProduct });
   }
 
-  public saveSelectedProduct(selectedProduct: ProductModel): void{
-    store.dispatch({ type: ActionType.saveSelectedProduct, payload: selectedProduct});
-  }
-
-  public addNewCartItemForUser(newCartItemToAdd: CartItemModel){
+  public addNewCartItemForUser(newCartItemToAdd: CartItemModel) {
     const openCartItemsOfUser = store.getState().cartItems;
     openCartItemsOfUser.push(newCartItemToAdd);
-    store.dispatch({ type: ActionType.saveCartItems, payload: openCartItemsOfUser});
+    store.dispatch({ type: ActionType.saveOpenCartItems, payload: openCartItemsOfUser });
 
   }
 
-  public disconnectUser(): void{
-    store.dispatch({ type: ActionType.saveUser, payload: null});
+  public disconnectUser(): void {
+    store.dispatch({ type: ActionType.saveUser, payload: null });
+    store.dispatch({ type: ActionType.saveCartsOfUser, payload: null });
+    store.dispatch({ type: ActionType.saveInvitesOfUser, payload: null });
     store.dispatch({ type: ActionType.setLoggedInStatus, payload: false });
   }
 
@@ -106,7 +105,7 @@ export class StoreService {
   //get data functions:
 
   public getLastInvite(): InviteModel {
-    return store.getState().invitesOfUser? 
+    return store.getState().invitesOfUser ?
       store.getState().invitesOfUser[store.getState().invitesOfUser.length - 1] : null;
   }
 
@@ -118,7 +117,7 @@ export class StoreService {
     return store.getState().cartsOfUser?.length === 0 ? true : false;
   }
 
-  public getNumOfProductsFromUserOpenCart(): number {
+  public getNumOfProductsFromUserOpenCartItems(): number {
     return store.getState().cartItems?.length;
   }
 
@@ -138,24 +137,28 @@ export class StoreService {
     return openCartTotalPrice;
   }
 
-  public getUserLastInvite(): InviteModel{
-    return store.getState().invitesOfUser[store.getState().invitesOfUser.length - 1]
+  public getUserLastInvite(): InviteModel {
+    return store.getState().invitesOfUser ?
+      store.getState().invitesOfUser[store.getState().invitesOfUser.length - 1] : null;
   }
 
-  public getUserOpenCart(): CartModel{
-    return store.getState().cartsOfUser?.length > store.getState().invitesOfUser?.length?
+  public getUserOpenCart(): CartModel {
+    return store.getState().cartsOfUser?.length > store.getState().invitesOfUser?.length ?
       store.getState().cartsOfUser[store.getState().cartsOfUser.length - 1] : null;
   }
 
   // delete data functions
 
-  public deleteCartItemFromUserOpenCart(cartItem_id: string): void{
-    store.dispatch({ type: ActionType.deleteCartItem, payload: cartItem_id });
+  public deleteCartItemFromUserOpenCart(cartItem_id: string): void {
+
+    //create new array, without the item that the user deleted.
+    const openCartItemsOfUser = store.getState().cartItems.filter(cartItem => cartItem._id != cartItem_id);
+
+    store.dispatch({ type: ActionType.saveOpenCartItems, payload: openCartItemsOfUser });
   }
 
-  public deleteAllCartItemsFromUserOpenCart(): void{
-    store.dispatch({ type: ActionType.deleteAllCartItems});
+  public deleteAllCartItemsFromUserOpenCart(): void {
+    const cartItems = [];
+    this.saveUserOpenCartItems(cartItems);
   }
-
-
 }

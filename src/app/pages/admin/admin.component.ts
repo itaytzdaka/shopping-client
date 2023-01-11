@@ -14,35 +14,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
-  public menuOpen: boolean;
+  public menuOpen: boolean = true;
 
 
   constructor(
     private myUserService: UserService,
     private myProductsService: ProductService,
-    private myCategoryService: CategoryService,
-    private router: Router
+    private myCategoryService: CategoryService
   ) { }
 
   ngOnInit(): void {
 
-    //get the menu status
-    this.menuOpen = store.getState().MenuOpen;
-
-    let loggedInStatus=this.myUserService.redirectUser("/home","/admin/edit/chooseProduct");
-    if(loggedInStatus=="is admin"){
-      this.getData();
-    }
+    this.myUserService.redirectUser("/home","/admin/edit/chooseProduct");
   }
 
-
-  public getData() {
-    //check if the store is empty
-    if (!store.getState().products) {
-      this.saveProductsInTheStoreAsync();
-      this.saveCategoriesInTheStoreAsync();
-    }
-  }
 
 
   public async saveProductsInTheStoreAsync() {

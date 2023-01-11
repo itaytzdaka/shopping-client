@@ -2,7 +2,7 @@
     <app-welcome></app-welcome>
     <!-- <i (click)="disconnect()" class="material-icons logoff">power_settings_new</i> -->
     <div class="cart-container">
-        <div *ngIf="isCartEmpty" class="container">
+        <div *ngIf="cartItems?.length==0" class="container">
             <p>העגלה שלך ריקה</p>
             <p>יש ללחוץ על מוצר כדי להוסיף לעגלה</p>
             <i class="material-icons">add_shopping_cart</i>
@@ -11,7 +11,7 @@
             <a class="button" routerLink="/home">חזור</a>
         </div>
 
-        <div *ngIf="!isCartEmpty" class="container">
+        <div *ngIf="cartItems?.length!=0" class="container">
             <p>העגלה שלך:</p>
             <table>
                 <thead>

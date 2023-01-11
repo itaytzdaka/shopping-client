@@ -9,7 +9,7 @@ import { LoginComponent } from './pages/home/home-menu/home-menu-login/home-menu
 import { Register1Component } from './pages/home/home-menu/home-menu-register1/home-menu-register1.component';
 import { Register2Component } from './pages/home/home-menu/home-menu-register2/home-menu-register2.component';
 import { ShoppingComponent } from './pages/shopping/shopping.component';
-import { ShoppingProductsComponent } from './pages/shopping/shopping-products/shopping-products.component';
+import { ShoppingMainComponent } from './pages/shopping/shopping-main/shopping-main.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 
 
@@ -20,7 +20,7 @@ const routes: Routes = [
     { path: "register/2", component: Register2Component }] 
   },
   { path: "shopping", component: ShoppingComponent ,children: [
-    { path: ":_id", component: ShoppingProductsComponent }]
+    { path: ":_id", component: ShoppingMainComponent }]
   },
   { path: "admin", component: AdminComponent , children: [
     { path: "edit/:_id", component: AdminEditComponent },

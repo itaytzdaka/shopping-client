@@ -1,0 +1,7 @@
+<div class="products">
+  <app-header (setSearch)="search=$event"></app-header>
+  <section>
+    <app-categories></app-categories>
+    <app-products clickable=true addProducts=true [search]="search"></app-products>
+  </section>
+</div>

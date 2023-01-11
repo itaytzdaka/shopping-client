@@ -2,10 +2,6 @@ section {
   flex-grow: 1;
 }
 
-// .card {
-//   display: inline-block;
-//   max-width: 400px;
-// }
 .image-container{
   display: flex;
   justify-content: center;
@@ -50,7 +46,6 @@ a:hover {
 }
 
 .mat-card-image {
-  /* width: calc(100% + 32px); */
   margin: 0;
 }
 

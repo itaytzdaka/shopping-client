@@ -1,4 +1,3 @@
-<!-- <i (click)="disconnect()" class="material-icons logoff">power_settings_new</i> -->
 <div class="final-cart">
     <app-welcome></app-welcome>
     <div class="container">
@@ -13,7 +12,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of cartItems ">
+                <tr *ngFor="let item of userOpenCartItems ">
                     <td innerHTML="{{item.product.name| markSearch : search}}"></td>
                     <td>{{item.product.price}}</td>
                     <td>{{item.amount}}</td>
@@ -22,7 +21,7 @@
             </tbody>
         </table>
         <p>מחיר סופי: {{cartTotalPrice}}₪</p>
-        <a class="button" routerLink="/shopping/all">חזרה לחנות</a>
+        <a class="link" routerLink="/shopping/all">חזרה לחנות</a>
 
 
     </div>

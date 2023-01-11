@@ -16,7 +16,7 @@ export class CartService {
     return this.http.get<CartModel[]>("http://localhost:3000/api/carts/" + _id).toPromise();
   }
 
-  public createNewCartAsync(cart): Promise<CartModel> {
+  public addNewCartAsync(cart): Promise<CartModel> {
     return this.http.post<CartModel>("http://localhost:3000/api/carts", cart).toPromise();
   }
 

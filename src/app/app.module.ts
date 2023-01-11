@@ -26,11 +26,11 @@ import { MenuComponent } from './pages/home/home-menu/home-menu.component';
 import { MainComponent } from './pages/home/home-main/home-main.component';
 import { LoginComponent } from './pages/home/home-menu/home-menu-login/home-menu-login.component';
 import { Register1Component } from './pages/home/home-menu/home-menu-register1/home-menu-register1.component';
-import { ShoppingProductsComponent } from './pages/shopping/shopping-products/shopping-products.component';
+import { ShoppingMainComponent } from './pages/shopping/shopping-main/shopping-main.component';
 import { CartComponent } from './pages/shopping/shopping-cart/shopping-cart.component';
 import { ShoppingComponent } from './pages/shopping/shopping.component';
 import { AdminComponent } from './pages/admin/admin.component';
-import { AdminProductsComponent } from './pages/admin/admin-products/admin-products.component';
+import { AdminProductsComponent } from './pages/admin/admin-main/admin-main.component';
 import { AdminEditComponent } from './pages/admin/admin-edit-product/admin-edit-product.component';
 import { AdminAddComponent } from './pages/admin/admin-add-product/admin-add-product.component';
 import { OrderComponent } from './pages/order/order.component';
@@ -45,6 +45,7 @@ import { ProductsComponent } from './components/products/products.component';
 import { PreviewItemComponent } from './components/preview-item/preview-item.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { AdminMenuComponent } from './pages/admin/admin-menu/admin-menu.component';
+import { HomeMenuCartComponent } from './pages/home/home-menu/home-menu-cart/home-menu-cart.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,7 @@ import { AdminMenuComponent } from './pages/admin/admin-menu/admin-menu.componen
     LoginComponent,
     Register1Component,
     Register2Component,
-    ShoppingProductsComponent,
+    ShoppingMainComponent,
     CartComponent,
     ShoppingComponent,
     AdminComponent,
@@ -75,7 +76,8 @@ import { AdminMenuComponent } from './pages/admin/admin-menu/admin-menu.componen
     ProductsComponent,
     PreviewItemComponent,
     StatisticsComponent,
-    AdminMenuComponent
+    AdminMenuComponent,
+    HomeMenuCartComponent
   ],
   imports: [
     BrowserModule,

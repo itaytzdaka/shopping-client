@@ -21,7 +21,7 @@ export class AdminEditComponent implements OnInit {
   public products: ProductModel[];
   public categories: CategoryModel[];
   public isListening: boolean = false;
-  public selectedFile: File=null;
+  public selectedFile: File = null;
 
   constructor(
     private myProductService: ProductService,
@@ -31,8 +31,6 @@ export class AdminEditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getFromTheStore();
-    this.listenToRoute();
 
     // Listen to changes: 
     this.unsubscribe = store.subscribe(() => {
@@ -40,6 +38,8 @@ export class AdminEditComponent implements OnInit {
       this.listenToRoute();
     });
 
+    this.getFromTheStore();
+    this.listenToRoute();
   }
 
   // Take from the route the value of "id" parameter: 
@@ -76,7 +76,7 @@ export class AdminEditComponent implements OnInit {
         this.myImageService.deleteImageAsync(this.productToEdit.image);
         const addedImage = await this.myImageService.uploadImageAsync(this.selectedFile);
         this.productToEdit.image = addedImage.name;
-        this.selectedFile=null;
+        this.selectedFile = null;
       }
       await this.myProductService.updateProductAsync(this.myActivatedRoute.snapshot.paramMap.get("_id"), this.productToEdit)
       alert("המוצר נשמר");

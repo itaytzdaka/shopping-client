@@ -30,7 +30,7 @@ export class MainComponent implements OnInit {
   }
 
   //get data from the store
-  public getFromTheStore(): void{
+  public getFromTheStore(): void {
     this.numOfInvites = store.getState().numOfInvites;
     this.numOfProducts = this.myStoreService.getNumOfProducts();
   }
