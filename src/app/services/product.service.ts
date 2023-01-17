@@ -26,14 +26,6 @@ export class ProductService {
     return this.http.post<ProductModel>(`http://localhost:3000/api/products`, productToAdd).toPromise();
   }
 
-  // public getNumOfProductsWithReduxAsync(): void {
-  //   this.http
-  //     .get<number>("http://localhost:3000/api/products/count")
-  //     .subscribe(numOfProducts => {
-  //       store.dispatch({ type: ActionType.saveNumOfProducts, payload: numOfProducts });
-  //     });
-  // }
-
   public getNumOfProductsAsync(): Promise<number> {
     return this.http.get<number>(`http://localhost:3000/api/products/count`).toPromise();
   }

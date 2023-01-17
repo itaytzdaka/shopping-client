@@ -1,7 +1,9 @@
+import { StoreService } from './../../../services/store.service';
+import { CategoryService } from './../../../services/category.service';
 import { ImageService } from '../../../services/image.service';
 import { store } from '../../../redux/store';
 import { ProductService } from '../../../services/product.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductModel } from 'src/app/models/product.model';
 import { Unsubscribe } from 'redux';
@@ -13,7 +15,7 @@ import { CategoryModel } from 'src/app/models/category.model';
   templateUrl: './admin-edit-product.component.html',
   styleUrls: ['./admin-edit-product.component.scss']
 })
-export class AdminEditComponent implements OnInit {
+export class AdminEditComponent implements OnInit, OnDestroy {
 
   private unsubscribe: Unsubscribe;
   public productToEdit: ProductModel;
@@ -27,22 +29,53 @@ export class AdminEditComponent implements OnInit {
     private myProductService: ProductService,
     private myActivatedRoute: ActivatedRoute,
     private myImageService: ImageService,
+    private myCategoryService: CategoryService,
+    private myStoreService: StoreService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
 
+    if(!this.myStoreService.isAdmin())
+    return;
+
     // Listen to changes: 
     this.unsubscribe = store.subscribe(() => {
-      this.getFromTheStore();
+      this.getDataFromTheStore();
       this.listenToRoute();
     });
 
-    this.getFromTheStore();
+    this.getDataFromTheStore();
+    this.getDataFromTheServer();
     this.listenToRoute();
   }
 
-  // Take from the route the value of "id" parameter: 
+  //get data from the store
+  public getDataFromTheStore(): void {
+    this.products = store.getState().products;
+    this.categories = store.getState().categories;
+  }
+
+  //get data from the store
+  public getDataFromTheServer(): void {
+    this.saveCategoriesInTheStoreAsync();
+  }
+
+
+  public async saveCategoriesInTheStoreAsync(): Promise<void> {
+    try {
+      if(!this.categories){
+        const categories = await this.myCategoryService.getAllCategoriesAsync();
+        this.myStoreService.saveCategories(categories);
+      }
+    }
+
+    catch (err) {
+      console.log(err);
+    }
+  }
+
+  // Take from the route the value of "id" parameter and find the product to edit: 
   public listenToRoute(): void {
     if (!this.isListening && this.products) {
       this.myActivatedRoute.params.subscribe(routeParams => {
@@ -57,18 +90,13 @@ export class AdminEditComponent implements OnInit {
     }
   }
 
-  //get data from the store
-  public getFromTheStore(): void {
-    this.products = store.getState().products;
-    this.categories = store.getState().categories;
-  }
 
   public onFileSelected(event): void {
     this.selectedFile = <File>event.target.files[0];
   }
 
   //save product in the DB
-  public async saveAsync() {
+  public async saveProductAfterEditAsync(): Promise<void> {
     try {
       //if file selected
       if (this.selectedFile) {
@@ -89,6 +117,7 @@ export class AdminEditComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.unsubscribe(); //stop listening to the store
+    if(this.unsubscribe)
+      this.unsubscribe(); //stop listening to the store
   }
 }

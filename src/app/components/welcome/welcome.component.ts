@@ -1,5 +1,5 @@
 import { Unsubscribe } from 'redux';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { store } from './../../redux/store';
 import { UserModel } from 'src/app/models/user.model';
@@ -9,7 +9,7 @@ import { UserModel } from 'src/app/models/user.model';
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss']
 })
-export class WelcomeComponent implements OnInit {
+export class WelcomeComponent implements OnInit, OnDestroy {
   private unsubscribe: Unsubscribe;
   public isLoggedIn: boolean;
   public user: UserModel;
@@ -23,13 +23,13 @@ export class WelcomeComponent implements OnInit {
 
     // Listen to changes:
     this.unsubscribe = store.subscribe(() => {
-      this.getDataFromStore();
+      this.getDataFromTheStore();
     });
 
-    this.getDataFromStore();
+    this.getDataFromTheStore();
   }
 
-  public getDataFromStore(){
+  public getDataFromTheStore(): void{
     this.user = store.getState().user;
     this.isLoggedIn = store.getState().isLoggedIn;
   }
@@ -41,6 +41,11 @@ export class WelcomeComponent implements OnInit {
     catch(err){
       console.log(err);
     }
+  }
+
+  ngOnDestroy(): void {
+    if(this.unsubscribe)
+      this.unsubscribe(); //stop listening to the store
   }
 
 }

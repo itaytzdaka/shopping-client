@@ -4,21 +4,20 @@ import { store } from '../../../redux/store';
 import { Router } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
 import { CategoryService } from '../../../services/category.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductModel } from 'src/app/models/product.model';
 import { CategoryModel } from 'src/app/models/category.model';
 import { Unsubscribe } from 'redux';
-import { ActionType } from 'src/app/redux/action-type';
 
 @Component({
   selector: 'app-admin-add-product',
   templateUrl: './admin-add-product.component.html',
   styleUrls: ['./admin-add-product.component.scss']
 })
-export class AdminAddComponent implements OnInit {
+export class AdminAddComponent implements OnInit, OnDestroy {
 
   private unsubscribe: Unsubscribe;
-  public productToAdd= new ProductModel();
+  public productToAdd = new ProductModel();
   public categories: CategoryModel[];
   public selectedFile: File = null;
 
@@ -26,18 +25,44 @@ export class AdminAddComponent implements OnInit {
     private myProductService: ProductService,
     private myImageUploadService: ImageService,
     private myStoreService: StoreService,
+    private myCategoryService: CategoryService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
 
+    if(!this.myStoreService.isAdmin())
+      return;
+
     // Listen to changes: 
     this.unsubscribe = store.subscribe(() => {
-      this.categories = store.getState().categories;
+      this.getDataFromTheStore();
     });
 
-    this.categories = store.getState().categories;
+    this.getDataFromTheStore();
+    this.getDataFromTheServer();
 
+  }
+
+  public getDataFromTheStore(): void{
+    this.categories = store.getState().categories;
+  }
+
+  public getDataFromTheServer(): void{
+    this.saveCategoriesInTheStoreAsync();
+  }
+
+  public async saveCategoriesInTheStoreAsync(): Promise<void> {
+    try {
+      if(!this.categories){
+        const categories = await this.myCategoryService.getAllCategoriesAsync();
+        this.myStoreService.saveCategories(categories);
+      }
+    }
+
+    catch (err) {
+      console.log(err);
+    }
   }
 
   //when admin choose a file
@@ -46,23 +71,23 @@ export class AdminAddComponent implements OnInit {
   }
 
   //add product to DB
-  public async addAsync(){
-    try{
+  public async addNewProductAsync(): Promise<void> {
+    try {
       const addedImage = await this.myImageUploadService.uploadImageAsync(this.selectedFile);
-      this.productToAdd.image=addedImage.name;
-      const addedProduct=await this.myProductService.addProductAsync(this.productToAdd);
+      this.productToAdd.image = addedImage.name;
+      const addedProduct = await this.myProductService.addProductAsync(this.productToAdd);
       this.myStoreService.addNewProduct(addedProduct);
-      // store.dispatch({ type: ActionType.addNewProduct, payload: addedProduct });
       this.router.navigateByUrl("/admin/edit/chooseProduct");
     }
 
-    catch(err){
+    catch (err) {
       console.log(err);
     }
   }
 
   ngOnDestroy(): void {
-    this.unsubscribe(); //stop listening to the store
+    if(this.unsubscribe)
+      this.unsubscribe(); //stop listening to the store
   }
 
 }

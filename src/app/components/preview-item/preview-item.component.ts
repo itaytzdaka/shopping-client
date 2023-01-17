@@ -26,7 +26,7 @@ export class PreviewItemComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  ngOnInit(){
+  ngOnInit(): void{
     this.selectedProduct=store.getState().selectedProduct;
   }
 

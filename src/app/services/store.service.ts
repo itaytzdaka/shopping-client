@@ -75,7 +75,6 @@ export class StoreService {
     allInvitesOfUser.push(newInvite);
     store.dispatch({ type: ActionType.saveInvitesOfUser, payload: allInvitesOfUser });
     store.dispatch({ type: ActionType.saveNumOfInvites, payload: store.getState().numOfInvites + 1 });
-    // store.dispatch({ type: ActionType.setOpenCart, payload: null });
     store.dispatch({ type: ActionType.setOrderCompleteStatus, payload: true });
   }
 
@@ -110,7 +109,7 @@ export class StoreService {
   }
 
   public isAdmin(): boolean {
-    return store.getState().isAdmin === 1 ? true : false;
+    return store.getState().user?.isAdmin? true : false;
   }
 
   public isCartsArrayOfUserEmpty(): boolean {

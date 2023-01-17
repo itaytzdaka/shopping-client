@@ -1,5 +1,4 @@
 export enum ActionType {
-    //data from DB
     saveUser,
     setLoggedInStatus,
     saveProducts,
@@ -10,14 +9,8 @@ export enum ActionType {
     saveOpenCartItems,
     saveCategories,
     saveCities,
-
-
-    //save new data
-    // addNewProduct,
     saveNewUser,
     saveSelectedProduct,
-
-    //functions
     setOrderCompleteStatus,
 
 }

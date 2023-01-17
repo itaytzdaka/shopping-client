@@ -78,11 +78,7 @@ export class MainService {
         return;
 
       if(!store.getState().cartsOfUser){
-        console.log("store.getState().cartsOfUser");
-        console.log(store.getState().cartsOfUser);
         const cartsOfUser = await this.myCartService.getAllCartsOfUserAsync(store.getState().user?._id);
-        console.log("cartsOfUser");
-        console.log(cartsOfUser);
         this.myStoreService.saveCartsOfUser(cartsOfUser);
       }
 

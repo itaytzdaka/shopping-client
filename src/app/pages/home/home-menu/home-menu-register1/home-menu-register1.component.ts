@@ -1,7 +1,5 @@
 import { StoreService } from './../../../../services/store.service';
-import { ActionType } from 'src/app/redux/action-type';
 import { store } from '../../../../redux/store';
-import { Unsubscribe } from 'redux';
 import { Router } from '@angular/router';
 import { UserService } from '../../../../services/user.service';
 import { Component, OnInit } from '@angular/core';
@@ -14,7 +12,6 @@ import { UserModel } from 'src/app/models/user.model';
 })
 export class Register1Component implements OnInit {
 
-  private unsubscribe: Unsubscribe;
   public newUser: UserModel;
   public allEmails: string[];
   public passwordsMatch: boolean;
@@ -54,7 +51,7 @@ export class Register1Component implements OnInit {
     this.passwordsMatch = this.confirmPassword === this.newUser?.password? true : false;
   }
 
-  public isEmailExist() : void{
+  public isEmailExist(): void{
     const index= this.allEmails?.findIndex((obj)=>obj["email"]==this.newUser.email);
     this.emailExist= index==-1? false : true;
   }

@@ -1,6 +1,6 @@
 import { store } from './../../redux/store';
 import { StoreService } from './../../services/store.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CategoryModel } from 'src/app/models/category.model';
 import { CategoryService } from 'src/app/services/category.service';
 import { Unsubscribe } from 'redux';
@@ -10,7 +10,7 @@ import { Unsubscribe } from 'redux';
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss']
 })
-export class CategoriesComponent implements OnInit {
+export class CategoriesComponent implements OnInit, OnDestroy {
 
   public unsubscribe: Unsubscribe;
   public categories: CategoryModel[];
@@ -23,22 +23,25 @@ export class CategoriesComponent implements OnInit {
 
   ngOnInit(): void {
 
+    if(!store.getState().isLoggedIn)
+      return;
+
     // Listen to changes: 
     this.unsubscribe = store.subscribe(() => {
-      this.getFromTheStore();
+      this.getDataFromTheStore();
     });
 
-    this.getFromTheStore();
-    this.getDataFromServer();
+    this.getDataFromTheStore();
+    this.getDataFromTheServer();
 
   }
 
 
-  public getFromTheStore() {
+  public getDataFromTheStore(): void {
     this.categories = store.getState().categories;
   }
 
-  public getDataFromServer() {
+  public getDataFromTheServer(): void {
     this.getCategories();
   }
 
@@ -53,6 +56,11 @@ export class CategoriesComponent implements OnInit {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  ngOnDestroy(): void {
+    if(this.unsubscribe)
+      this.unsubscribe(); //stop listening to the store
   }
 
 }

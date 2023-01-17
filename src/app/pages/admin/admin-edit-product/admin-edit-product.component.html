@@ -20,7 +20,7 @@
             <span *ngIf="productNameInfo.errors?.pattern">שם מוצר לא תקין</span>
             <span *ngIf="productPriceInfo.errors?.required">מחיר לא יכול להיות ריק</span>
             <br />
-            <button [disabled]="formInfo.form.invalid" (click)="saveAsync()">שמור</button>
+            <button [disabled]="formInfo.form.invalid" (click)="saveProductAfterEditAsync()">שמור</button>
         </div>
     </form>
 

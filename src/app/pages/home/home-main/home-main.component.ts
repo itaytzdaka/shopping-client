@@ -1,7 +1,4 @@
-import { StoreService } from './../../../services/store.service';
-import { store } from 'src/app/redux/store';
-import { Component, OnInit } from '@angular/core';
-import { Unsubscribe } from 'redux';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-home-main',
@@ -9,33 +6,10 @@ import { Unsubscribe } from 'redux';
   styleUrls: ['./home-main.component.scss']
 })
 
-export class MainComponent implements OnInit {
-  private unsubscribe: Unsubscribe;
-  public numOfInvites: number;
-  public numOfProducts: number;
+export class MainComponent {
+
   public search: string;
 
-  constructor(
-    private myStoreService: StoreService
-  ) { }
+  constructor() { }
 
-  ngOnInit(): void {
-
-    // Listen to changes: 
-    this.unsubscribe = store.subscribe(() => {
-      this.getFromTheStore();
-    });
-
-    this.getFromTheStore();
-  }
-
-  //get data from the store
-  public getFromTheStore(): void {
-    this.numOfInvites = store.getState().numOfInvites;
-    this.numOfProducts = this.myStoreService.getNumOfProducts();
-  }
-
-  ngOnDestroy(): void {
-    this.unsubscribe(); //stop listening to the store
-  }
 }

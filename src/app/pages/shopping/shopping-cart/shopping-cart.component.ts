@@ -3,7 +3,7 @@ import { MainService } from '../../../services/main.service';
 import { UserService } from '../../../services/user.service';
 import { store } from '../../../redux/store';
 import { CartService } from '../../../services/cart.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Unsubscribe } from 'redux';
 import { CartItemModel } from '../../../models/cart-item.model';
 import { CartItemService } from 'src/app/services/cart-item.service';
@@ -14,7 +14,7 @@ import { CartItemService } from 'src/app/services/cart-item.service';
   templateUrl: './shopping-cart.component.html',
   styleUrls: ['./shopping-cart.component.scss']
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnDestroy {
 
   private unsubscribe: Unsubscribe;
 
@@ -29,31 +29,27 @@ export class CartComponent implements OnInit {
     private myStoreService: StoreService
   ) { }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
 
-    const isAdmin = store.getState().isAdmin;
-
-    if (!isAdmin) {
+    if(!store.getState().isLoggedIn)
+      return;
 
       //listening to the store
       this.unsubscribe = store.subscribe(() => {
-        this.getDataFromStore()
+        this.getDataFromTheStore()
       });
 
-      this.getDataFromStore()
-      this.getDataFromServer()
-
-    }
-
+      this.getDataFromTheStore()
+      this.getDataFromTheServer()
   }
 
 
-  public getDataFromStore() {
+  public getDataFromTheStore(): void {
     this.cartItems = store.getState().cartItems;
     this.cartTotalPrice = this.myStoreService.getUserOpenCartTotalPrice();
   }
 
-  public async getDataFromServer(){
+  public async getDataFromTheServer(): Promise<void>{
     await this.myMainService.getUserCartsAndInvitesAndOpenCartItemsAndSaveAtStoreAsync();
     await this.createNewCartForUserIfNeeded();
   }
@@ -61,7 +57,7 @@ export class CartComponent implements OnInit {
 
 
 
-  public async createNewCartForUserIfNeeded() {
+  public async createNewCartForUserIfNeeded(): Promise<void> {
 
     const userOpenCart = this.myStoreService.getUserOpenCart();
 
@@ -101,6 +97,11 @@ export class CartComponent implements OnInit {
     catch (error) {
       console.log(error);
     }
+  }
+
+  ngOnDestroy(): void {
+    if(this.unsubscribe)
+      this.unsubscribe(); //stop listening to the store
   }
 
 }

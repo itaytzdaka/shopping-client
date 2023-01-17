@@ -4,7 +4,7 @@ import { InviteService } from '../../../services/invite.service';
 import { CityService } from '../../../services/city.service';
 import { CityModel } from '../../../models/city.model';
 import { InviteModel } from '../../../models/invite.model';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { Unsubscribe } from 'redux';
 import { Router } from '@angular/router';
 
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   templateUrl: './order-main.component.html',
   styleUrls: ['./order-main.component.scss']
 })
-export class AddInviteComponent implements OnInit {
+export class AddInviteComponent implements OnInit, OnDestroy {
 
   private unsubscribe: Unsubscribe;
   public inviteToAdd = new InviteModel();
@@ -33,25 +33,28 @@ export class AddInviteComponent implements OnInit {
 
   ngOnInit(): void {
 
+    if(!store.getState().isLoggedIn)
+    return;
+
     //listening to the store
     this.unsubscribe = store.subscribe(() => {
-      this.getFromTheStore();
+      this.getDataFromTheStore();
     });
 
     //get the data from the store
-    this.getFromTheStore();
-    this.getDataFromServer();
+    this.getDataFromTheStore();
+    this.getDataFromTheServer();
 
   }
 
 
 
-  public getDataFromServer(): void {
+  public getDataFromTheServer(): void {
     this.getCitiesAsync();
   }
 
   //get data from the store
-  public getFromTheStore(): void {
+  public getDataFromTheStore(): void {
     this.cities = store.getState().cities;
 
     this.inviteToAdd.userId = store.getState().user?._id;
@@ -62,7 +65,7 @@ export class AddInviteComponent implements OnInit {
   }
 
   //get the cities list
-  public async getCitiesAsync() {
+  public async getCitiesAsync(): Promise<void> {
     try {
       if (!this.cities) {
         const cities = await this.myCityService.getAllCitiesAsync();
@@ -75,7 +78,7 @@ export class AddInviteComponent implements OnInit {
   }
 
   //add new invite to DB and navigate user
-  public async addOrderAsync() {
+  public async addOrderAsync(): Promise<void> {
     try {
       this.inviteToAdd.orderDate = new Date().toJSON();
       const addedInvite = await this.myInviteService.addInviteAsync(this.inviteToAdd);
@@ -93,6 +96,7 @@ export class AddInviteComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.unsubscribe(); //stop listening to the store
+    if(this.unsubscribe)
+      this.unsubscribe(); //stop listening to the store
   }
 }

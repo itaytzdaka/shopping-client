@@ -1,7 +1,7 @@
 import { StoreService } from './../../services/store.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 
 import { ProductModel } from 'src/app/models/product.model';
 import { AddItemDialogComponent } from '../../components/add-item-dialog/add-item-dialog.component';
@@ -17,7 +17,7 @@ import { Unsubscribe } from 'redux';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, OnDestroy {
   private unsubscribe: Unsubscribe;
 
   public products: ProductModel[];
@@ -42,25 +42,24 @@ export class ProductsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log("ngOnInit products");
-    
+
     // Listen to changes: 
     this.unsubscribe = store.subscribe(() => {
-      this.getDataFromStore();
+      this.getDataFromTheStore();
     });
 
-    this.getDataFromStore();
-    this.getDataFromServer();
+    this.getDataFromTheStore();
+    this.getDataFromTheServer();
   }
 
 
-  public getDataFromStore() {
+  public getDataFromTheStore(): void {
     this.isLoggedIn = store.getState().isLoggedIn;
     this.products = store.getState().products;
     this.productsByCategory = store.getState().products;
   }
 
-  public async getDataFromServer() {
+  public async getDataFromTheServer(): Promise<void> {
     await this.getProducts()
     this.filterProductsByCategory();
   }
@@ -80,7 +79,7 @@ export class ProductsComponent implements OnInit {
 
 
   //filter products
-  public filterProductsByCategory() : void{
+  public filterProductsByCategory(): void{
 
     this.myActivatedRoute.params.subscribe(routeParams => {
 
@@ -119,6 +118,11 @@ export class ProductsComponent implements OnInit {
     this.dialog.open(PreviewItemComponent, {
       width: '400px',
     });
+  }
+
+  ngOnDestroy(): void {
+    if(this.unsubscribe)
+      this.unsubscribe(); //stop listening to the store
   }
 
 }

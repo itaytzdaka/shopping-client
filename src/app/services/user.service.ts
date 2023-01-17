@@ -2,10 +2,9 @@ import { StoreService } from './store.service';
 import { CookieService } from 'ngx-cookie-service';
 import { store } from './../redux/store';
 import { Router } from '@angular/router';
-import { Injectable, VERSION } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { UserModel } from "../models/user.model";
-import { ActionType } from "src/app/redux/action-type";
 // import axios from "axios";
 
 @Injectable({
@@ -43,7 +42,7 @@ export class UserService {
     }
 
     //if is admin
-    if (store.getState().user.isAdmin) {
+    if (this.myStoreService.isAdmin()) {
       this.router.navigateByUrl(redirectAdmin);
       return "is admin";
     }
@@ -55,24 +54,6 @@ export class UserService {
 
   }
 
-
-
-
-  // public isLoggedIn(): Promise<UserModel> {
-
-  //   return this.http.get<UserModel>("http://localhost:3000/api/users/isLoggedIn").toPromise();
-
-
-  // }
-
-  // public isAdmin(): boolean {
-  //   if (sessionStorage.getItem("user") != null) {
-  //     return JSON.parse(sessionStorage.getItem("user")).isAdmin;
-  //   }
-  //   else {
-  //     return false;
-  //   }
-  // }
 
   public disconnectAsync(): Promise<any> {
 
@@ -90,32 +71,6 @@ export class UserService {
         reject(err);
       }
     });
-
-
-
-
-    // return new Promise<any>(async (resolve, reject) => {
-    //   try {
-    //     const response = await axios.post("http://localhost:3000/api/users/views");
-    //     resolve(response.data);
-    //     console.log(response.data);
-
-    //   }
-    //   catch (err) {
-    //     reject(err);
-    //   }
-    // });
-
-    //   return new Promise<any>(async (resolve, reject) => {
-    //   try {
-    //     const response = await axios.post("http://localhost:3000/api/users/views");
-    //     console.log(response.data);
-    //     resolve(response.data);
-    //   }
-    //   catch (err) {
-    //     reject(err);
-    //   }
-    // });
 
   }
 }

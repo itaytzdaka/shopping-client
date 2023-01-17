@@ -16,7 +16,7 @@
         <span *ngIf="productNameInfo.errors?.required && productNameInfo.touched">שם המוצר לא יכול להיות ריק</span>
         <span *ngIf="productPriceInfo.errors?.required  && productPriceInfo.touched">מחיר לא יכול להיות ריק</span>
         <span *ngIf="categoryInfo.errors?.required  && categoryInfo.touched">יש לבחור קטגוריה</span>
-        <button [disabled]="formInfo.form.invalid" (click)="addAsync()">הוסף</button>
+        <button [disabled]="formInfo.form.invalid" (click)="addNewProductAsync()">הוסף</button>
     </form>
     <a class="link" routerLink="/admin/edit">עריכת מוצר</a>
     

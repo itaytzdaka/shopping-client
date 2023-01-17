@@ -5,7 +5,6 @@ import { UserModel } from "./../models/user.model";
 import { CartModel } from "./../models/cart.model";
 import { InviteModel } from "./../models/invite.model";
 import { CategoryModel } from '../models/category.model';
-import { CookieService } from 'ngx-cookie-service';
 
 export class AppState {
     
@@ -29,9 +28,9 @@ export class AppState {
     public selectedProduct: ProductModel; //the product that the user selected for adding to cart
 
     //flags
-    public isAdmin: number; //if user is admin
+    // public isAdmin: number; //if user is admin
     // public noCarts: boolean; //if no carts for user
-    public IsCartEmpty: boolean; //if the user's cart is empty
+    // public IsCartEmpty: boolean; //if the user's cart is empty
     public orderCompleted: boolean; //if order completed right now
     public isLoggedIn: boolean; //if user is logged in right now
 
@@ -54,7 +53,6 @@ export class AppState {
 
         this.user=getUserFromCookie();
         this.isLoggedIn=this.user? true : false;
-        this.isAdmin=this.user?.isAdmin? 1 : 0;
     }
 
 
@@ -66,7 +64,6 @@ export class AppState {
 function getUserFromCookie() :UserModel{
     let user: UserModel;
     const allCookies = document.cookie.split("; "); // ["cv=my-cv.pdf", "color=green", "language=he"]
-    console.log(allCookies); 
 
     for (const oneCookie of allCookies) { // oneCookie = "cv=my-cv.pdf"
       const pairArr = oneCookie.split("="); // ["cv", "my-cv.pdf"]
@@ -75,9 +72,5 @@ function getUserFromCookie() :UserModel{
       }
     }
 
-    console.log("redux getUserFromCookie:");
-    console.log(user);
     return user;
 }
-
-// export { AppState };

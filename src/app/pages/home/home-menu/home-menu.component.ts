@@ -9,7 +9,7 @@ import { Unsubscribe } from 'redux';
   templateUrl: './home-menu.component.html',
   styleUrls: ['./home-menu.component.scss']
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent implements OnInit, OnDestroy {
 
   private unsubscribe: Unsubscribe;
   public isLoggedIn: boolean;
@@ -39,7 +39,8 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.unsubscribe(); // הפסק להאזין אם הרכיב שלנו נהרס
+    if(this.unsubscribe)
+      this.unsubscribe(); //stop listening to the store
   }
 
 }

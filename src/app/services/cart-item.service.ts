@@ -22,8 +22,8 @@ export class CartItemService {
     return this.http.put<CartItemModel>("http://localhost:3000/api/cartsItems/"+cartItemToUpdate._id,cartItemToUpdate).toPromise();
   }
 
-  public deleteCartItemAsync(_id): void {
-    this.http.delete("http://localhost:3000/api/cartsItems/" + _id).toPromise();
+  public deleteCartItemAsync(_id): Promise<void> {
+    return this.http.delete<void>("http://localhost:3000/api/cartsItems/" + _id).toPromise();
   }
 
 }

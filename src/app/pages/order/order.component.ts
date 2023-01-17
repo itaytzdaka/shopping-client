@@ -1,4 +1,3 @@
-import { store } from '../../redux/store';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 
@@ -16,7 +15,7 @@ export class OrderComponent implements OnInit {
     private myUserService: UserService
   ) { }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
 
     //redirect user
     this.myUserService.redirectUser("/order", "/admin");

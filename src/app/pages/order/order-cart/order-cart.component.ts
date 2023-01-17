@@ -2,7 +2,7 @@ import { StoreService } from './../../../services/store.service';
 import { MainService } from '../../../services/main.service';
 import { UserService } from '../../../services/user.service';
 import { store } from '../../../redux/store';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Unsubscribe } from 'redux';
 import { CartItemModel } from '../../../models/cart-item.model';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './order-cart.component.html',
   styleUrls: ['./order-cart.component.scss']
 })
-export class FinalCartComponent implements OnInit {
+export class FinalCartComponent implements OnInit, OnDestroy {
 
   private unsubscribe: Unsubscribe;
 
@@ -30,13 +30,16 @@ export class FinalCartComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
 
+    if(!store.getState().isLoggedIn)
+    return;
+
     //listening to the store
     this.unsubscribe = store.subscribe(() => {
-      this.getDataFromStore();
+      this.getDataFromTheStore();
     });
 
-    this.getDataFromStore();
-    await this.getDataFromServer();
+    this.getDataFromTheStore();
+    await this.getDataFromTheServer();
 
     //if the user with no cart open, navigate to home.
     if (!store.getState().cartItems) {
@@ -45,12 +48,12 @@ export class FinalCartComponent implements OnInit {
   }
 
   //get data from the server
-  public async getDataFromServer(){
+  public async getDataFromTheServer(): Promise<void>{
     await this.myMainService.getUserCartsAndInvitesAndOpenCartItemsAndSaveAtStoreAsync();
   }
 
   //get data from the store
-  public getDataFromStore(): void {
+  public getDataFromTheStore(): void {
     this.cartTotalPrice = this.myStoreService.getUserOpenCartTotalPrice();
     this.userOpenCartItems = store.getState().cartItems;
   }
@@ -58,6 +61,11 @@ export class FinalCartComponent implements OnInit {
   //disconnect user
   public disconnect(): void {
     this.myUserService.disconnectAsync();
+  }
+
+  ngOnDestroy(): void {
+    if(this.unsubscribe)
+      this.unsubscribe(); //stop listening to the store
   }
 
 }

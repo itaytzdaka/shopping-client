@@ -22,9 +22,8 @@ export class ShoppingComponent implements OnInit {
 
 
   //change menu status
-  public changeMenuStatus() {
+  public changeMenuStatus(): void {
     this.menuOpen = !this.menuOpen;
-    return this.menuOpen;
   }
 
 }

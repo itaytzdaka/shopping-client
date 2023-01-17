@@ -12,7 +12,6 @@ export class HttpRequestInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler):
     Observable<HttpEvent<any>> {
     
-      // console.log("interceptor: " + req.url);
       req = req.clone({
         withCredentials: true
       });

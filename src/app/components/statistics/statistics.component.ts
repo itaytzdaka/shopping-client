@@ -1,9 +1,8 @@
 import { StoreService } from './../../services/store.service';
-import { ActionType } from 'src/app/redux/action-type';
 import { ProductService } from './../../services/product.service';
 import { InviteService } from './../../services/invite.service';
 import { store } from './../../redux/store';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Unsubscribe } from 'redux';
 
 @Component({
@@ -11,7 +10,7 @@ import { Unsubscribe } from 'redux';
   templateUrl: './statistics.component.html',
   styleUrls: ['./statistics.component.scss']
 })
-export class StatisticsComponent implements OnInit {
+export class StatisticsComponent implements OnInit, OnDestroy {
 
   public unsubscribe: Unsubscribe;
   public numOfInvites: number;
@@ -27,21 +26,21 @@ export class StatisticsComponent implements OnInit {
 
     // Listen to changes: 
     this.unsubscribe = store.subscribe(() => {
-      this.getFromTheStore();
+      this.getDataFromTheStore();
     });
 
-    this.getDataFromServer();
-    this.getFromTheStore();
+    this.getDataFromTheStore();
+    this.getDataFromTheServer();
 
   }
 
 
-  public getFromTheStore() {
+  public getDataFromTheStore(): void {
     this.numOfInvites = store.getState().numOfInvites;
     this.numOfProducts = store.getState().numOfProducts;
   }
 
-  public getDataFromServer() {
+  public getDataFromTheServer(): void {
     this.getNumOfInvites();
     this.getNumOfProducts();
   }
@@ -72,5 +71,8 @@ export class StatisticsComponent implements OnInit {
     }
   }
 
-
+  ngOnDestroy(): void {
+    if(this.unsubscribe)
+      this.unsubscribe(); //stop listening to the store
+  }
 }

@@ -1,5 +1,5 @@
 import { MainService } from '../../../../services/main.service';
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { UserModel } from '../../../../models/user.model';
 
 @Component({
@@ -7,7 +7,7 @@ import { UserModel } from '../../../../models/user.model';
   templateUrl: './home-menu-login.component.html',
   styleUrls: ['./home-menu-login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent{
 
   public user = new UserModel();
 
@@ -15,10 +15,7 @@ export class LoginComponent implements OnInit {
     private myMainService: MainService
   ) { }
 
-  ngOnInit(): void {
-  }
-
-  public async loginAsync() {
+  public async loginAsync(): Promise<void> {
     try {
       this.myMainService.loginAndNavigateAsync(this.user);
     }

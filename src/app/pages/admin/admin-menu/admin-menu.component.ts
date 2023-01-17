@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 
 @Component({
   selector: 'app-admin-menu',
   templateUrl: './admin-menu.component.html',
   styleUrls: ['./admin-menu.component.scss']
 })
-export class AdminMenuComponent implements OnInit {
+export class AdminMenuComponent {
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

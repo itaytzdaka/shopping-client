@@ -1,5 +1,4 @@
-import { store } from 'src/app/redux/store';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -16,12 +15,12 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log("ngOnInit home");
-
+    
     //redirect user
     this.myUserService.redirectUser("/home","/admin");
 
   }
+
 
   public changeMenuStatus(): boolean {
     this.menuOpen = !this.menuOpen;

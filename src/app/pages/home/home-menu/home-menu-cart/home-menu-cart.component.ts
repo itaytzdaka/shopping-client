@@ -3,7 +3,7 @@ import { MainService } from './../../../../services/main.service';
 import { InviteModel } from './../../../../models/invite.model';
 import { CartModel } from './../../../../models/cart.model';
 import { Unsubscribe } from 'redux';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { store } from '../../../../redux/store';
 
 @Component({
@@ -11,7 +11,7 @@ import { store } from '../../../../redux/store';
   templateUrl: './home-menu-cart.component.html',
   styleUrls: ['./home-menu-cart.component.scss']
 })
-export class HomeMenuCartComponent implements OnInit {
+export class HomeMenuCartComponent implements OnInit, OnDestroy {
 
   private unsubscribe: Unsubscribe;
   public cartsOfUser: CartModel[];
@@ -28,16 +28,19 @@ export class HomeMenuCartComponent implements OnInit {
 
   ngOnInit(): void {
 
+    if(!store.getState().isLoggedIn)
+    return;
+
     this.unsubscribe = store.subscribe(() => {
-      this.getDataFromStore();
+      this.getDataFromTheStore();
     });
 
-    this.getDataFromStore();
+    this.getDataFromTheStore();
     this.myMainService.getUserCartsAndInvitesAndOpenCartItemsAndSaveAtStoreAsync();
 
   }
 
-  public getDataFromStore(): void {
+  public getDataFromTheStore(): void {
 
     this.cartsOfUser = store.getState().cartsOfUser;
     this.orderCompleted = store.getState().orderCompleted;
@@ -46,6 +49,11 @@ export class HomeMenuCartComponent implements OnInit {
     this.openCart = this.myStoreService.getUserOpenCart();
     this.cartNumberOfProducts = this.myStoreService.getNumOfProductsFromUserOpenCartItems();
     this.cartTotalPrice = this.myStoreService.getUserOpenCartTotalPrice();
+  }
+
+  ngOnDestroy(): void {
+    if(this.unsubscribe)
+      this.unsubscribe(); //stop listening to the store
   }
 
 }
