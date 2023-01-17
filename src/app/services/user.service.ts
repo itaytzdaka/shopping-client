@@ -55,22 +55,20 @@ export class UserService {
   }
 
 
-  public disconnectAsync(): Promise<any> {
+  public async disconnectAsync(): Promise<void> {
 
-    return new Promise<any>(async (resolve, reject) => {
       try {
-        const response = await this.http.post("http://localhost:3000/api/users/logout", {}).toPromise();
+        await this.http.post("http://localhost:3000/api/users/logout", {}).toPromise();
 
         this.cookieService.deleteAll('/');
         this.myStoreService.disconnectUser();
         this.router.navigateByUrl("/home/login");
 
-        resolve(response);
       }
       catch (err) {
-        reject(err);
+        console.log(err);
       }
-    });
+
 
   }
 }

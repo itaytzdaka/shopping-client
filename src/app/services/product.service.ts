@@ -1,9 +1,6 @@
-import { Router } from '@angular/router';
 import { ProductModel } from './../models/product.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { ActionType } from "src/app/redux/action-type";
-import { store } from "src/app/redux/store";
 
 
 @Injectable({
