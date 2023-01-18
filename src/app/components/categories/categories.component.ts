@@ -1,3 +1,4 @@
+import { MainService } from './../../services/main.service';
 import { store } from './../../redux/store';
 import { StoreService } from './../../services/store.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -18,7 +19,8 @@ export class CategoriesComponent implements OnInit, OnDestroy {
 
   constructor(
     private myCategoryService: CategoryService,
-    private myStoreService: StoreService
+    private myStoreService: StoreService,
+    private myMainService: MainService
   ) { }
 
   ngOnInit(): void {
@@ -54,7 +56,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
         this.myStoreService.saveCategories(categories);
       }
     } catch (error) {
-      console.log(error);
+      this.myMainService.errorHandling(error);
     }
   }
 

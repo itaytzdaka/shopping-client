@@ -1,5 +1,5 @@
+import { MainService } from './../../services/main.service';
 import { Component, OnInit} from '@angular/core';
-import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -11,13 +11,13 @@ export class HomeComponent implements OnInit {
   public menuOpen: boolean = true;
 
   constructor(
-    private myUserService: UserService,
+    private myMainService: MainService,
   ) { }
 
   ngOnInit(): void {
     
     //redirect user
-    this.myUserService.redirectUser("/home","/admin");
+    this.myMainService.redirectUser("/home","/admin");
 
   }
 

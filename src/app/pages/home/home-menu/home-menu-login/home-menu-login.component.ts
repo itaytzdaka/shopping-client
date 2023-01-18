@@ -15,13 +15,8 @@ export class LoginComponent{
     private myMainService: MainService
   ) { }
 
-  public async loginAsync(): Promise<void> {
-    try {
-      this.myMainService.loginAndNavigateAsync(this.user);
-    }
-    catch (err) {
-      console.log(err.message)
-    }
+  public loginAsync(): void {
+    this.myMainService.loginAndNavigateAsync(this.user);
   }
 
 }

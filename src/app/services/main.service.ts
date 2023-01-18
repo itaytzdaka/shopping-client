@@ -42,7 +42,7 @@ export class MainService {
         this.router.navigateByUrl("/home");
       }
     } catch (error) {
-      alert(error.error);
+      this.errorHandling(error);
     }
 
   }
@@ -74,15 +74,15 @@ export class MainService {
 
     try {
 
-      if(!store.getState().user)
+      if (!store.getState().user)
         return;
 
-      if(!store.getState().cartsOfUser){
+      if (!store.getState().cartsOfUser) {
         const cartsOfUser = await this.myCartService.getAllCartsOfUserAsync(store.getState().user?._id);
         this.myStoreService.saveCartsOfUser(cartsOfUser);
       }
 
-      if(!store.getState().invitesOfUser){
+      if (!store.getState().invitesOfUser) {
         const invitesOfUser = await this.myInviteService.getAllInvitesOfUserAsync(store.getState().user?._id);
         this.myStoreService.saveInvitesOfUser(invitesOfUser);
       }
@@ -90,10 +90,7 @@ export class MainService {
     }
 
     catch (error) {
-      if (error.error == "You are not logged-in") {
-        this.myUserService.disconnectAsync();
-      }
-      console.log(error);
+      this.errorHandling(error);
     }
   }
 
@@ -110,13 +107,48 @@ export class MainService {
     }
 
     catch (error) {
-      if (error.error == "You are not logged-in") {
-        this.myUserService.disconnectAsync();
-      }
-      console.log(error);
+      this.errorHandling(error);
     }
 
   }
+
+
+  public redirectUser(redirectUser: string, redirectAdmin: string): string {
+
+    //not logged in
+    if (!store.getState().isLoggedIn) {
+      this.router.navigateByUrl("/home/login");
+      return "not logged in";
+    }
+
+    //if is admin
+    if (this.myStoreService.isAdmin()) {
+      this.router.navigateByUrl(redirectAdmin);
+      return "is admin";
+    }
+
+    //regular user logged in
+    this.router.navigateByUrl(redirectUser);
+    return "is logged in";
+
+
+  }
+
+
+  public async disconnectUserAsync(): Promise<void> {
+    try {
+      await this.myUserService.disconnectUserAsync();
+
+      this.cookieService.deleteAll('/');
+      this.myStoreService.disconnectUser();
+      this.router.navigateByUrl("/home/login");
+
+    }
+    catch (error) {
+      this.errorHandling(error);
+    }
+  }
+
 
   //delete all items in user open cart
   public deleteAllCartItemsAsync() {
@@ -125,11 +157,8 @@ export class MainService {
         await this.myCartItemService.deleteCartItemAsync(item._id);
         this.myStoreService.deleteAllCartItemsFromUserOpenCart();
       }
-      catch (err) {
-        if (err.error == "You are not logged-in") {
-          this.myUserService.disconnectAsync();
-        }
-        console.log(err);
+      catch (error) {
+        this.errorHandling(error);
       }
     });
   }
@@ -141,6 +170,61 @@ export class MainService {
     newCart.date = (new Date()).toJSON();
 
     return newCart;
+  }
+
+
+  // handling errors
+  public errorHandling(error: any): void {
+
+    console.log("HttpErrorResponse error");
+    console.log(error);
+    console.log("error.message");
+    console.log(error.message);
+
+    const errorMessage = error.error;
+
+    if (!(error.status >= 0)) {
+      console.log(error.message);
+      return;
+    }
+
+    switch (error.status) {
+
+      case 0: //connection error
+        console.log("connection error");
+        break;
+
+      case 401: //Unauthorized
+        if (errorMessage == "You are not logged-in") {
+          console.log(errorMessage);
+          this.disconnectUserAsync();
+        }
+
+        else if (errorMessage == "Illegal username or password") {
+          console.log(errorMessage);
+          alert("שם משתמש או סיסמה לא נכונים");
+        }
+
+        else {
+          console.log(error.statusText);
+        }
+        break;
+
+      case 403: //forbidden
+        if(errorMessage == "You are not Admin"){
+          console.log(errorMessage);
+        }
+        else{
+          console.log(error.statusText);
+        }
+        break;
+
+      default:
+        console.log(error.message);
+        break;
+    }
+
+
   }
 
 }

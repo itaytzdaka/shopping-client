@@ -63,8 +63,8 @@ export class Register2Component implements OnInit, OnDestroy {
         this.myStoreService.saveCities(cities);
       }
     }
-    catch (err) {
-      console.log(err);
+    catch (error) {
+      this.myMainService.errorHandling(error);
     }
   }
 
@@ -74,8 +74,8 @@ export class Register2Component implements OnInit, OnDestroy {
       const addedUser = await this.myUserService.registerAsync(this.newUser);
       this.myMainService.loginAndNavigateAsync(addedUser);
     }
-    catch (err) {
-      console.log(err);
+    catch (error) {
+      this.myMainService.errorHandling(error);
     }
   }
 

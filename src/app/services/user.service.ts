@@ -13,10 +13,8 @@ import { UserModel } from "../models/user.model";
 export class UserService {
 
   constructor(
-    private http: HttpClient,
-    private router: Router,
-    private myStoreService: StoreService,
-    private cookieService: CookieService) { }
+    private http: HttpClient
+    ) { }
 
 
 
@@ -32,43 +30,7 @@ export class UserService {
     return this.http.get<string[]>("http://localhost:3000/api/users/getAllEmails").toPromise();
   }
 
-
-  public redirectUser(redirectUser: string, redirectAdmin: string): string {
-
-    //not logged in
-    if (!store.getState().isLoggedIn) {
-      this.router.navigateByUrl("/home/login");
-      return "not logged in";
-    }
-
-    //if is admin
-    if (this.myStoreService.isAdmin()) {
-      this.router.navigateByUrl(redirectAdmin);
-      return "is admin";
-    }
-
-    //regular user logged in
-    this.router.navigateByUrl(redirectUser);
-    return "is logged in";
-
-
-  }
-
-
-  public async disconnectAsync(): Promise<void> {
-
-      try {
-        await this.http.post("http://localhost:3000/api/users/logout", {}).toPromise();
-
-        this.cookieService.deleteAll('/');
-        this.myStoreService.disconnectUser();
-        this.router.navigateByUrl("/home/login");
-
-      }
-      catch (err) {
-        console.log(err);
-      }
-
-
+  public async disconnectUserAsync(): Promise<void> {
+    return this.http.post<void>("http://localhost:3000/api/users/logout", {}).toPromise();
   }
 }

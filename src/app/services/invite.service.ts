@@ -10,16 +10,16 @@ export class InviteService {
 
   constructor(private http: HttpClient) { }
 
-  public getAllDeliveryInvitesFromTodayAsync(): Promise<InviteModel[]> {
-    return this.http.get<InviteModel[]>("http://localhost:3000/api/invites/deliveryFromToday").toPromise();
+  // public getAllDeliveryInvitesFromTodayAsync(): Promise<InviteModel[]> {
+  //   return this.http.get<InviteModel[]>("http://localhost:3000/api/invites/deliveryFromToday").toPromise();
+  // }
+
+  public getAllInvitesOfUserAsync(user_id :string): Promise<InviteModel[]> {
+    return this.http.get<InviteModel[]>("http://localhost:3000/api/invites/"+user_id).toPromise();
   }
 
-  public getAllInvitesOfUserAsync(_id :string): Promise<InviteModel[]> {
-    return this.http.get<InviteModel[]>("http://localhost:3000/api/invites/"+_id).toPromise();
-  }
-
-  public addInviteAsync(invite: InviteModel): Promise<InviteModel> {
-    return this.http.post<InviteModel>("http://localhost:3000/api/invites", invite).toPromise();
+  public addInviteAsync(inviteToAdd: InviteModel): Promise<InviteModel> {
+    return this.http.post<InviteModel>("http://localhost:3000/api/invites", inviteToAdd).toPromise();
   }
 
   public getNumOfInvitesAsync(): Promise<number>{

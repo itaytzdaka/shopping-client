@@ -1,3 +1,4 @@
+import { MainService } from './../../services/main.service';
 import { StoreService } from './../../services/store.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
@@ -38,6 +39,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     private myProductsService: ProductService,
     private myActivatedRoute: ActivatedRoute,
     private myStoreService: StoreService,
+    private myMainService: MainService,
     public dialog: MatDialog
   ) { }
 
@@ -73,7 +75,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
         this.myStoreService.saveProducts(products);
       }
     } catch (error) {
-      console.log(error);
+      this.myMainService.errorHandling(error);
     }
   }
 

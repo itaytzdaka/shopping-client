@@ -14,9 +14,8 @@ export class ProductService {
     return this.http.get<ProductModel[]>("http://localhost:3000/api/products").toPromise();
   }
 
-  public updateProductAsync(_id: string ,productToUpdate: ProductModel): Promise<ProductModel> {
-    return this.http.put<ProductModel>(`http://localhost:3000/api/products/${_id}`, productToUpdate).toPromise();
-    
+  public updateProductAsync(productToUpdate: ProductModel): Promise<ProductModel> {
+    return this.http.put<ProductModel>(`http://localhost:3000/api/products/${productToUpdate._id}`, productToUpdate).toPromise();
   }
 
   public addProductAsync(productToAdd: ProductModel): Promise<ProductModel> {

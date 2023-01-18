@@ -1,3 +1,4 @@
+import { MainService } from './../../../services/main.service';
 import { StoreService } from './../../../services/store.service';
 import { ImageService } from '../../../services/image.service';
 import { store } from '../../../redux/store';
@@ -26,6 +27,7 @@ export class AdminAddComponent implements OnInit, OnDestroy {
     private myImageUploadService: ImageService,
     private myStoreService: StoreService,
     private myCategoryService: CategoryService,
+    private myMainService: MainService,
     private router: Router
   ) { }
 
@@ -60,8 +62,8 @@ export class AdminAddComponent implements OnInit, OnDestroy {
       }
     }
 
-    catch (err) {
-      console.log(err);
+    catch (error) {
+      this.myMainService.errorHandling(error);
     }
   }
 
@@ -80,8 +82,8 @@ export class AdminAddComponent implements OnInit, OnDestroy {
       this.router.navigateByUrl("/admin/edit/chooseProduct");
     }
 
-    catch (err) {
-      console.log(err);
+    catch (error) {
+      this.myMainService.errorHandling(error);
     }
   }
 

@@ -1,3 +1,4 @@
+import { MainService } from './../../services/main.service';
 import { getTestBed } from '@angular/core/testing';
 import { StoreService } from './../../services/store.service';
 import { CartItemService } from './../../services/cart-item.service';
@@ -27,6 +28,7 @@ export class AddItemDialogComponent implements OnInit {
   constructor(
     private myCartItemService: CartItemService,
     private myStoreService: StoreService,
+    private myMainService: MainService,
     public dialogRef: MatDialogRef<AddItemDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) { }
@@ -78,8 +80,8 @@ export class AddItemDialogComponent implements OnInit {
 
     }
 
-    catch (err) {
-      console.log(err);
+    catch (error) {
+      this.myMainService.errorHandling(error);
     }
 
   }

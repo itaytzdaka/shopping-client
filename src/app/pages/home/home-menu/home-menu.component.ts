@@ -1,6 +1,6 @@
+import { MainService } from './../../../services/main.service';
 import { store } from '../../../redux/store';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UserService } from '../../../services/user.service';
 import { Unsubscribe } from 'redux';
 
 
@@ -15,7 +15,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   public isLoggedIn: boolean;
 
   constructor(
-    private myUserService: UserService,
+    private myMainService: MainService,
   ) { }
 
   ngOnInit(): void {
@@ -27,15 +27,6 @@ export class MenuComponent implements OnInit, OnDestroy {
 
     this.isLoggedIn = store.getState().isLoggedIn;
 
-  }
-
-  public async disconnect(): Promise<void>{
-    try {
-      await this.myUserService.disconnectAsync();
-    }
-    catch (err) {
-      console.log(err);
-    }
   }
 
   ngOnDestroy(): void {

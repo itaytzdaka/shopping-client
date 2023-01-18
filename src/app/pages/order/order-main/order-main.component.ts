@@ -1,3 +1,4 @@
+import { MainService } from './../../../services/main.service';
 import { StoreService } from './../../../services/store.service';
 import { store } from 'src/app/redux/store';
 import { InviteService } from '../../../services/invite.service';
@@ -28,6 +29,7 @@ export class AddInviteComponent implements OnInit, OnDestroy {
     private myInviteService: InviteService,
     private myStoreService: StoreService,
     private myCityService: CityService,
+    private myMainService: MainService,
     private router: Router
   ) { }
 
@@ -72,8 +74,8 @@ export class AddInviteComponent implements OnInit, OnDestroy {
         this.myStoreService.saveCities(cities);
       }
     }
-    catch (err) {
-      console.log(err);
+    catch (error) {
+      this.myMainService.errorHandling(error);
     }
   }
 
@@ -85,8 +87,8 @@ export class AddInviteComponent implements OnInit, OnDestroy {
       this.myStoreService.addNewInvite(addedInvite);
       this.router.navigateByUrl("");
     }
-    catch (err) {
-      console.log(err);
+    catch (error) {
+      this.myMainService.errorHandling(error);
     }
   }
 

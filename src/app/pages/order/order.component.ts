@@ -1,5 +1,5 @@
+import { MainService } from './../../services/main.service';
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-order',
@@ -12,13 +12,13 @@ export class OrderComponent implements OnInit {
   public search: string;
 
   constructor(
-    private myUserService: UserService
+    private myMainService: MainService
   ) { }
 
   ngOnInit(): void {
 
     //redirect user
-    this.myUserService.redirectUser("/order", "/admin");
+    this.myMainService.redirectUser("/order", "/admin");
 
   }
 

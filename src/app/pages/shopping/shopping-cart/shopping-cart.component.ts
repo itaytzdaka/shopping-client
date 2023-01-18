@@ -24,7 +24,6 @@ export class CartComponent implements OnInit, OnDestroy {
   constructor(
     private myCartService: CartService,
     private myCartItemService: CartItemService,
-    private myUserService: UserService,
     private myMainService: MainService,
     private myStoreService: StoreService
   ) { }
@@ -75,8 +74,8 @@ export class CartComponent implements OnInit, OnDestroy {
       await this.myCartItemService.deleteCartItemAsync(_id);
       this.myStoreService.deleteCartItemFromUserOpenCart(_id);
     }
-    catch (err) {
-      console.log(err);
+    catch (error) {
+      this.myMainService.errorHandling(error);
     }
 
   }
@@ -85,17 +84,8 @@ export class CartComponent implements OnInit, OnDestroy {
     try {
       this.myMainService.deleteAllCartItemsAsync();
     }
-    catch (err) {
-      console.log(err);
-    }
-  }
-
-  public async disconnect(): Promise<void> {
-    try {
-      await this.myUserService.disconnectAsync();
-    }
     catch (error) {
-      console.log(error);
+      this.myMainService.errorHandling(error);
     }
   }
 

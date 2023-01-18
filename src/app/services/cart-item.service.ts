@@ -10,8 +10,8 @@ export class CartItemService {
 
   constructor(private http: HttpClient) { }
 
-  public getAllCartItemsAsync(_id): Promise<CartItemModel[]> {
-    return this.http.get<CartItemModel[]>("http://localhost:3000/api/cartsItems/" + _id).toPromise();
+  public getAllCartItemsAsync(cart_id: string): Promise<CartItemModel[]> {
+    return this.http.get<CartItemModel[]>("http://localhost:3000/api/cartsItems/" + cart_id).toPromise();
   }
 
   public addCartItemAsync(cartItemToAdd: CartItemModel): Promise<CartItemModel> {
@@ -22,8 +22,8 @@ export class CartItemService {
     return this.http.put<CartItemModel>("http://localhost:3000/api/cartsItems/"+cartItemToUpdate._id,cartItemToUpdate).toPromise();
   }
 
-  public deleteCartItemAsync(_id): Promise<void> {
-    return this.http.delete<void>("http://localhost:3000/api/cartsItems/" + _id).toPromise();
+  public deleteCartItemAsync(cartItem_id: string): Promise<void> {
+    return this.http.delete<void>("http://localhost:3000/api/cartsItems/" + cartItem_id).toPromise();
   }
 
 }

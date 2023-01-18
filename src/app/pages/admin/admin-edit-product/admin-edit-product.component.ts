@@ -1,3 +1,4 @@
+import { MainService } from './../../../services/main.service';
 import { StoreService } from './../../../services/store.service';
 import { CategoryService } from './../../../services/category.service';
 import { ImageService } from '../../../services/image.service';
@@ -31,6 +32,7 @@ export class AdminEditComponent implements OnInit, OnDestroy {
     private myImageService: ImageService,
     private myCategoryService: CategoryService,
     private myStoreService: StoreService,
+    private myMainService: MainService,
     private router: Router
   ) { }
 
@@ -70,8 +72,8 @@ export class AdminEditComponent implements OnInit, OnDestroy {
       }
     }
 
-    catch (err) {
-      console.log(err);
+    catch (error) {
+      this.myMainService.errorHandling(error);
     }
   }
 
@@ -106,12 +108,12 @@ export class AdminEditComponent implements OnInit, OnDestroy {
         this.productToEdit.image = addedImage.name;
         this.selectedFile = null;
       }
-      await this.myProductService.updateProductAsync(this.myActivatedRoute.snapshot.paramMap.get("_id"), this.productToEdit)
+      await this.myProductService.updateProductAsync(this.productToEdit);
       alert("המוצר נשמר");
       this.router.navigateByUrl("/admin/edit/chooseProduct");
     }
-    catch (err) {
-      console.log(err);
+    catch (error) {
+      this.myMainService.errorHandling(error);
     }
 
   }

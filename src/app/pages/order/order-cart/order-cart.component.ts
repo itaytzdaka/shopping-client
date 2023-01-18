@@ -22,7 +22,6 @@ export class FinalCartComponent implements OnInit, OnDestroy {
   public search: string;
 
   constructor(
-    private myUserService: UserService,
     private myStoreService: StoreService,
     private myMainService: MainService,
     private router: Router
@@ -56,11 +55,6 @@ export class FinalCartComponent implements OnInit, OnDestroy {
   public getDataFromTheStore(): void {
     this.cartTotalPrice = this.myStoreService.getUserOpenCartTotalPrice();
     this.userOpenCartItems = store.getState().cartItems;
-  }
-
-  //disconnect user
-  public disconnect(): void {
-    this.myUserService.disconnectAsync();
   }
 
   ngOnDestroy(): void {

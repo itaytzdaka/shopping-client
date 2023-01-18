@@ -1,3 +1,4 @@
+import { MainService } from './../../../../services/main.service';
 import { StoreService } from './../../../../services/store.service';
 import { store } from '../../../../redux/store';
 import { Router } from '@angular/router';
@@ -21,6 +22,7 @@ export class Register1Component implements OnInit {
   constructor(
     private myUserService: UserService,
     private myStoreService: StoreService,
+    private myMainService: MainService,
     private router: Router
   ) { }
 
@@ -42,8 +44,8 @@ export class Register1Component implements OnInit {
     try {
       this.allEmails  = await this.myUserService.getAllEmailsAsync();
     }
-    catch (err) {
-      console.log(err);
+    catch (error) {
+      this.myMainService.errorHandling(error);
     }
   }
 

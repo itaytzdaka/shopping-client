@@ -1,6 +1,6 @@
+import { MainService } from './../../services/main.service';
 import { Unsubscribe } from 'redux';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
 import { store } from './../../redux/store';
 import { UserModel } from 'src/app/models/user.model';
 
@@ -16,7 +16,7 @@ export class WelcomeComponent implements OnInit, OnDestroy {
 
 
   constructor(
-    private myUserService: UserService
+    private myMainService: MainService
   ) { }
 
   ngOnInit(): void {
@@ -34,13 +34,8 @@ export class WelcomeComponent implements OnInit, OnDestroy {
     this.isLoggedIn = store.getState().isLoggedIn;
   }
 
-  public async disconnect(): Promise<void>{
-    try{
-      await this.myUserService.disconnectAsync();
-    }
-    catch(err){
-      console.log(err);
-    }
+  public disconnect(): void{
+    this.myMainService.disconnectUserAsync();
   }
 
   ngOnDestroy(): void {

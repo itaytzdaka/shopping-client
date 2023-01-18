@@ -1,4 +1,4 @@
-import { UserService } from '../../services/user.service';
+import { MainService } from './../../services/main.service';
 import { Component, OnInit } from '@angular/core';
 
 
@@ -12,12 +12,11 @@ export class AdminComponent implements OnInit {
   public menuOpen: boolean = true;
 
   constructor(
-    private myUserService: UserService
+    private myMainService: MainService
   ) { }
 
   ngOnInit(): void {
-
-    this.myUserService.redirectUser("/home","/admin/edit/chooseProduct");
+    this.myMainService.redirectUser("/home","/admin/edit/chooseProduct");
   }
 
 

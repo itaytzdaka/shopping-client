@@ -1,3 +1,4 @@
+import { MainService } from './../../services/main.service';
 import { StoreService } from './../../services/store.service';
 import { ProductService } from './../../services/product.service';
 import { InviteService } from './../../services/invite.service';
@@ -19,7 +20,8 @@ export class StatisticsComponent implements OnInit, OnDestroy {
   constructor(
     private myInviteService: InviteService,
     private myProductsService: ProductService,
-    private myStoreService: StoreService
+    private myStoreService: StoreService,
+    private myMainService: MainService
   ) { }
 
   ngOnInit(): void {
@@ -54,7 +56,7 @@ export class StatisticsComponent implements OnInit, OnDestroy {
         this.myStoreService.saveNumOfInvites(numOfInvites);
       }
     } catch (error) {
-      console.log(error);
+      this.myMainService.errorHandling(error);
     }
   }
 
@@ -67,7 +69,7 @@ export class StatisticsComponent implements OnInit, OnDestroy {
       }
 
     } catch (error) {
-      console.log(error);
+      this.myMainService.errorHandling(error);
     }
   }
 
