@@ -1,6 +1,7 @@
 import { ProductModel } from './../models/product.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { baseUrl } from 'src/environments/environment';
 
 
 @Injectable({
@@ -11,19 +12,19 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   public getAllProductsAsync(): Promise<ProductModel[]> {
-    return this.http.get<ProductModel[]>("http://localhost:3000/api/products").toPromise();
+    return this.http.get<ProductModel[]>(baseUrl+ "/api/products").toPromise();
   }
 
   public updateProductAsync(productToUpdate: ProductModel): Promise<ProductModel> {
-    return this.http.put<ProductModel>(`http://localhost:3000/api/products/${productToUpdate._id}`, productToUpdate).toPromise();
+    return this.http.put<ProductModel>(`${baseUrl}/api/products/${productToUpdate._id}`, productToUpdate).toPromise();
   }
 
   public addProductAsync(productToAdd: ProductModel): Promise<ProductModel> {
-    return this.http.post<ProductModel>(`http://localhost:3000/api/products`, productToAdd).toPromise();
+    return this.http.post<ProductModel>(`${baseUrl}/api/products`, productToAdd).toPromise();
   }
 
   public getNumOfProductsAsync(): Promise<number> {
-    return this.http.get<number>(`http://localhost:3000/api/products/count`).toPromise();
+    return this.http.get<number>(`${baseUrl}/api/products/count`).toPromise();
   }
 
 

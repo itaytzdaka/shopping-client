@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { UserModel } from "../models/user.model";
+import { baseUrl } from 'src/environments/environment';
+
 // import axios from "axios";
 
 @Injectable({
@@ -19,18 +21,18 @@ export class UserService {
 
 
   public loginAsync(user: UserModel): Promise<any> {
-    return this.http.post<UserModel>("http://localhost:3000/api/users/login", user).toPromise();
+    return this.http.post<UserModel>(baseUrl+ "/api/users/login", user).toPromise();
   }
 
   public registerAsync(user: UserModel): Promise<any> {
-    return this.http.post<UserModel>("http://localhost:3000/api/users", user).toPromise();
+    return this.http.post<UserModel>(baseUrl+ "/api/users", user).toPromise();
   }
 
   public getAllEmailsAsync(): Promise<string[]> {
-    return this.http.get<string[]>("http://localhost:3000/api/users/getAllEmails").toPromise();
+    return this.http.get<string[]>(baseUrl+ "/api/users/getAllEmails").toPromise();
   }
 
   public async disconnectUserAsync(): Promise<void> {
-    return this.http.post<void>("http://localhost:3000/api/users/logout", {}).toPromise();
+    return this.http.post<void>(baseUrl+ "/api/users/logout", {}).toPromise();
   }
 }

@@ -7,6 +7,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProductModel } from 'src/app/models/product.model';
 import { CartItemModel } from 'src/app/models/cart-item.model';
+import { baseUrl } from 'src/environments/environment';
 
 
 export interface DialogData {
@@ -24,6 +25,7 @@ export class AddItemDialogComponent implements OnInit {
   public selectedProduct: ProductModel;
   public cartItemToAdd: CartItemModel;
   public cartItems: CartItemModel[];
+  public baseUrl=baseUrl;
 
   constructor(
     private myCartItemService: CartItemService,

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CartModel } from './../models/cart.model';
 import { HttpClient } from "@angular/common/http";
+import { baseUrl } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,11 @@ export class CartService {
 
 
   public getAllCartsOfUserAsync(user_id: string): Promise<CartModel[]> {
-    return this.http.get<CartModel[]>("http://localhost:3000/api/carts/" + user_id).toPromise();
+    return this.http.get<CartModel[]>(baseUrl+ "/api/carts/" + user_id).toPromise();
   }
 
   public addNewCartAsync(cartToAdd: CartModel): Promise<CartModel> {
-    return this.http.post<CartModel>("http://localhost:3000/api/carts", cartToAdd).toPromise();
+    return this.http.post<CartModel>(baseUrl+ "/api/carts", cartToAdd).toPromise();
   }
 
 }

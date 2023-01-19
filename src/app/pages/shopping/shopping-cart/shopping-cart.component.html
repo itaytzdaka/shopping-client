@@ -26,7 +26,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of cartItems">
-                        <td><img src="http://localhost:3000/uploads/{{item.product.image}}" alt=""></td>
+                        <td><img src="{{baseUrl}}/uploads/{{item.product.image}}" alt=""></td>
                         <td>
                             {{item.product.name}}
                         </td>

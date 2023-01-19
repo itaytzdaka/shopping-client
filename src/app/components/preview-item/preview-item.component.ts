@@ -2,6 +2,7 @@ import { store } from '../../redux/store';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ProductModel } from 'src/app/models/product.model';
+import { baseUrl } from 'src/environments/environment';
 
 
 export interface DialogData {
@@ -17,7 +18,8 @@ export interface DialogData {
 export class PreviewItemComponent implements OnInit {
 
   public selectedProduct: ProductModel;
-  
+  public baseUrl=baseUrl;
+
   constructor(
     public dialogRef: MatDialogRef<PreviewItemComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
