@@ -100,6 +100,10 @@ export class StoreService {
     store.dispatch({ type: ActionType.setLoggedInStatus, payload: false });
   }
 
+  public changeMenuOpenStatus(): void{
+    store.dispatch({ type: ActionType.changeMenuOpenStatus, payload: !store.getState().menuOpen });
+  }
+
 
   //get data functions:
 

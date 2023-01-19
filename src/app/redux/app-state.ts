@@ -27,7 +27,7 @@ export class AppState {
   //flags
   public orderCompleted: boolean; //if order completed right now
   public isLoggedIn: boolean; //if user is logged in right now
-  public MenuOpen: boolean; //status of open the menu
+  public menuOpen: boolean; //status of open the menu
 
   //data from user
   public newUser: UserModel; // user object for register form
@@ -38,7 +38,7 @@ export class AppState {
     this.newUser = new UserModel();
     this.newUser.isAdmin = 0;
     this.orderCompleted = false;
-    this.MenuOpen = true;
+    this.menuOpen = true;
 
 
     this.user = getUserFromCookie();

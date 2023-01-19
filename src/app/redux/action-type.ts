@@ -1,4 +1,5 @@
 export enum ActionType {
+    changeMenuOpenStatus,
     saveUser,
     setLoggedInStatus,
     saveProducts,

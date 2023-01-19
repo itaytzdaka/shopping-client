@@ -121,3 +121,10 @@ mat-sidenav-content, mat-sidenav{
     flex-grow: 1;
     height: auto !important;
 }
+
+
+@media only screen and (max-width: 500px) {
+    mat-sidenav{
+        width: 100%;
+    }
+}

@@ -4,4 +4,5 @@
         <i (click)="disconnect()" class="material-icons logoff">power_settings_new</i>
         <p *ngIf=user>שלום {{ user.firstName }}</p>
     </ng-template>
+    <i *ngIf="menuOpen" (click)="changeMenuStatus()" class="material-icons menu-icon">menu_open</i>
 </div>

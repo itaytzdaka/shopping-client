@@ -4,8 +4,6 @@
         <app-admin-menu></app-admin-menu>
     </mat-sidenav>
     <mat-sidenav-content>
-        <i *ngIf="!menuOpen" (click)="changeMenuStatus()" class="material-icons menu-icon">menu</i>
-        <i *ngIf="menuOpen" (click)="changeMenuStatus()" class="material-icons menu-icon">menu_open</i>
         <app-admin-main></app-admin-main>
     </mat-sidenav-content>
 

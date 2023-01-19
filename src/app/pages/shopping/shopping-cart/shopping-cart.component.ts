@@ -7,6 +7,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Unsubscribe } from 'redux';
 import { CartItemModel } from '../../../models/cart-item.model';
 import { CartItemService } from 'src/app/services/cart-item.service';
+import { baseUrl } from 'src/environments/environment';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   public cartItems: CartItemModel[];
   public cartTotalPrice: number;
+  public baseUrl=baseUrl;
 
   constructor(
     private myCartService: CartService,

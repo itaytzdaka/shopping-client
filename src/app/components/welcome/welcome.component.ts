@@ -1,3 +1,4 @@
+import { StoreService } from './../../services/store.service';
 import { MainService } from './../../services/main.service';
 import { Unsubscribe } from 'redux';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -13,10 +14,11 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   private unsubscribe: Unsubscribe;
   public isLoggedIn: boolean;
   public user: UserModel;
-
+  public menuOpen: boolean;
 
   constructor(
-    private myMainService: MainService
+    private myMainService: MainService,
+    private myStoreService: StoreService
   ) { }
 
   ngOnInit(): void {
@@ -32,6 +34,11 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   public getDataFromTheStore(): void{
     this.user = store.getState().user;
     this.isLoggedIn = store.getState().isLoggedIn;
+    this.menuOpen = store.getState().menuOpen;
+  }
+
+  public changeMenuStatus(): void {
+    this.myStoreService.changeMenuOpenStatus();
   }
 
   public disconnect(): void{

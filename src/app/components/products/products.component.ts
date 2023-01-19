@@ -12,6 +12,7 @@ import { ProductService } from '../../services/product.service';
 import { store } from 'src/app/redux/store';
 import { Unsubscribe } from 'redux';
 
+import { baseUrl } from 'src/environments/environment';
 
 @Component({
   selector: 'app-products',
@@ -24,6 +25,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   public products: ProductModel[];
   public productsByCategory: ProductModel[];
   public isLoggedIn: boolean;
+  public baseUrl=baseUrl;
 
   //inputs
   @Input()

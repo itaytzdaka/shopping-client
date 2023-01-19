@@ -1,6 +1,6 @@
 header {
     display: grid;
-    grid-template-columns: 30% 1fr 30%;
+    grid-template-columns: 30% 1fr 30% 5%;
     align-items: center;
     height: 100%;
     background-color: #FFF1DC;
@@ -36,7 +36,6 @@ input {
 
 i {
     color: rgb(156, 156, 156);
-    cursor: default;
 }
 
 @media only screen and (max-width: 1200px) {

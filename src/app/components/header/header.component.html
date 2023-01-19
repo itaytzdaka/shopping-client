@@ -4,4 +4,6 @@
         <input type="search" name="" id="" placeholder="חיפוש..." [(ngModel)]="search" (ngModelChange)="userSearch()">
         <label for="search"><i class="material-icons">search</i></label>
     </div>
+    <i *ngIf="!menuOpen" (click)="changeMenuStatus()" class="material-icons menu-icon">menu</i>
+
 </header>

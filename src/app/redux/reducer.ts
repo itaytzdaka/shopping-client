@@ -9,6 +9,10 @@ export function reducer(currentState: AppState, action: Action): AppState {
 
     switch (action.type) {
 
+        case ActionType.changeMenuOpenStatus:
+            newState.menuOpen = action.payload;
+            break;
+
         case ActionType.saveUser:
             newState.user = action.payload;
             break;
