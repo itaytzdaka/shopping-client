@@ -77,7 +77,7 @@ import { HomeMenuCartComponent } from './pages/home/home-menu/home-menu-cart/hom
     PreviewItemComponent,
     StatisticsComponent,
     AdminMenuComponent,
-    HomeMenuCartComponent
+    HomeMenuCartComponent,
   ],
   imports: [
     BrowserModule,
