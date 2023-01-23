@@ -6,19 +6,46 @@
             <h1>ביצוע הזמנה</h1>
             <br />
             <form #formInfo="ngForm">
-                <span>בחר עיר</span>
-                <select name="city" [(ngModel)]="inviteToAdd.cityId">
-                    <option disabled selected>בחר עיר</option>
-                    <option *ngFor="let city of cities" value="{{city._id}}">{{city.name}}</option>
-                </select><br />
-                <span>רחוב</span>
-                <input type="text" name="street" placeholder="רחוב..." [(ngModel)]="inviteToAdd.street" required
-                    pattern="^[א-ת0-9 ]+$" #streetInfo="ngModel"><br />
-                <span>תאריך להזמנה</span>
-                <input type="date" name="date" min="2020-10-13" [(ngModel)]="inviteToAdd.deliveryDate" required><br />
-                <span>מספר אשראי</span>
-                <input type="text" name="creditCard" placeholder="מספר אשראי..." [(ngModel)]="inviteToAdd.creditCard"
-                    required><br />
+                <table>
+                    <tr>
+                        <td>
+                            <label for="city">עיר:</label>
+                        </td>
+                        <td>
+                            <select id="city" name="city" [(ngModel)]="inviteToAdd.cityId">
+                                <option disabled selected>בחר עיר</option>
+                                <option *ngFor="let city of cities" value="{{city._id}}">{{city.name}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="street">רחוב:</label>
+                        </td>
+                        <td>
+                            <input type="text" id="street" name="street" placeholder="רחוב..." [(ngModel)]="inviteToAdd.street" required
+                            pattern="^[א-ת0-9 ]+$" #streetInfo="ngModel">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="date">תאריך למשלוח:</label>
+                        </td>
+                        <td>
+                            <input type="date" id="date" name="date" min="2020-10-13" [(ngModel)]="inviteToAdd.deliveryDate" required><br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="date">מספר אשראי:</label>
+                        </td>
+                        <td>
+                            <input type="text" name="creditCard" placeholder="מספר אשראי..." [(ngModel)]="inviteToAdd.creditCard"
+                            required>
+                        </td>
+                    </tr>
+                </table>
+
 
                 <span *ngIf="streetInfo.errors?.required">יש להכניס שם רחוב</span>
                 <span *ngIf="streetInfo.errors?.pattern && streetInfo.touched">שם רחוב לא תקין</span>

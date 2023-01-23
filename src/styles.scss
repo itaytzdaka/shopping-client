@@ -95,7 +95,9 @@ app-home, app-shopping, app-admin, app-order {
 
 app-home-menu > div, app-home-main > div,
 app-shopping-cart > div ,app-shopping-main > div,
-app-admin-main > div, app-order-cart > div, app-order-main > div, app-admin-menu > div{
+app-admin-main > div, app-order-cart > div,
+app-order-main > div, app-admin-menu > div,
+app-admin-edit-Product > div, app-admin-add-Product > div{
     height: 100%;
     display: grid;
     direction: rtl;

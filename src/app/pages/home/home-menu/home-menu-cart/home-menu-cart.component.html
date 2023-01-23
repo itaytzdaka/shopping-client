@@ -1,7 +1,7 @@
 <div class="container gap">
     <ng-template [ngIf]="openCart">
         <div>
-            <p>יש לך עגלה פתוחה מתאריך ה-{{openCart.date | date:"shortDate"}}</p>
+            <p>יש לך עגלה פתוחה מתאריך ה-{{openCart.date | date:"dd/MM/YYYY"}}</p>
             <p>ובתוכה {{cartNumberOfProducts}} סוגי מוצרים</p>
             <p>עלות של {{cartTotalPrice}}₪.</p>
         </div>
@@ -11,7 +11,7 @@
     <ng-template [ngIf]="lastInvite && !orderCompleted && !openCart">
         <div>
             <p>הרכישה האחרונה שלך הייתה בתאריך</p>
-            <p>{{lastInvite.orderDate | date:"shortDate"}}</p>
+            <p>{{lastInvite.orderDate | date:"dd/MM/YYYY"}}</p>
             <p>על סך {{lastInvite.cartPrice}} שקלים.</p>
             <p>באפשרותך להתחיל קניה חדשה.</p>
         </div>

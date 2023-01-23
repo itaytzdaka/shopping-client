@@ -1,14 +1,41 @@
-span{
+span {
     color: red;
 }
 
-input[type=text], input[type=number]{
-    background-color: #EDEDED;
-    border: none;
-    color: black;
-    width: 80%;
-    padding: 20px 0;
-    margin: 10px;
-    text-align: center;
-    font-size: 1em;
-  }
+// input[type=text],
+// input[type=number] {
+//     background-color: #EDEDED;
+//     border: none;
+//     color: black;
+//     width: 80%;
+//     padding: 20px 0;
+//     margin: 10px;
+//     text-align: center;
+//     font-size: 1em;
+// }
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+table {
+    width: 100%;
+}
+
+
+td:nth-child(1) {
+    width: 40%
+}
+
+td:nth-child(2) {
+}
+
+input, select{
+    width: 100%;
+}
+
+td {
+    text-align: right;
+}

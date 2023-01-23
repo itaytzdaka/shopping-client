@@ -1,27 +1,51 @@
 <div class="container gap">
-   
-    <form #formInfo="ngForm">
-        <div *ngIf="productToEdit">
+
+    <form #formInfo="ngForm" *ngIf="productToEdit">
             <h1>עריכת מוצר</h1>
-            <span>שם המוצר</span>
-            <input type="text" name="name" placeholder="Name..." [(ngModel)]="productToEdit.name" required
-                pattern="^[א-ת]+$" #productNameInfo="ngModel"><br />
-            <span>מחיר</span>
-            <input type="number" name="price" placeholder="price..." [(ngModel)]="productToEdit.price" required
-                #productPriceInfo="ngModel"><br />
-            <span>תמונה</span>
-            <input type="file" name="userImage" (change)="onFileSelected($event)"><br /> <!-- Any File-->
-            <span>קטגוריה</span>
-            <select name="category" [(ngModel)]="productToEdit.categoryId">
-                <option disabled selected>בחר קטגוריה</option>
-                <option *ngFor="let category of categories" value="{{category._id}}">{{category.name}}</option>
-            </select>
-            <br />
+            <table>
+                <tr>
+                    <td>
+                        <label for="name">שם המוצר:</label>
+                    </td>
+                    <td>
+                        <input type="text" id="name" name="name" placeholder="Name..." [(ngModel)]="productToEdit.name" required
+                            pattern="^[א-ת]+$" #productNameInfo="ngModel">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="price">מחיר:</label>
+                    </td>
+                    <td>
+                        <input type="number" id="price" name="price" placeholder="price..." [(ngModel)]="productToEdit.price" required
+                            #productPriceInfo="ngModel">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="price">תמונה:</label>
+                    </td>
+                    <td>
+                        <input type="file" name="userImage" (change)="onFileSelected($event)">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="price">קטגוריה:</label>
+                    </td>
+                    <td>
+                        <select name="category" [(ngModel)]="productToEdit.categoryId">
+                            <option disabled selected>בחר קטגוריה</option>
+                            <option *ngFor="let category of categories" value="{{category._id}}">{{category.name}}</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+
+            
             <span *ngIf="productNameInfo.errors?.pattern">שם מוצר לא תקין</span>
             <span *ngIf="productPriceInfo.errors?.required">מחיר לא יכול להיות ריק</span>
-            <br />
             <button [disabled]="formInfo.form.invalid" (click)="saveProductAfterEditAsync()">שמור</button>
-        </div>
     </form>
 
     <p *ngIf="!productToEdit">יש לבחור במוצר כדי לערוך</p>

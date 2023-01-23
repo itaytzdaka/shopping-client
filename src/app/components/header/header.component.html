@@ -1,7 +1,7 @@
 <header>
     <h2>חנות האונליין של איתי</h2>
     <div class="search">
-        <input type="search" name="" id="" placeholder="חיפוש..." [(ngModel)]="search" (ngModelChange)="userSearch()">
+        <input type="search" name="" id="search" placeholder="חיפוש..." [(ngModel)]="search" (ngModelChange)="userSearch()">
         <label for="search"><i class="material-icons">search</i></label>
     </div>
     <i *ngIf="!menuOpen" (click)="changeMenuStatus()" class="material-icons menu-icon">menu</i>

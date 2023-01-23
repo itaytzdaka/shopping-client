@@ -1,23 +1,38 @@
 <div class="container gap">
     <h1>הוספת מוצר</h1>
-    <form #formInfo="ngForm">
-        <input  type="text" id="name" name="name" placeholder="שם המוצר..." [(ngModel)]="productToAdd.name" required
+    <form #formInfo="ngForm" class="container">
+        <input type="text" id="name" name="name" placeholder="שם המוצר..." [(ngModel)]="productToAdd.name" required
             pattern="^[א-ת]+$" #productNameInfo="ngModel">
-        <input  type="number" id="price" name="price" placeholder="מחיר בשקלים..." [(ngModel)]="productToAdd.price" required
-            #productPriceInfo="ngModel">
-        <label for="pruductImage">בחירת תמונה</label>
-        <input type="file" id="pruductImage" name="userImage" (change)="onFileSelected($event)">
-        <select name="category" [(ngModel)]="productToAdd.categoryId" required
-            #categoryInfo="ngModel">
-            <option disabled selected>יש לבחור קטגוריה</option>
-            <option *ngFor="let category of categories" value="{{category._id}}">{{category.name}}</option>
-        </select>
-        <span *ngIf="productNameInfo.errors?.pattern && productNameInfo.touched">שם מוצר לא תקין</span>
-        <span *ngIf="productNameInfo.errors?.required && productNameInfo.touched">שם המוצר לא יכול להיות ריק</span>
-        <span *ngIf="productPriceInfo.errors?.required  && productPriceInfo.touched">מחיר לא יכול להיות ריק</span>
-        <span *ngIf="categoryInfo.errors?.required  && categoryInfo.touched">יש לבחור קטגוריה</span>
+        <input type="number" id="price" name="price" placeholder="מחיר בשקלים..." [(ngModel)]="productToAdd.price"
+            required #productPriceInfo="ngModel">
+        <table>
+            <tr>
+                <td>
+                    <label for="pruductImage">בחירת תמונה:</label>
+                </td>
+                <td>
+                    <input type="file" id="pruductImage" name="userImage" (change)="onFileSelected($event)">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="category">בחירת קטגוריה:</label>
+                </td>
+                <td>
+                    <select id="category" name="category" [(ngModel)]="productToAdd.categoryId" required
+                        #categoryInfo="ngModel">
+                        <option disabled selected>יש לבחור קטגוריה</option>
+                        <option *ngFor="let category of categories" value="{{category._id}}">{{category.name}}</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+
+
+        <span *ngIf="productNameInfo.errors?.pattern && productNameInfo.touched;">שם מוצר לא תקין</span>
+
         <button [disabled]="formInfo.form.invalid" (click)="addNewProductAsync()">הוסף</button>
     </form>
     <a class="link" routerLink="/admin/edit">עריכת מוצר</a>
-    
+
 </div>
