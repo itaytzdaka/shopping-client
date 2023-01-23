@@ -8,10 +8,15 @@ nav{
     a{
         background-color: #FFFFFF;
         color: rgb(34, 34, 34);
-        height: 40%;
         min-width: 70px;
-        padding: 3px 15px;
+        padding: 0.3em 0.5em;
         border-radius: 20px;
         text-decoration: none;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    nav{
+        font-size: 0.6em;
     }
 }

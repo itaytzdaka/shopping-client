@@ -8,7 +8,7 @@ header {
 
 h2 {
     grid-column-start: 2;
-    font-size: 2.5vw;
+    // font-size: 2.5vw;
 }
 
 .search {
@@ -40,7 +40,7 @@ i {
 
 @media only screen and (max-width: 1200px) {
     header {
-        grid-template-columns: 10% 1fr 40%;
+        grid-template-columns: 10% 1fr 30% 5%;
     }
     h2 {
         grid-column-start: 2;
@@ -49,9 +49,17 @@ i {
 
 @media only screen and (max-width: 1000px) {
     header {
-        grid-template-columns: 1fr 45%;
+        grid-template-columns: 1fr 5%;
     }
     h2 {
-        grid-column-start: 1;
+        display: none;
     }
+}
+
+@media only screen and (max-width: 500px) {
+    header {
+        padding: 0 5%;
+        grid-template-columns: 1fr 5%;
+    }
+
 }
