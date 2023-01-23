@@ -75,9 +75,11 @@ export class AddItemDialogComponent implements OnInit {
         const addedCartItem = await this.myCartItemService.addCartItemAsync(this.cartItemToAdd);
         addedCartItem.totalPrice = this.selectedProduct.price * addedCartItem.amount;
         this.cartItems.push(addedCartItem);
-        this.myStoreService.saveUserOpenCartItems(this.cartItems);
-
       }
+      
+      this.myStoreService.saveUserOpenCartItems(this.cartItems);
+
+
       this.dialogRef.close();
 
     }

@@ -58,3 +58,10 @@ mat-card-title{
 .mat-card-image:first-child {
   margin: 0;
 }
+
+
+@media only screen and (max-width: 500px) {
+  .cards {
+    margin: 5px;
+  }
+}
