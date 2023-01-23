@@ -8,13 +8,13 @@
                     <th>שם</th>
                     <th>מחיר</th>
                     <th>יחידות</th>
-                    <th>מחיר משוכלל</th>
+                    <th>סה"כ</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let item of userOpenCartItems ">
                     <td innerHTML="{{item.product.name| markSearch : search}}"></td>
-                    <td>{{item.product.price}}</td>
+                    <td>{{item.product.price}}₪</td>
                     <td>{{item.amount}}</td>
                     <td>{{item.totalPrice}}₪</td>
                 </tr>
