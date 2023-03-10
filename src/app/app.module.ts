@@ -7,6 +7,7 @@ import { HttpClientModule } from "@angular/common/http";
 
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { MarkSearchPipe } from './pipes/mark-search.pipe';
+import { DecimalPipe } from './pipes/decimal.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
@@ -50,6 +51,7 @@ import { HomeMenuCartComponent } from './pages/home/home-menu/home-menu-cart/hom
 @NgModule({
   declarations: [
     MarkSearchPipe,
+    DecimalPipe,
 
     LayoutComponent,
     HomeComponent,

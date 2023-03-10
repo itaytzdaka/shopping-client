@@ -94,7 +94,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
       //filter by category_id
       else {
-        this.productsByCategory = store.getState().products.filter(p => p.category._id === routeParams._id);
+        this.productsByCategory = store.getState().products?.filter(p => p.category._id === routeParams._id);
       }
     });
   }

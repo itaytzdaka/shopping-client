@@ -19,7 +19,7 @@
                         <th></th>
                         <th>שם</th>
                         <th>מחיר</th>
-                        <th>יחידות</th>
+                        <th>כמות</th>
                         <th>סה"כ</th>
                         <th></th>
                     </tr>
@@ -32,13 +32,13 @@
                         </td>
                         <td>{{item.product.price}}₪</td>
                         <td>{{item.amount}}</td>
-                        <td>{{item.totalPrice}}₪</td>
+                        <td>{{item.totalPrice | number : '1.2-2' | decimal}}₪</td>
                         <td><i (click)="deleteCartItemAsync(item._id)" class="delete-icon material-icons">delete</i></td>
 
                     </tr>
                 </tbody>
             </table>
-            <p>מחיר עגלה: {{cartTotalPrice}}₪</p>
+            <p>מחיר עגלה: {{cartTotalPrice | number : '1.2-2' | decimal}}₪</p>
             <a class="button" routerLink="/order">הזמנה</a>
             <a class="link" (click)="deleteAllCartItemsAsync()">נקה עגלה<i
                     class="material-icons">remove_shopping_cart</i></a>

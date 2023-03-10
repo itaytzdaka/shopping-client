@@ -6,6 +6,7 @@ export class ProductModel {
         public _id?: string,
         public name?: string,
         public price?: number,
+        public type?: string,
         public image?: string,
         public stock?: string,
         public categoryId?: string,

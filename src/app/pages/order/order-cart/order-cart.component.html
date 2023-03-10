@@ -7,7 +7,7 @@
                 <tr>
                     <th>שם</th>
                     <th>מחיר</th>
-                    <th>יחידות</th>
+                    <th>כמות</th>
                     <th>סה"כ</th>
                 </tr>
             </thead>
@@ -16,11 +16,11 @@
                     <td innerHTML="{{item.product.name| markSearch : search}}"></td>
                     <td>{{item.product.price}}₪</td>
                     <td>{{item.amount}}</td>
-                    <td>{{item.totalPrice}}₪</td>
+                    <td>{{item.totalPrice | number : '1.2-2' | decimal}}₪</td>
                 </tr>
             </tbody>
         </table>
-        <p>מחיר סופי: {{cartTotalPrice}}₪</p>
+        <p>מחיר סופי: {{cartTotalPrice | number : '1.2-2' | decimal}}₪</p>
         <a class="link" routerLink="/shopping/all">חזרה לחנות</a>
 
 

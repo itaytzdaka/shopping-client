@@ -91,6 +91,7 @@ app-home, app-shopping, app-admin, app-order {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    overflow-x: scroll;
 }
 
 app-home-menu > div, app-home-main > div,
@@ -110,7 +111,7 @@ app-admin-menu > div{
 }
 
 mat-sidenav-container{
-    width: 100vw;
+    // width: 100vw;
     flex-grow: 1;
     display: flex !important;
 }
@@ -128,6 +129,10 @@ mat-sidenav {
 mat-sidenav-content, mat-sidenav{
     flex-grow: 1;
     height: auto !important;
+}
+
+mat-sidenav-content{
+    direction: ltr;
 }
 
 

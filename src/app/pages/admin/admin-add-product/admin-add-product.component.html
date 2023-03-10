@@ -2,9 +2,11 @@
     <h1>הוספת מוצר</h1>
     <form #formInfo="ngForm" class="container">
         <input type="text" id="name" name="name" placeholder="שם המוצר..." [(ngModel)]="productToAdd.name" required
-            pattern="^[א-ת]+$" #productNameInfo="ngModel">
+            pattern="^[\Wא-ת]+$" #productNameInfo="ngModel">
         <input type="number" id="price" name="price" placeholder="מחיר בשקלים..." [(ngModel)]="productToAdd.price"
             required #productPriceInfo="ngModel">
+        <input type="text" id="type" name="type" placeholder="מחירה לפי..." [(ngModel)]="productToAdd.type" required
+            pattern='^[\Wא-ת]+$' #productTypeInfo="ngModel">
         <table>
             <tr>
                 <td>
@@ -30,6 +32,7 @@
 
 
         <span *ngIf="productNameInfo.errors?.pattern && productNameInfo.touched;">שם מוצר לא תקין</span>
+        <span *ngIf="productNameInfo.errors?.pattern && productTypeInfo.touched;">שם למחירה לפי סוג לא תקין</span>
 
         <button [disabled]="formInfo.form.invalid" (click)="addNewProductAsync()">הוסף</button>
     </form>

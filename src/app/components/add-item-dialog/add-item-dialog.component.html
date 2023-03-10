@@ -4,7 +4,8 @@
     <span> הוסף  </span>
     <input type="number" name="add-units"  [(ngModel)]="cartItemToAdd.amount" min="1" max="99" required
         pattern="^[1-9]\d?$" #addInfo="ngModel">
-    <span> פריטים </span>
+    <span *ngIf='selectedProduct.type === "ק\"ג" '> ק"ג</span>
+    <!-- <span> {{selectedProduct.type}}</span> -->
     <br/>
     <button [disabled]="formInfo.form.invalid" (click)="addToCart()">הוסף לעגלה</button>
 </form>
