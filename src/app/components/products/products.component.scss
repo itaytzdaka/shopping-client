@@ -63,6 +63,40 @@ mat-card-title{
 
 @media only screen and (max-width: 500px) {
   .cards {
+    width: 100%;
+    height: 120px;
+    max-width: none;
     margin: 5px;
+  }
+
+  .mat-card {
+    direction: ltr;
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  
+  .image-container{
+    justify-content: start;
+  }
+
+  .mat-card-image {
+    height: 100px;
+    width: 100px;
+  }
+
+  mat-card-title{
+    margin: 0;
+    order: 1;
+  }
+
+  mat-card-title, mat-card-content{
+    direction: rtl;
+    text-align: right;
   }
 }
