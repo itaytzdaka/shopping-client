@@ -3,7 +3,7 @@
         <div>
             <p>יש לך עגלה פתוחה מתאריך ה-{{openCart.date | date:"dd/MM/YYYY"}}</p>
             <p>ובתוכה {{cartNumberOfProducts}} סוגי מוצרים</p>
-            <p>עלות של {{cartTotalPrice}}₪.</p>
+            <p>עלות של {{cartTotalPrice | number : '1.2-2' | decimal}}₪.</p>
         </div>
         <a routerLink="/shopping/all" class="button">המשך קניה<i class="material-icons">shopping_cart</i></a>
     </ng-template>
