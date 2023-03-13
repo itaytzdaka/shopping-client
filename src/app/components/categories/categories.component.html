@@ -1,4 +1,6 @@
-<nav *ngIf="categories">
-    <a routerLink="/shopping/all">הכל </a>
-    <a *ngFor="let c of categories" routerLink="/shopping/{{c._id}}">{{c.name}}</a>
-</nav>
+<div *ngIf="categories" class="nav-container">
+    <nav>
+        <a routerLink="/shopping/all">הכל </a>
+        <a *ngFor="let c of categories" routerLink="/shopping/{{c._id}}">{{c.name}}</a>
+    </nav>
+</div>

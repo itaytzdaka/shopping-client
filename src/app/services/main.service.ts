@@ -196,7 +196,7 @@ export class MainService {
 
       case 401: //Unauthorized
         if (errorMessage == "You are not logged-in") {
-          console.log(errorMessage);
+          alert("יש להתחבר מחדש");
           this.disconnectUserAsync();
         }
 
@@ -212,7 +212,8 @@ export class MainService {
 
       case 403: //forbidden
         if(errorMessage == "You are not Admin"){
-          console.log(errorMessage);
+          alert("אתה לא אדמין");
+          this.disconnectUserAsync();
         }
         else{
           console.log(error.statusText);

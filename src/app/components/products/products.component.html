@@ -1,5 +1,6 @@
+
 <div *ngIf="productsByCategory && clickable && !editProducts" class="products-container">
-    <div *ngFor="let p of productsByCategory | filter:search" class="cards">
+    <div *ngFor="let p of productsByCategory |filter :search " class="cards">
         <mat-card class="card" (click)="productOnClick(p)">
             <div class="image-container">
                 <img mat-card-image class="image" src="{{baseUrl}}/uploads/{{p.image}}">
