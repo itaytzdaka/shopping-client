@@ -71,8 +71,8 @@ export class Register2Component implements OnInit, OnDestroy {
   //register and login
   public async registerNewUserAsync(): Promise<void> {
     try {
-      const addedUser = await this.myUserService.registerAsync(this.newUser);
-      this.myMainService.loginAndNavigateAsync(addedUser);
+      await this.myUserService.registerAsync(this.newUser);
+      this.myMainService.loginAndNavigateAsync(this.newUser);
     }
     catch (error) {
       this.myMainService.errorHandling(error);

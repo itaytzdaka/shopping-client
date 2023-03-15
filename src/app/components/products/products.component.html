@@ -16,19 +16,17 @@
 
 <div *ngIf="productsByCategory && clickable && editProducts" class="products-container">
     <div *ngFor="let p of productsByCategory | filter:search" class="cards">
-        <a routerLink="/admin/edit/{{p._id}}">
-            <mat-card class="card">
-                <div class="image-container">
-                    <img mat-card-image class="image" src="{{baseUrl}}/uploads/{{p.image}}">
-                </div>
-                <mat-card-title>{{p.name}}</mat-card-title>
-                <mat-card-content>
-                    <p>
-                        {{p.price}}₪ ל{{p.type}}
-                    </p>
-                </mat-card-content>
-            </mat-card>
-        </a>
+        <mat-card class="card" routerLink="/admin/edit/{{p._id}}">
+            <div class="image-container">
+                <img mat-card-image class="image" src="{{baseUrl}}/uploads/{{p.image}}">
+            </div>
+            <mat-card-title>{{p.name}}</mat-card-title>
+            <mat-card-content>
+                <p>
+                    {{p.price}}₪ ל{{p.type}}
+                </p>
+            </mat-card-content>
+        </mat-card>
     </div>
 </div>
 
